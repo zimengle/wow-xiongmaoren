@@ -1,0 +1,14 @@
+## Interface: 16001, 11507
+## Title: GearInsight |cff33ff99Forever|r - Buff check
+## Title-zhCN: GearInsight |cff33ff99无限版|r · 团队 BUFF 检查
+## Notes: GearInsight Forever group buff checker (loaded when you join a group)
+## Notes-zhCN: GearInsight 无限版的团队 / 小队 BUFF 检查：谁缺、谁快到期，能给的人提前提醒；进队时才加载（组队信标 BuffCheckHook.lua 触发）
+## Author: GearInsight
+## Version: 1.5.4
+## Dependencies: GearInsight_Forever
+## LoadOnDemand: 1
+## IconTexture: Interface\Icons\Spell_Holy_WordFortitude
+
+# 11-25 用户「团本BUFF加小队BUFF检查器…提前5分钟」：设计稿 docs/forever/raid-buff-check-design.md；
+#   组队信标 _Group 的 BuffCheckHook.lua 进队 / 进世界 / 脱战时 LoadAddOn；不在 MERGED / LAZY / MANIFEST_KEYS；整个文件夹 HOLD 时发版不出这个文件夹
+BuffCheck.lua

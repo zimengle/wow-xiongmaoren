@@ -462,16 +462,30 @@ function K.KeyFree(k)
 end
 
 -- ---------- 战斗中排队 ----------
-local pending
+-- 11-25 GI-355（玩家「切天赋 / 重新登录时自动改动作条」）：插件本身没有任何事件会改动作条 / 键位，
+--   全部只在玩家点按钮时才动；这里再收紧战斗排队 —— 排队的那一下只认 30 秒内脱战、同一套天赋、没过加载画面，
+--   否则作废不执行（免得脱战时执行一个过期的操作）。暴雪双天赋各自一套动作条，换了天赋那一份就不是玩家点的那份了。
+local pending, pAt, pTg
+local function nowSec() return GetTime and GetTime() or 0 end
+local function talentGroup()
+    local ok, v = pcall(GetActiveTalentGroup or C_SpecializationInfo and C_SpecializationInfo.GetActiveSpecGroup or error)
+    return ok and type(v) == "number" and v or 1
+end
 local qf = CreateFrame("Frame")
 qf:RegisterEvent("PLAYER_REGEN_ENABLED")
-qf:SetScript("OnEvent", function()
-    if pending then local f = pending; pending = nil; pcall(f) end
+pcall(qf.RegisterEvent, qf, "ACTIVE_TALENT_GROUP_CHANGED")
+pcall(qf.RegisterEvent, qf, "PLAYER_ENTERING_WORLD")
+qf:SetScript("OnEvent", function(_, e)
+    if not pending then return end
+    local f = pending; pending = nil
+    if e == "PLAYER_REGEN_ENABLED" and nowSec() - pAt <= 30 and pTg == talentGroup() then pcall(f); return end
+    ns.Print(ns.L("战斗中排队的动作条操作已作废（超过 30 秒 / 切了天赋 / 过了加载画面），什么都没改", "Queued action bar change cancelled - nothing changed"))
 end)
+K._HasPending = function() return pending ~= nil end   -- 测试用
 local function outOfCombat(fn, what)
     if InCombatLockdown and InCombatLockdown() then
-        pending = fn
-        ns.Print(ns.L("战斗中不能改动作条，脱战后自动" .. what, "Can't change action bars in combat - will " .. what .. " after combat"))
+        pending, pAt, pTg = fn, nowSec(), talentGroup()
+        ns.Print(ns.L("战斗中不能改动作条，30 秒内脱战会自动" .. what, "Can't change action bars in combat - will " .. what .. " after combat"))
         return false
     end
     fn()
@@ -496,7 +510,7 @@ local function allCmds()
 end
 function K.Backup(reason)
     ns.db.keysBackups = ns.db.keysBackups or {}
-    local snap = { at = time(), cls = ns.MyClass(), name = UnitName("player"), why = reason or "", slots = {}, binds = {} }
+    local snap = { at = time(), cls = ns.MyClass(), name = UnitName("player"), tg = talentGroup(), why = reason or "", slots = {}, binds = {} }
     for _, s in ipairs(allSlots()) do
         local info = slotInfo(s)
         if info then snap.slots[s] = { t = info.t, id = info.id, n = info.name } end
@@ -524,10 +538,26 @@ local function clearSlot(slot)
     if HasAction(slot) then pcall(PickupAction, slot); if ClearCursor then ClearCursor() end end
 end
 
-function K.Restore(snap)
+-- 这份备份还原时会动多少格：清空几格 / 放回几格（确认框用）
+function K.RestorePlan(snap)
+    local nClear, nPlace = 0, 0
+    for _, s in ipairs(allSlots()) do
+        local want, have = snap.slots[s], slotInfo(s)
+        if want and not (have and want.t == have.t and want.id == have.id) then nPlace = nPlace + 1 elseif have and not want then nClear = nClear + 1 end
+    end
+    return nClear, nPlace
+end
+-- 11-25 GI-355：⛔ 只在玩家点了「还原」并在确认框里点「确定还原」后才调（confirmed = true）；没确认什么都不动。
+--   只还原玩家选的这一份；别的角色 / 别的职业 / 另一套天赋（暴雪双天赋各自一套动作条）的备份不还原
+function K.Restore(snap, confirmed)
     if not snap then return false end
+    if confirmed ~= true then return false, "confirm" end
     if snap.cls ~= ns.MyClass() then
         ns.Print(ns.L("这份备份是别的职业的，不还原", "That backup is for another class - not restored"))
+        return false
+    end
+    if snap.name ~= UnitName("player") or (snap.tg or 1) ~= talentGroup() then
+        ns.Print(ns.L("这份备份是别的角色或另一套天赋的（双天赋各自一套动作条），不还原", "That backup is for another character or talent spec - not restored"))
         return false
     end
     return outOfCombat(function()
@@ -557,34 +587,7 @@ function K.Restore(snap)
 end
 
 -- ---------- 放格 ----------
--- 路 A 的目标格：已经有键的空格优先（主条 → 左下 → 右下 → 右侧 → 右侧 2）；都没键就第一个空格，回头再分键
-local PLACE_ORDER = { 1, 2, 3, 4, 5 }   -- K.BARS 下标
-local function firstEmpty(withKey, abk)
-    for _, bi in ipairs(PLACE_ORDER) do
-        local b = K.BARS[bi]
-        for s = b.from, b.to do
-            if not (HasAction and HasAction(s)) and (not withKey or K.SlotKey(s, abk)) then return s end
-        end
-    end
-end
-
--- 给没键的格分一个池子里的空键；used = 本次已分出去的
-local function assignKey(slot, used)
-    if not SetBinding then return nil end
-    local cmd = K.SlotCommand(slot)
-    if not cmd or slot > 72 and slot < 145 then return nil end   -- 姿态页跟主条共用键，不单独绑
-    if isMainCmd(cmd) then return nil end                         -- 主条键锁死，不分键
-    for _, k in ipairs(KEY_POOL) do
-        if not used[k] and K.KeyFree(k) then
-            local holder = GetBindingAction and GetBindingAction(k)
-            if not holder or holder == "" then
-                used[k] = true
-                pcall(SetBinding, k, cmd)
-                return k
-            end
-        end
-    end
-end
+-- 11-25 GI-355：原「自动找空格 firstEmpty / 自动分键 assignKey」（路 B 一键全铺留下的死代码，只有测试引用）删掉 —— 插件里不再有自动放格 / 自动绑键的函数
 
 -- 路 A：点「—」= 把这个技能拿到鼠标上，玩家自己点动作条格子放下（10-16 用户截图「点一下应该是拿到鼠标上」：
 --   原来自动找空格放 + 分键，熊形态下放到了人形态的格子上，点一次放一次，聊天框刷了一排「已放上 槌击」）。
@@ -982,7 +985,3 @@ function K.KeyMap(view)
     return m, formKeys
 end
 K.IsOurCmd = isOurCmd
-
--- 测试用
-K._firstEmpty = firstEmpty
-K._assignKey = assignKey

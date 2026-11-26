@@ -431,6 +431,17 @@ DATASETS[H.EXP_FOREVER] = {
         Entry({ key = "forever_item_274971", name = "咸水海鲜炖肉", kind = "food", itemID = 274971, requiredLevel = 25, buffID = 1249520 }),
         Entry({ key = "forever_item_274976", name = "普通的苍牙野猪", kind = "food", itemID = 274976, requiredLevel = 25, buffID = 1248422 }),
         Entry({ key = "forever_item_286152", name = "板鳞鱼", kind = "food", itemID = 286152, requiredLevel = 35, buffID = 1319310 }),
+        -- Absorbed curated Classic/BG raid consumables from PR #101 (buffIDs left unset until verified in Forever).
+        Entry({ key = "forever_item_20079", name = "赞扎之魂", kind = "elixir", category = "misc", itemID = 20079, requiredLevel = 55 }),
+        Entry({ key = "forever_item_20081", name = "赞扎之速", kind = "elixir", category = "misc", itemID = 20081, requiredLevel = 55 }),
+        Entry({ key = "forever_item_21151", name = "黑标美味朗姆酒", kind = "food", itemID = 21151, requiredLevel = 1 }),
+        Entry({ key = "forever_item_13810", name = "神圣太阳果", kind = "food", itemID = 13810, requiredLevel = 45 }),
+        Entry({ key = "forever_item_23579", name = "强者特效药", kind = "potion", itemID = 23579, requiredLevel = 45, color = "ff4040", clickColors = { left = "ff4040", right = "ff4040" } }),
+        Entry({ key = "forever_item_17348", name = "特效治疗药膏", kind = "potion", itemID = 17348, requiredLevel = 45, color = "ff4040", clickColors = { left = "ff4040", right = "ff4040" } }),
+        Entry({ key = "forever_item_17349", name = "超强治疗药膏", kind = "potion", itemID = 17349, requiredLevel = 35, color = "ff4040", clickColors = { left = "ff4040", right = "ff4040" } }),
+        Entry({ key = "forever_item_23578", name = "健怡特效药", kind = "potion", itemID = 23578, requiredLevel = 49, color = "00ffff", clickColors = { left = "00ffff", right = "00ffff" } }),
+        Entry({ key = "forever_item_17351", name = "特效法力药膏", kind = "potion", itemID = 17351, requiredLevel = 45, color = "00ffff", clickColors = { left = "00ffff", right = "00ffff" } }),
+        Entry({ key = "forever_item_17352", name = "超强法力药膏", kind = "potion", itemID = 17352, requiredLevel = 35, color = "00ffff", clickColors = { left = "00ffff", right = "00ffff" } }),
     },
     groups = {
         ClassicPotionGroup({
@@ -465,6 +476,9 @@ DATASETS[H.EXP_FOREVER] = {
             "forever_item_250955",
             -- 生命药水 / healing
             "era_major_healing_potion",
+            "forever_item_23579",
+            "forever_item_17348",
+            "forever_item_17349",
             "era_craft_3928",
             "era_craft_1710",
             "era_craft_929",
@@ -476,6 +490,9 @@ DATASETS[H.EXP_FOREVER] = {
             "era_item_255663",
             -- 法力药水 / mana
             "era_major_mana_potion",
+            "forever_item_23578",
+            "forever_item_17351",
+            "forever_item_17352",
             "era_craft_13443",
             "era_craft_6149",
             "era_craft_3827",
@@ -736,6 +753,8 @@ DATASETS[H.EXP_FOREVER] = {
             "era_item_10306",
             "era_item_10305",
             -- misc
+            "forever_item_20079",
+            "forever_item_20081",
             "era_craft_9233",
             "era_craft_9197",
             "era_craft_9154",
@@ -790,6 +809,8 @@ DATASETS[H.EXP_FOREVER] = {
             "era_item_3775",
             -- food
             "era_chimaerok_chops",
+            "forever_item_13810",
+            "forever_item_21151",
             "era_craft_13933",
             "era_craft_13934",
             "era_craft_13935",

@@ -16,6 +16,27 @@ local NAMEPLATE_BITFIELDS = {
     nameplateThreatDisplay = 3,
 }
 
+local FRIENDLY_PLAYER_NAME_CVARS = {
+    "UnitNameFriendlyPlayerName",
+    "UnitNameFriendlyPetName",
+    "UnitNameFriendlyMinionName",
+    "UnitNameFriendlyGuardianName",
+    "UnitNameFriendlyTotemName",
+}
+local FRIENDLY_PLAYER_NAME_LOOKUP = {}
+for _, cvarName in ipairs(FRIENDLY_PLAYER_NAME_CVARS) do
+    FRIENDLY_PLAYER_NAME_LOOKUP[string.lower(cvarName)] = cvarName
+end
+
+local function ResolveFriendlyPlayerNameCVar(cvar)
+    if type(cvar) ~= "string" then return nil end
+    return FRIENDLY_PLAYER_NAME_LOOKUP[string.lower(cvar)]
+end
+
+local function IsFriendlyPlayerNameCVar(cvar)
+    return ResolveFriendlyPlayerNameCVar(cvar) ~= nil
+end
+
 local function IsNameplateCVar(cvar)
     if type(cvar) ~= "string" then return false end
     local wanted = string.lower(cvar)
@@ -28,10 +49,24 @@ local function IsNameplateCVar(cvar)
     return false
 end
 
+local MANUAL_COMBAT_TEXT_CVARS = {
+    floatingcombattextcombathealing = true,
+    floatingcombattextcombatdamagedirectionalscale = true,
+    worldtextscale = true,
+}
+
+local function IsManualCombatTextCVar(cvar)
+    return type(cvar) == "string" and MANUAL_COMBAT_TEXT_CVARS[string.lower(cvar)] == true
+end
+
 local function IsManualNameplateSetting(cvar)
     if not Adapter.supportsNameplateControls or type(cvar) ~= "string" then return false end
     local name = string.lower(cvar)
     return IsNameplateCVar(cvar) or name == "nameplateshowfriendlynpcs" or name == "nameplateshowfriends"
+end
+
+local function IsManualRuntimeCVar(cvar)
+    return IsManualNameplateSetting(cvar) or IsManualCombatTextCVar(cvar)
 end
 
 local function RefreshSettingsPage(reason)
@@ -56,6 +91,7 @@ local Definition = {
                 simplifiedNameplatesDisabled = Adapter.family == "retail" and true or nil,
             },
             autoApply = true,
+            hideFriendlyPlayerNames = false,
             repairDeathRecap = true,
             notifyOnApply = false,
             smartApply = true,
@@ -81,6 +117,7 @@ end
 local function NormalizeProfile(profile)
     profile.enabled = profile.enabled ~= false
     profile.autoApply = profile.autoApply ~= false
+    profile.hideFriendlyPlayerNames = profile.hideFriendlyPlayerNames == true
     profile.repairDeathRecap = profile.repairDeathRecap ~= false
     profile.notifyOnApply = profile.notifyOnApply and true or false
     profile.smartApply = profile.smartApply ~= false
@@ -130,27 +167,29 @@ function Definition:ProfileChanged()
     self._pendingRegistered = false
     NormalizeProfile(self.db.profile)
     SyncRootModuleSetting(self)
+    -- Assembly switches profiles with a Disable/Enable cycle.
+    if self:IsEnabled() and self.db.profile.enabled then
+        self:SyncApplyEvents()
+        self:ApplyFriendlyPlayerNamePolicy()
+    end
 end
 
 function Definition:Enable()
     local profile = self.db.profile
     if not profile.enabled then return end
     self:SetSettingsVisible(self._settingsVisible)
-    -- 外部改值（暴雪设置、快捷键、其他插件）后只刷新回显，不反向写值。
+    self:SyncApplyEvents()
     if Adapter.supportsNameplateControls then
-        self:RegisterEvent("CVAR_UPDATE", self.CVAR_UPDATE)
         -- 仅名字字号不是 CVar，每次登录都按玩家意图重新应用。
         self:ApplyNameOnlyNameFont()
     end
-    if not profile.autoApply then return end
     if Adapter:IsLoggedIn() then
         self:ApplyLoginSettings()
-        return
     end
-    self:RegisterEvent("PLAYER_ENTERING_WORLD", self.PLAYER_ENTERING_WORLD)
 end
 
 function Definition:Disable()
+    self._enforcingFriendlyPlayerNames = nil
     self._pendingDeathRecap = nil
     self._pendingCVars = nil
     self._pendingBits = nil
@@ -203,10 +242,12 @@ function Definition:GetRuntimeToggle(cvar)
     return tostring(value) == "1"
 end
 
--- 姓名板开关是当前状态控件：只写运行值，不进入 customSettings，避免下次登录把
--- 玩家本次手动取消当成本人意图持续回写。
+-- 姓名板与战斗数字快捷控件都是当前状态控件：只写运行值，不进入 customSettings，
+-- 避免下次登录或恢复预设覆盖玩家当前游戏设置。
 function Definition:ApplyManualCVar(cvar, value)
-    if not self.db.profile.enabled or not IsNameplateCVar(cvar) then return false end
+    if not self.db.profile.enabled or (not IsNameplateCVar(cvar) and not IsManualCombatTextCVar(cvar)) then
+        return false
+    end
     if not Adapter:CVarExists(cvar) then return false end
     value = tostring(value)
     if Adapter:IsInCombat() then
@@ -221,6 +262,14 @@ function Definition:SetNameplateSwitch(cvar, enabled)
 end
 
 function Definition:SetNameplateValue(cvar, value)
+    return self:ApplyManualCVar(cvar, value)
+end
+
+function Definition:SetManualCVarSwitch(cvar, enabled)
+    return self:ApplyManualCVar(cvar, enabled and "1" or "0")
+end
+
+function Definition:SetManualCVarValue(cvar, value)
     return self:ApplyManualCVar(cvar, value)
 end
 
@@ -259,6 +308,83 @@ function Definition:QueueCVar(cvar, value)
     return true
 end
 
+function Definition:HasAnyFriendlyPlayerNameCVar()
+    for _, cvar in ipairs(FRIENDLY_PLAYER_NAME_CVARS) do
+        if Adapter:CVarExists(cvar) then return true end
+    end
+    return false
+end
+
+function Definition:SyncApplyEvents()
+    local profile = self.db.profile
+    local hide = profile.hideFriendlyPlayerNames
+    if Adapter.supportsNameplateControls or (hide and self:HasAnyFriendlyPlayerNameCVar()) then
+        self:RegisterEvent("CVAR_UPDATE", self.CVAR_UPDATE)
+    else
+        self:UnregisterEvent("CVAR_UPDATE")
+    end
+    if (hide or profile.autoApply) and not Adapter:IsLoggedIn() then
+        self:RegisterEvent("PLAYER_ENTERING_WORLD", self.PLAYER_ENTERING_WORLD)
+    elseif not hide and not profile.autoApply then
+        self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+    end
+end
+
+function Definition:WriteFriendlyPlayerNameCVar(cvar, value)
+    self._enforcingFriendlyPlayerNames = true
+    local applied = Adapter:SetCVar(cvar, value)
+    self._enforcingFriendlyPlayerNames = nil
+    return applied
+end
+
+function Definition:ApplyFriendlyPlayerNameCVar(cvar, value)
+    if not self.db.profile.enabled or self._enforcingFriendlyPlayerNames then return false end
+    local current = Adapter:GetCVar(cvar)
+    if current == nil then return false end
+    local pending = self._pendingCVars
+    if pending and pending[cvar] ~= nil then
+        pending[cvar] = value
+    end
+    if current == value then return false end
+    if Adapter:IsInCombat() then
+        return self:QueueCVar(cvar, value), "queued"
+    end
+    return self:WriteFriendlyPlayerNameCVar(cvar, value)
+end
+
+function Definition:ApplyFriendlyPlayerNameValue(value)
+    if not self.db.profile.enabled or self._enforcingFriendlyPlayerNames then return false end
+    local changed, queued = false, false
+    for _, cvar in ipairs(FRIENDLY_PLAYER_NAME_CVARS) do
+        local ok, status = self:ApplyFriendlyPlayerNameCVar(cvar, value)
+        if ok then
+            changed = true
+            if status == "queued" then queued = true end
+        end
+    end
+    if queued then return true, "queued" end
+    return changed
+end
+
+function Definition:ApplyFriendlyPlayerNamePolicy()
+    if self.db.profile.hideFriendlyPlayerNames and self:ApplyFriendlyPlayerNameValue("0") then return 1 end
+    return 0
+end
+
+function Definition:SetHideFriendlyPlayerNames(enabled)
+    local profile = self.db.profile
+    local wasHidden = profile.hideFriendlyPlayerNames
+    profile.hideFriendlyPlayerNames = enabled == true
+    if not profile.enabled then return false end
+    self:SyncApplyEvents()
+    if profile.hideFriendlyPlayerNames then
+        return self:ApplyFriendlyPlayerNameValue("0")
+    elseif wasHidden then
+        return self:ApplyFriendlyPlayerNameValue("1")
+    end
+    return false
+end
+
 function Definition:ApplyQueuedCVars()
     local pending = self._pendingCVars
     if not pending or not next(pending) or Adapter:IsInCombat() then return 0 end
@@ -266,7 +392,13 @@ function Definition:ApplyQueuedCVars()
     local cvar
     local value
     for cvar, value in pairs(pending) do
-        if Adapter:SetCVar(cvar, value) then
+        local success
+        if IsFriendlyPlayerNameCVar(cvar) then
+            success = Adapter:GetCVar(cvar) == value or self:WriteFriendlyPlayerNameCVar(cvar, value)
+        else
+            success = Adapter:SetCVar(cvar, value)
+        end
+        if success then
             pending[cvar] = nil
             applied = applied + 1
         end
@@ -406,7 +538,7 @@ function Definition:GetCurrentSettings()
     local value
     for key, value in pairs(preset or {}) do settings[key] = value end
     for key, value in pairs(self.db.profile.customSettings) do
-        if not IsManualNameplateSetting(key) and Adapter:IsSettingSupported(key) then settings[key] = value end
+        if not IsManualRuntimeCVar(key) and Adapter:IsSettingSupported(key) then settings[key] = value end
     end
     -- This repair has its own opt-out/minimum policy; never let a preset bypass it.
     settings.combatLogRetentionTime = nil
@@ -427,7 +559,8 @@ function Definition:ApplySettings(settings)
     local cvar
     local value
     for cvar, value in pairs(settings) do
-        if Adapter:IsSettingSupported(cvar) and Adapter:CVarExists(cvar) then
+        if not IsFriendlyPlayerNameCVar(cvar) and not IsManualCombatTextCVar(cvar)
+            and Adapter:IsSettingSupported(cvar) and Adapter:CVarExists(cvar) then
             local changed = not self.db.profile.smartApply
                 or tostring(Adapter:GetCVar(cvar)) ~= tostring(value)
             if changed then
@@ -467,6 +600,7 @@ end
 
 function Definition:ApplyCurrentSettings(fromLogin)
     local applied = self:ApplySettings(self:GetCurrentSettings()) + self:ApplySpecialSettings()
+    applied = applied + self:ApplyFriendlyPlayerNamePolicy()
     applied = applied + self:ApplyDeathRecapPolicy(fromLogin)
     self:DisableAddonProfiler()
     if applied > 0 and self.db.profile.notifyOnApply then
@@ -613,7 +747,8 @@ function Definition:ApplyNameplateLoginPolicy()
 end
 
 function Definition:ApplyLoginSettings()
-    if not self.db.profile.enabled or not self.db.profile.autoApply then return 0 end
+    if not self.db.profile.enabled then return 0 end
+    if not self.db.profile.autoApply then return self:ApplyFriendlyPlayerNamePolicy() end
     return self:ApplyCurrentSettings(true) + self:ApplyNameplateLoginPolicy()
 end
 
@@ -622,19 +757,26 @@ function Definition:LoadAndApplyPreset()
 end
 
 function Definition:PLAYER_ENTERING_WORLD()
+    if self.db.profile.hideFriendlyPlayerNames then self:SyncApplyEvents() end
     local applied = self:ApplyLoginSettings()
     self:UnregisterEvent("PLAYER_ENTERING_WORLD")
     return applied
 end
 
 function Definition:CVAR_UPDATE(_, cvarName)
+    if not self.db.profile.enabled then return false end
+    local friendlyCVar = self.db.profile.hideFriendlyPlayerNames and ResolveFriendlyPlayerNameCVar(cvarName) or nil
+    if friendlyCVar then
+        return self:ApplyFriendlyPlayerNameCVar(friendlyCVar, "0")
+    end
     if not Adapter.supportsNameplateControls or not IsNameplateCVar(cvarName) then return false end
     RefreshSettingsPage("cvar-update:" .. tostring(cvarName))
     return true
 end
 
 function Definition:SetCustomSetting(cvar, value)
-    if not self.db.profile.enabled or not Adapter:IsSettingSupported(cvar) then return false end
+    if not self.db.profile.enabled or IsFriendlyPlayerNameCVar(cvar) or IsManualCombatTextCVar(cvar)
+        or not Adapter:IsSettingSupported(cvar) then return false end
     if cvar == "statusTextDisplay" and Data.metadata.statusTextDisplay then
         if not Data.validate(cvar, tostring(value)) then return false end
         self.db.profile.customSettings[cvar] = tostring(value)
@@ -670,7 +812,7 @@ function Definition:AdoptExternalSettings(settings)
     -- 游戏 CVar 名称不区分大小写；例如 RSS weatherDensity 对应 RS weatherdensity。
     for cvar in pairs(custom) do
         local value = type(cvar) == "string" and incoming[string.lower(cvar)] or nil
-        if value ~= nil and not IsManualNameplateSetting(cvar) and Adapter:IsSettingSupported(cvar) then
+        if value ~= nil and not IsManualRuntimeCVar(cvar) and Adapter:IsSettingSupported(cvar) then
             custom[cvar] = tostring(value)
             adopted = adopted + 1
         end
@@ -689,6 +831,7 @@ function Definition:SetSpecialSettingIntent(key, value)
 end
 
 function Definition:ResetToRecommended()
+    self:SetHideFriendlyPlayerNames(false)
     self.db.profile.repairDeathRecap = true
     rawset(self.db.profile, "customSettings", nil)
     rawset(self.db.profile, "specialSettings", nil)

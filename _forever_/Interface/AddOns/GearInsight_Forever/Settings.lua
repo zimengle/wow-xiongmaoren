@@ -908,6 +908,9 @@ ns.RegisterSettings({ key = "perf", order = 30, data = "perf",
 
 -- ---------- 装备 → 推荐装备 ----------
 local bisItems = {
+    -- 11-24 GI-348「增加关闭推荐装备功能」：物品鼠标提示里那行「GI 60 级 BiS：xx 第N」（PagePlan.lua 读同一个键）—— 存 ns.db.ui.bisTip（nil = 开，false = 关）
+    { type = "check", id = "bis.tip", text = function() return L("物品鼠标提示里加一行「60 级 BiS：哪个专精第几」", "Lv60 BiS rank line in item tooltips") end,
+      get = function() return not (ns.db.ui and ns.db.ui.bisTip == false) end, set = function(v) ns.db.ui = ns.db.ui or {}; if v then ns.db.ui.bisTip = nil else ns.db.ui.bisTip = false end end },
     { type = "check", id = "bis.on", text = function() return L("显示角标（悬停看来源，点击指引获取）", "Show icons (hover for source, click for directions)") end,
       get = function() return ns.BisCorner.Enabled() end, set = function(v) ns.BisCorner.SetEnabled(v) end },
     { type = "label", id = "bis.posLabel", w = 50, avail = function() return ns.BisCorner.SetPos ~= nil end, text = function() return L("位置：", "Position:") end },
@@ -977,6 +980,8 @@ ns.RegisterSettings({ key = "ammo", order = 58, page = "ammo", avail = function(
           get = function() return ns.db ~= nil and ammoDB().on ~= false end, set = function(v) classDo("AmmoRemind", function(AR) AR.SetOn(v) end) end },
         { type = "check", id = "ammo.sound", x = 520, inline = true, text = function() return L("提醒音效", "Sound") end,
           get = function() return ammoDB().sound == true end, set = function(v) ns.db.ammoRemind = ns.db.ammoRemind or {}; ns.db.ammoRemind.sound = v and true or nil end },
+        { type = "check", id = "ammo.always", indent = 18, text = function() return L("常驻显示弹药图标（剩余发数 + 最多能买多少）", "Always show ammo icon") end,
+          get = function() return ammoDB().always == true end, set = function(v) classDo("AmmoRemind", function(AR) AR.SetAlways(v) end) end },
         { type = "note", indent = 26, text = function()
               local function get(k) return tonumber(ammoDB()[k]) or AMMO_DEF[k] end
               return string.format(L("少于 %d 发黄、少于 %d 发红，商人那里补到 %d 发；改：/gi ammo warn 400 · urgent 150 · full 1000", "Warn < %d, urgent < %d, top up to %d; change: /gi ammo warn 400 / urgent 150 / full 1000"),
@@ -1028,6 +1033,11 @@ ns.RegisterSettings({ key = "camp", order = 60, page = "xp", avail = function() 
     items = {
         { type = "check", id = "camp.on", text = function() return L("指到别人的帐篷时弹窗问要不要密他求组蹭露营", "Offer to whisper the owner when you mouse over someone's tent") end,
           get = function() return CP().Enabled() end, set = function(v) CP().SetOn(v) end },
+        -- 11-24 GI-347「主城门口一直弹很烦」「满级角色能不能就别弹了」：满级默认不弹；「只按 Ctrl 才弹」是选项（11-25 用户：默认还是鼠标移上去就弹）
+        { type = "check", id = "camp.ctrl", indent = 18, text = function() return L("只在按住 Ctrl 指帐篷时弹（关掉 = 鼠标路过就弹）", "Only when holding Ctrl over a tent (off = on mouseover)") end,
+          get = function() return CP().DB().ctrl == true end, set = function(v) if v then CP().DB().ctrl = true else CP().DB().ctrl = nil end end },
+        { type = "check", id = "camp.maxLv", indent = 18, text = function() return L("满级（60 级）也弹（默认满级不弹）", "Also at max level (60)") end,
+          get = function() return CP().DB().maxLv == true end, set = function(v) CP().DB().maxLv = v or nil end },
         -- 11-16 GI-282：求组前先看帐篷主人在不在同一张地图（不在拿不到 20% 经验加成就不密）；/gi camp zone on|off 同一个开关
         { type = "check", id = "camp.zoneCheck", indent = 18, text = function() return L("求组前先看主人在不在同一张地图（不在同图拿不到 20% 经验加成就不密）", "Check the owner is in your zone first (no 20% XP bonus otherwise)") end,
           get = function() return CP().DB().zoneCheck ~= false end, set = function(v) if v then CP().DB().zoneCheck = nil else CP().DB().zoneCheck = false end end },

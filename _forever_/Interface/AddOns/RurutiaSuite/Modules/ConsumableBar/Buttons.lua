@@ -74,12 +74,13 @@ function Definition:CreateButton(groupFrame, group, index, isToggle)
         "Button",
         group.frameName .. "Btn" .. index,
         groupFrame,
-        isToggle and "SecureHandlerClickTemplate, BackdropTemplate" or "SecureActionButtonTemplate, BackdropTemplate",
+        isToggle and (Adapter.supportsCategoryEffects and "SecureActionButtonTemplate, SecureHandlerBaseTemplate, BackdropTemplate"
+            or "SecureHandlerClickTemplate, BackdropTemplate") or "SecureActionButtonTemplate, BackdropTemplate",
         HideFrame,
         "ConsumableBar " .. group.key .. " button " .. index
     )
     Call(button, "SetSize", width, height)
-    if isToggle then
+    if isToggle and not Adapter.supportsCategoryEffects then
         Call(button, "RegisterForClicks", "LeftButtonUp")
     else
         Adapter:RegisterSecureClicks(button)
@@ -125,6 +126,13 @@ function Definition:CreateButton(groupFrame, group, index, isToggle)
     Call(button.buffText, "SetPoint", "CENTER", button.icon, "CENTER", 1, 0)
     Call(button.buffText, "SetJustifyH", "CENTER")
     Call(button.buffText, "SetTextColor", 0, 1, 0)
+
+    button.offBuffText = Call(button, "CreateFontString", nil, "OVERLAY")
+    Call(button.offBuffText, "SetFont", font, 10, "OUTLINE")
+    Call(button.offBuffText, "SetPoint", "BOTTOM", button.icon, "BOTTOM", 0, 1)
+    Call(button.offBuffText, "SetJustifyH", "CENTER")
+    Call(button.offBuffText, "SetTextColor", 0, 1, 0)
+    Call(button.offBuffText, "SetShown", false)
 
     button.slotText = Call(button, "CreateFontString", nil, "OVERLAY")
     Call(button.slotText, "SetFont", font, 13, "OUTLINE")
@@ -217,10 +225,12 @@ function Definition:ApplyFonts()
         for _, button in NextDisplayButton, frame, 0 do
             local info = button.customInfo
             Call(button.countText, "SetFont", font, info and info.kind == "food" and 12 or 11, "OUTLINE")
-            Call(button.buffText, "SetFont", font, 12, "OUTLINE")
+            Call(button.buffText, "SetFont", font, button._rsDualBuffText and 10 or 12, "OUTLINE")
+            Call(button.offBuffText, "SetFont", font, 10, "OUTLINE")
             Call(button.slotText, "SetFont", font, 13, "OUTLINE")
             if button.countText then button.countText._rsFont = nil end
             if button.buffText then button.buffText._rsFont = nil end
+            if button.offBuffText then button.offBuffText._rsFont = nil end
             if button.slotText then button.slotText._rsFont = nil end
         end
     end
@@ -276,7 +286,15 @@ end
 
 local POISON_ORDER = { "instant", "deadly", "wound", "crippling", "mindnumbing" }
 
-Definition.CATEGORIES = {
+Definition.CATEGORIES = Adapter.supportsCategoryEffects and {
+    {key="flask", name="合剂", icon="Interface\\Icons\\INV_Potion_62"},
+    {key="elixir", name="药剂", icon=134731},
+    {key="scroll", name="卷轴", icon=134943},
+    {key="misc", name="其他", icon="Interface\\Icons\\INV_Misc_Bag_10"},
+    {key="weapon", name="油/磨刀石", icon="Interface\\Icons\\INV_Potion_100"},
+    {key="poison", name="毒药", icon="Interface\\Icons\\Ability_Poisons"},
+    {key="food", name="食物", icon="Interface\\Icons\\INV_Misc_Food_15"},
+} or {
     {key="flask", name="合剂", icon="Interface\\Icons\\INV_Potion_62"},
     {key="battle", name="战斗药剂", icon=134812},
     {key="guardian", name="守护药剂", icon=134846},
@@ -287,6 +305,15 @@ Definition.CATEGORIES = {
     {key="food", name="食物", icon="Interface\\Icons\\INV_Misc_Food_15"},
 }
 local KIND_CATEGORY = {flask="flask", elixir="misc", scroll="scroll", weaponConsumable="weapon", food="food"}
+
+function Definition:GetCategoryKey(info)
+    if info.poisonFamily then return "poison" end
+    local category = info.category or KIND_CATEGORY[info.kind] or "misc"
+    if Adapter.supportsCategoryEffects and (category == "battle" or category == "guardian") then
+        return "elixir"
+    end
+    return category
+end
 
 local function ClearArray(array)
     for index = #array, 1, -1 do array[index] = nil end
@@ -315,7 +342,7 @@ function Definition:GetCategoryItems(group, preview)
                 local previous = poisons[info.poisonFamily]
                 if not previous or info.poisonRank > previous.poisonRank then poisons[info.poisonFamily] = info end
             else
-                local category = info.category or KIND_CATEGORY[info.kind] or "misc"
+                local category = self:GetCategoryKey(info)
                 local bucket = buckets[category]
                 if not bucket then bucket = {}; buckets[category] = bucket end
                 bucket[#bucket+1] = info
@@ -332,7 +359,8 @@ function Definition:GetCategoryItems(group, preview)
     ClearArray(items)
     for _, category in ipairs(self.CATEGORIES) do
         local choices = buckets[category.key]
-        if (choices and #choices > 0) or preview then
+        if (choices and #choices > 0) or preview or
+            (Adapter.supportsCategoryEffects and self:HasRememberedCategory(category.key)) then
             -- Empty bags need no category objects; allocate only categories actually shown.
             if not choices then choices = {}; buckets[category.key] = choices end
             local descriptor = cache.descriptors[category.key]
@@ -420,12 +448,11 @@ local CHARGED_OILS = {
 
 local function GetOilMacro(itemID, bag, slot)
     -- Clear any pending item targeting before the secure button targets a weapon.
-    local macro = "/stopspelltarget\n/use [combat] item:" .. itemID
     -- The same slot may hold a different item by the time we enter combat.
-    if bag then
-        macro = macro .. "; [nocombat] " .. bag .. " " .. slot
+    if bag ~= nil then
+        return "/stopspelltarget\n/use [combat] item:" .. itemID .. "; [nocombat] " .. bag .. " " .. slot
     end
-    return macro
+    return "/stopspelltarget\n/use item:" .. itemID
 end
 
 local function PrepareOilClick(button, mouseButton, down)
@@ -438,6 +465,106 @@ local function PrepareOilClick(button, mouseButton, down)
     button:SetAttribute(attribute, GetOilMacro(info.itemID, bag, slot))
 end
 
+local function WeaponHand(category, mouseButton)
+    if category == "weapon" or category == "poison" then
+        return mouseButton == "LeftButton" and "main" or "off"
+    end
+end
+
+local function SetRememberedAction(button, index, itemID, macro, targetSlot)
+    button[index == 1 and "rememberedLeft" or "rememberedRight"] = macro and itemID or nil
+    button:SetAttribute("type" .. index, macro and "macro" or nil)
+    button:SetAttribute("macrotext" .. index, macro)
+    button:SetAttribute("target-slot" .. index, targetSlot)
+end
+
+local function TrackCategoryClick(button, mouseButton, down)
+    local module, info = button.categoryModule, button.customInfo
+    if not module or not info or (mouseButton ~= "LeftButton" and mouseButton ~= "RightButton") then return end
+    if down ~= nil and down ~= (button:GetAttribute("useOnKeyDown") == true) then return end
+    local left = mouseButton == "LeftButton"
+    local category, itemID
+    if info.kind == "categoryMenu" then
+        category = info.category
+        itemID = left and button.rememberedLeft or not left and button.rememberedRight
+        local hand = WeaponHand(category, mouseButton)
+        if not left and not hand then return end
+        local saved = module:GetRememberedItemID(category, hand)
+        local empty = saved and Adapter:GetItemCount(saved) == 0
+        local index = left and 1 or 2
+        if itemID and not Adapter:IsInCombat() and
+            (itemID ~= saved or empty or (hand and not Adapter:GetEquippedWeapon(15 + index))) then
+            SetRememberedAction(button, index)
+            module:QueueSecureRefresh()
+            itemID = nil
+        end
+        if empty then
+            Adapter:Print("上次使用的物品已用完，请从菜单重选。")
+            return
+        end
+        if itemID and CHARGED_OILS[itemID] and not Adapter:IsInCombat() then
+            local bag, slot = Adapter:FindOilSlot(module, itemID)
+            button:SetAttribute(left and "macrotext1" or "macrotext2", GetOilMacro(itemID, bag, slot))
+        end
+    elseif button.isCategoryItem then
+        category = module:GetCategoryKey(info)
+        if info.kind == "weaponConsumable" then
+            itemID = info.itemID
+        elseif left then
+            local click = info.clicks and info.clicks.left
+            if click and click.type == "item" then itemID = click.id end
+        end
+    end
+    if itemID then module:BeginCategoryUse(category, itemID, WeaponHand(category, mouseButton)) end
+end
+
+local function AttachCategoryTracking(button, module)
+    if not button.categoryModule then
+        button.categoryModule = module
+        button:HookScript("PreClick", TrackCategoryClick)
+    end
+end
+
+function Definition:BindRememberedCategory(button, category)
+    AttachCategoryTracking(button, self)
+    local items = self.categoryItemIDs[category] or {}
+    for index = 1, 2 do
+        local hand = WeaponHand(category, index == 1 and "LeftButton" or "RightButton")
+        local itemID
+        if index == 1 or hand then itemID = self:GetRememberedItemID(category, hand) end
+        local item = itemID and items[itemID]
+        local macro, targetSlot
+        if item and self:IsItemEnabled(item.key) and Adapter:GetItemCount(itemID) > 0
+            and (not hand or Adapter:GetEquippedWeapon(15 + index)) then
+            if CHARGED_OILS[itemID] then
+                macro, targetSlot = GetOilMacro(itemID), 15 + index
+            elseif hand then
+                macro = "/use item:" .. itemID .. "\n/use " .. (15 + index)
+            else
+                macro = "/use item:" .. itemID
+            end
+        end
+        SetRememberedAction(button, index, itemID, macro, targetSlot)
+    end
+end
+
+function Definition:AddRememberedCategoryTooltip(button)
+    if not self:GetProfile().rememberLastUse then return end
+    local category, tooltip = button.customInfo.category, Adapter:GetTooltip()
+    for index = 1, 2 do
+        local hand = WeaponHand(category, index == 1 and "LeftButton" or "RightButton")
+        local id
+        if index == 1 or hand then id = self:GetRememberedItemID(category, hand) end
+        if id then
+            local name = Adapter:GetItemName(id) or tostring(id)
+            local bound = index == 1 and button.rememberedLeft or index == 2 and button.rememberedRight
+            local label = hand == "off" and "副手：" or hand and "主手：" or "上次使用："
+            Call(tooltip, "AddLine", label .. name .. (bound == id and "" or "（从菜单重选）"), 1, 0.8, 0.4)
+        end
+    end
+    Adapter:PresentTooltip(tooltip)
+end
+
 function Definition:BindButton(button, info, previewOnly, categoryItem)
     if Adapter:IsInCombat() then return false end
     button.customInfo = info
@@ -448,6 +575,7 @@ function Definition:BindButton(button, info, previewOnly, categoryItem)
         button.oilModule = nil
     end
     button.isCategoryItem = categoryItem == true
+    if categoryItem and Adapter.supportsCategoryEffects then AttachCategoryTracking(button, self) end
     Call(button, "SetAttribute", "type1", nil)
     Call(button, "SetAttribute", "macrotext1", nil)
     Call(button, "SetAttribute", "type2", nil)
@@ -744,6 +872,7 @@ function Definition:PrepareCategoryMenu(frame, group, info, width, height, direc
             return toggle
         end
     else
+        if Adapter.supportsCategoryEffects then self:BindRememberedCategory(toggle, info.category) end
         toggle:SetAttribute("menu-count", #self.CATEGORIES)
         toggle:SetAttribute("has-choices", #choices > 0)
     end

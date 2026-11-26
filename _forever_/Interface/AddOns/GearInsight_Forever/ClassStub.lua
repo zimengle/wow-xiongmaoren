@@ -48,13 +48,17 @@ do
     -- 11-20 猎人宠物众包（驯服结果 / 野兽施法 / 训练野兽）：猎人专属子插件 GearInsight_Forever_ClassHunter，
     --   只有猎人角色、文件夹在才在登录时加载（没有安全按钮，战斗中加载也没事）；非猎人一个文件都不加载
     --   11-21 里面多了野兽鼠标提示（BeastTip.lua，开关在它自己的功能项）→ 众包观测关着也加载，驯服 / 施法众包文件自己按「众包观测」开关挡
-    local ok2, n2, _, _, _, why2 = pcall(gi or error, "GearInsight_Forever_ClassHunter")
-    if tok == "HUNTER" and ok2 and n2 and why2 ~= "MISSING" then
+    -- 11-25 盗贼毒药提醒（群友「把贼的毒药单独做」）：盗贼专属子插件 GearInsight_Forever_ClassRogue 同理（只有盗贼、文件夹在才登录加载）
+    -- 11-25 术士灵魂石追踪（用户「做个UI来展示灵魂石绑定到谁身上」）：术士专属子插件 GearInsight_Forever_ClassWarlock 同理
+    local own = (tok == "HUNTER" and "GearInsight_Forever_ClassHunter") or (tok == "ROGUE" and "GearInsight_Forever_ClassRogue")
+        or (tok == "WARLOCK" and "GearInsight_Forever_ClassWarlock")
+    local ok2, n2, _, _, _, why2 = pcall(gi or error, own)
+    if own and ok2 and n2 and why2 ~= "MISSING" then
         local ev = CreateFrame("Frame")
         ev:RegisterEvent("PLAYER_LOGIN")
         ev:SetScript("OnEvent", function(self)
             self:UnregisterAllEvents()
-            pcall((C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn, "GearInsight_Forever_ClassHunter")
+            pcall((C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn, own)
         end)
     end
 end

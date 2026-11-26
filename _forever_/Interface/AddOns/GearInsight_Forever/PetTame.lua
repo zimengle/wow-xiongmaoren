@@ -121,6 +121,16 @@ local function zoneName(ui)
 end
 M.ZoneName = zoneName
 
+-- 11-24 用户「8级撕咬怎么没显示」：只在副本里刷的野兽（PetTameData 的 dg = { 副本中文名, 英文名 }；ui / x / y 是副本入口）
+--   显示「黑石塔（副本）」，地图标点打在副本入口
+local function placeName(b)
+    if type(b.dg) == "table" and b.dg[1] then
+        return ns.L(ns.zh and ns.TD and ns.TD(b.dg[1]) or b.dg[1], b.dg[2] or b.dg[1]) .. ns.L("（副本）", " (dungeon)")
+    end
+    return zoneName(b.ui)
+end
+M.PlaceName = placeName
+
 local function beastName(b)
     if ns.zh then return ns.TD(b.cn or b.en) end   -- 11-15 GI-266：野兽名（数据简体）繁体端转
     return b.en or b.cn
@@ -183,7 +193,12 @@ local function tip(self, b)
     GameTooltip:AddLine(beastName(b) .. tag(b), 1, 0.82, 0)
     if ns.zh and b.en and b.en ~= b.cn then GameTooltip:AddLine(b.en, 0.6, 0.6, 0.6) end
     GameTooltip:AddDoubleLine(ns.L("等级", "Level"), lvText(b), 0.7, 0.7, 0.7, 1, 1, 1)
-    GameTooltip:AddDoubleLine(zoneName(b.ui), string.format("%.1f, %.1f", b.x or 0, b.y or 0), 1, 1, 1, 1, 1, 1)
+    if type(b.dg) == "table" then
+        GameTooltip:AddDoubleLine(ns.L("副本", "Dungeon"), placeName(b), 0.7, 0.7, 0.7, 1, 1, 1)
+        GameTooltip:AddDoubleLine(ns.L("入口：", "Entrance: ") .. zoneName(b.ui), string.format("%.1f, %.1f", b.x or 0, b.y or 0), 1, 1, 1, 1, 1, 1)
+    else
+        GameTooltip:AddDoubleLine(zoneName(b.ui), string.format("%.1f, %.1f", b.x or 0, b.y or 0), 1, 1, 1, 1, 1, 1)
+    end
     -- 11-20 用户「矫正这部分数据」：实测过的 / 经典数据未实测的 / 实测不教的 分三行
     local tv, tu, nt = teachText(b, true), teachText(b, false), notTaughtText(b)
     if tv ~= "" then
@@ -205,7 +220,8 @@ local function tip(self, b)
     if b.obs then
         GameTooltip:AddLine(string.format(ns.L("等级 / 位置来自《无限》玩家实测：%d 位玩家看到过", "Level / position from Forever players: seen by %d players"), tonumber(b.n) or 2), 0.4, 0.67, 1, true)
     end
-    GameTooltip:AddLine(b.obs and ns.L("点击：打开地图标点", "Click: show on map")
+    GameTooltip:AddLine(type(b.dg) == "table" and ns.L("点击：地图标出副本入口", "Click: show the dungeon entrance on map")
+        or b.obs and ns.L("点击：打开地图标点", "Click: show on map")
         or ns.L("点击：打开地图标点（经典旧世坐标，众包校正中）", "Click: show on map (classic coords, being crowd-corrected)"), 0.6, 0.6, 0.6, true)
     GameTooltip:Show()
 end
@@ -287,7 +303,8 @@ function M.View(ctx)
         local lv = text(row, "GameFontHighlightSmall", 430, -6, 110, ns.L(lvText(b) .. " 级", "Lv " .. lvText(b)))
         lv:SetJustifyH("RIGHT")
         local tv, tu = teachText(b, true), teachText(b, false)
-        local line2 = GOLD .. zoneName(b.ui) .. "|r " .. string.format("(%.1f, %.1f)", b.x or 0, b.y or 0)
+        local line2 = GOLD .. placeName(b) .. "|r " .. (type(b.dg) == "table" and (GREY .. ns.L("入口 ", "entrance ") .. zoneName(b.ui) .. "|r ") or "")
+            .. string.format("(%.1f, %.1f)", b.x or 0, b.y or 0)
             .. (tv ~= "" and ("  |cff66ff66" .. ns.L("会教：", "Teaches: ") .. tv .. "|r") or "")
             .. (tu ~= "" and ("  |cffffcc66" .. tu .. "|r|cffff9933" .. ns.L("（经典数据·待实测）", " (Classic, unverified)") .. "|r") or "")
         local l2 = text(row, "GameFontHighlightSmall", 42, -22, 496, line2)
@@ -306,10 +323,16 @@ function M.View(ctx)
 end
 
 -- ---------- 「宠物技能」视图：每个技能下面的「会教的野兽」----------
--- 在 parent（技能行）的 y0 处往下画，返回占了多高（0 = 这个技能没有野兽教，比如驯服即会 / 无限新技能）
+-- 在 parent（技能行）的 y0 处往下画，返回占了多高（0 = 没有打底数据 PetTameData）
+-- 11-24 用户「8级撕咬怎么没显示」：每一级都画（等级数取 PetData 的 rk / ranks）；没有会教野兽的那几级写「暂无数据（欢迎实测上报）」，
+--   连着几级都没有的并成一行（「等级 1–5」），不再整行空白
 function M.SkillTeachers(parent, s, y0)
+    if not (D() and D().teach) then return 0 end
     local ranks = M.Ranks(s.en)
-    if #ranks == 0 then return 0 end
+    local n = math.max(#(s.rk or {}), tonumber(s.ranks) or 0, ranks[#ranks] or 0)
+    if n == 0 then return 0 end
+    ranks = {}
+    for rk = 1, n do ranks[#ranks + 1] = rk end
     local fs = parent:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     fs:SetPoint("TOPLEFT", 46, y0); fs:SetWidth(556); fs:SetJustifyH("LEFT")
     -- 11-20 用户「矫正这部分数据」：众包驯服结果证实《无限》仍是「驯服学技能」，旧的「玩家反馈不带技能」提示撤掉
@@ -320,11 +343,28 @@ function M.SkillTeachers(parent, s, y0)
     local y = y0 - math.max(15, math.ceil((fs.GetStringHeight and fs:GetStringHeight() or 12) + 3))
     local btns = rawget(parent, "teachBtns") or {}   -- rawget：框体上没有的键别走方法表
     parent.teachBtns = btns
-    for _, rk in ipairs(ranks) do
+    local i = 1
+    while i <= #ranks do
+        local rk = ranks[i]
+        local list = M.Teachers(s.en, rk)
+        local last = rk
+        if #list == 0 then   -- 连着没数据的几级并成一行
+            while i < #ranks and #M.Teachers(s.en, ranks[i + 1]) == 0 do
+                i = i + 1
+                last = ranks[i]
+            end
+        end
+        i = i + 1
         local lab = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         lab:SetPoint("TOPLEFT", 46, y - 2); lab:SetWidth(50); lab:SetJustifyH("LEFT")
-        lab:SetText("|cffffcc66" .. ns.L("等级 " .. rk, "Rank " .. rk) .. "|r")
-        local list = M.Teachers(s.en, rk)
+        local rs = last ~= rk and (rk .. "-" .. last) or tostring(rk)
+        lab:SetText("|cffffcc66" .. ns.L("等级 " .. rs, "Rank " .. rs) .. "|r")
+        if #list == 0 then
+            local e = parent:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+            e:SetPoint("TOPLEFT", 96, y - 2); e:SetWidth(506); e:SetJustifyH("LEFT"); e:SetWordWrap(false)
+            e:SetText(ns.L("暂无数据（欢迎实测上报：驯服会这一级的野兽，插件会自动记录）", "No data yet (tame a beast that knows it; the addon reports it automatically)"))
+            parent.teachEmpty = (rawget(parent, "teachEmpty") or 0) + 1
+        end
         for j = 1, math.min(#list, M.RANK_SHOW) do
             local b = list[j]
             local btn = CreateFrame("Button", nil, parent)
@@ -332,7 +372,7 @@ function M.SkillTeachers(parent, s, y0)
             btn:SetPoint("TOPLEFT", 96 + (j - 1) * 170, y)
             local t = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
             t:SetPoint("LEFT", 0, 0); t:SetWidth(166); t:SetJustifyH("LEFT"); t:SetWordWrap(false)
-            t:SetText((verifiedFor(b, s.en, rk) and "|cff66ff66" or "|cffffcc66") .. beastName(b) .. "|r " .. GREY .. lvText(b) .. ns.L("级·", " · ") .. zoneName(b.ui) .. "|r")
+            t:SetText((verifiedFor(b, s.en, rk) and "|cff66ff66" or "|cffffcc66") .. beastName(b) .. "|r " .. GREY .. lvText(b) .. ns.L("级·", " · ") .. placeName(b) .. "|r")
             btn:SetScript("OnClick", function() M.ShowBeast(b) end)
             btn:SetScript("OnEnter", function(self) tip(self, b) end)
             btn:SetScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)

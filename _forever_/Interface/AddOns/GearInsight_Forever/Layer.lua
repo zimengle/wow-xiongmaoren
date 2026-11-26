@@ -193,7 +193,7 @@ function LY.Feed(guid, map, name)
     local expect = LY.ExpectZ and LY.ExpectZ(map)
     local p = LY.pend
     if not p or p.z ~= g.zuid then p = { z = g.zuid, npcs = {} }; LY.pend = p end
-    p.npcs[key] = true
+    p.npcs[key], p.at = true, now()   -- 11-24 at：最近一次读到这层（LayerHop 判「新层稳住 SETTLE 秒、期间没再读到原层」）
     -- 11-06 用户「切过来，看到位面换了，但是这里没有展示」：进 / 退队后层随时会被传走，这 90 秒里见到 1 只新层的怪就换（LY.fastUntil）
     -- 11-20 用户录像「狂刷」：放宽期里新层旧层的怪混着出现，见 1 只就换 → 来回换十几次。
     --   放宽只给一次（换过一次就收回）；换回 BOUNCE 秒内刚离开的层也不走放宽，照平时门槛（2 只 + 原层 6 秒没见到）
@@ -282,9 +282,11 @@ function LY.LayerNo(map, z)
     local l = LY.Label(map, z)
     return tonumber(l:match("^L(%d+)$"))
 end
+-- 11-24 用户「不切位面的时候，层数为啥老自己变动」：「第 N 层」是名次（别人的层码出现 / 过期就跳）→ 层码为主（不换层永不变、会员之间一致），名次放后面
 function LY.LayerName(map, z)
+    if not z then return L("某一层", "a layer") end
     local n = LY.LayerNo(map, z)
-    return n and string.format(L("第 %d 层", "layer %d"), n) or L("某一层", "a layer")
+    return L("层码 ", "code ") .. LY.Tail(z) .. (n and string.format(L("（第 %d 层）", " (layer %d)"), n) or "")
 end
 -- 地图中文名（读不到给编号）
 function LY.MapName(map)
@@ -525,17 +527,7 @@ function LY.ReadAll()
     return changed
 end
 
--- 11-12 读不到任何怪时，按队长（进队就到他那层，暴雪机制）心跳里报的层认我的层：标 inferred，之后亲眼读到别的层照常改过来
-function LY.Adopt(map, z, why)
-    if not map or not z or secret(z) then return false end
-    local old = (LY.cur.map == map) and LY.cur.z or nil
-    if old == z then return false end
-    LY.cur = { map = map, z = z, conf = 2, npcs = {}, seenAt = now(), inferred = why or true }
-    LY.pend = nil
-    LY.Remember(map, z)
-    fire(old, z, map)
-    return true
-end
+-- LY.Adopt（按队长报的层认我的层）11-23 起没人调了，11-24 删掉省内核
 
 function LY.ScanPlates()
     if not (C_NamePlate and C_NamePlate.GetNamePlates) then return 0 end
@@ -1055,6 +1047,27 @@ function LY.AskAccept(inviter, why)
         end,
     })
 end
+-- 11-24 GI-330「开帐篷后被邀请组队，位面切换帐篷消失」：进别人的队 = 被拉到队长那一层，自己的帐篷留在原层（游戏机制，帐篷没被删）。
+--   自己 30 分钟内放过帐篷 → 任何自动接受（官员 / 换层帮手 / 副本申请）都不接，暴雪邀请框留着，玩家自己点「接受」才走
+LY.TENT_KEEP = 1800
+function LY.TentHold(inviter)
+    local at = tonumber(LY.DB().tentAt)
+    if not at or wall() - at > LY.TENT_KEEP then return false end
+    local s = short(inviter) or "?"
+    if now() - (LY.tentSaid or -99) > 3 then
+        LY.tentSaid = now()
+        ns.Print("|cffff8040" .. string.format(L("%s 邀请你组队：没自动接受——你刚放了帐篷，进他的队可能把你拉到别的位面，帐篷会留在原层（你看不到也用不了）。确定要走就点邀请框的「接受」", "%s invited you - not auto-accepted: you just placed a tent; joining may move you to another layer and the tent stays behind. Click Accept yourself if you want to go"), s) .. "|r")
+    end
+    LY.Log("开着帐篷，不自动接 " .. s)
+    return true
+end
+local tentEv = CreateFrame("Frame")
+if tentEv.RegisterUnitEvent then pcall(tentEv.RegisterUnitEvent, tentEv, "UNIT_SPELLCAST_SUCCEEDED", "player") end
+tentEv:SetScript("OnEvent", function(_, _, u, _, sid)
+    local PS = ns.PvPShout
+    if u == "player" and PS and PS.IsTentSpell and PS.IsTentSpell(sid) then LY.DB().tentAt = wall() end
+end)
+LY._tentEv = tentEv   -- 测试用
 function LY.OnInvite(inviter)
     LY.noWhy = nil
     local why, kind, ask = LY.AcceptReason(inviter)
@@ -1067,6 +1080,7 @@ function LY.OnInvite(inviter)
         return false
     end
     LY.missInv = nil
+    if LY.TentHold(inviter) then return false end
     if not AcceptGroup then return false end
     local ok = pcall(AcceptGroup)
     if ok and StaticPopup_Hide then pcall(StaticPopup_Hide, "PARTY_INVITE") end
@@ -1121,6 +1135,23 @@ function LY.Stat(k, n)
     if ns.Obs then (ns.db.obs or {})["lh\1" .. td .. "\1" .. (b.x or "")] = nil; ns.Obs.Add("lh", td, s); b.x = s end
 end
 
+-- 11-24 位面悬浮小球（_LayerUI 的 LayerOrb.lua，HOLD 时包里没有 → 这里都不动）：位面识别开着、球设成显示 → 进图 3 秒后加载 _LayerUI（下面 PLAYER_ENTERING_WORLD）。
+--   11-24 用户拍板（1.5.0）：小球默认不显示：没打开过的登录不加载 _LayerUI；「显示」= 存档 orb.show 为真，或拖过位置（orb.pos）且没隐藏（老存档：之前就在用的号照常显示）。
+--   打开途径：位面页勾「屏幕上显示位面小球」/ 窗口与提醒「位面小球 → 显示」/ /gi layer orb show（LayerOrb.lua O.Shown / O.SetHide）
+--   「窗口与提醒」一行登记在内核（球隐藏时子插件没加载也找得回），名字 / 状态 / 按钮第一次被读时才加载 _LayerUI 去取（LayerOrb.lua 的 O.Win）
+--   ⛔ 内核内存：不给 LY 加字段；函数越少越好（每个函数原型都常驻）
+local function orbLoad(force)
+    local m, o = ns._ModFiles and ns._ModFiles.layerui, LY.DB().orb
+    if not (m and m["LayerOrb.lua"]) then return false end   -- 包里没有（HOLD）：不加载
+    if not ns.LayerOrb and (force or LY.DB().on and o and (o.show or o.pos and not o.hide)) then pcall((C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn, "GearInsight_Forever_LayerUI") end
+    return ns.LayerOrb
+end
+if ns.RegisterWindow then ns.RegisterWindow(setmetatable({ key = "layerOrb", order = 74 }, { __index = function(_, k)
+    local O = orbLoad(true)
+    if O then return O.Win[k] end
+    if k == "avail" then return orbLoad end   -- 包里没有 / 加载不上：avail 返回假，这一行不出
+end })) end
+
 -- ---------- 事件 ----------
 local ev = CreateFrame("Frame")
 LY._ev = ev
@@ -1152,12 +1183,14 @@ ev:SetScript("OnEvent", function(_, e, a1, a2, a3, a4, a5, a6, a7, a8)
         if via then pcall(LY.Handle, a2, a4, via) end
     elseif e == "CHAT_MSG_SYSTEM" then pcall(LY.OnTooMany, a1)
     elseif e == "CHAT_MSG_CHANNEL_NOTICE" then pcall(LY.OnNotice, a1, a4)
-    elseif e == "NAME_PLATE_UNIT_ADDED" then pcall(LY.ReadUnit, a1)
-    elseif e == "UPDATE_MOUSEOVER_UNIT" then pcall(LY.ReadUnit, "mouseover")
-    elseif e == "PLAYER_TARGET_CHANGED" then pcall(LY.ReadUnit, "target")
+    elseif e == "NAME_PLATE_UNIT_ADDED" or e == "UPDATE_MOUSEOVER_UNIT" or e == "PLAYER_TARGET_CHANGED" then
+        local u = e == "NAME_PLATE_UNIT_ADDED" and a1 or e == "PLAYER_TARGET_CHANGED" and "target" or "mouseover"
+        pcall(LY.ReadUnit, u)
+        if ns.RareCall and type(u) == "string" then pcall(ns.RareCall.Check, u) end   -- 11-24 发现稀有喊公会（RareCallStub.lua）借这个框体的事件
     elseif e == "PARTY_INVITE_REQUEST" then pcall(LY.OnInvite, a1)
     elseif e == "PLAYER_REGEN_ENABLED" then
         LY.scanAt = now() + 1
+        if ns.RareCall then pcall(ns.RareCall.Regen) end
         -- 11-13：战斗中碰到的「问一次」脱战后再问（等 2 秒，别一脱战就糊脸）
         if #LY.askQ > 0 then
             if C_Timer and C_Timer.After then C_Timer.After(2, function() pcall(LY.AskNext) end) else pcall(LY.AskNext) end
@@ -1189,6 +1222,7 @@ ev:SetScript("OnEvent", function(_, e, a1, a2, a3, a4, a5, a6, a7, a8)
         if e == "PLAYER_ENTERING_WORLD" and C_Timer and C_Timer.After then
             -- GI-215：真正上线（isInitialLogin）记时间，等系统频道加完（CHAN_WAIT 秒后）再加公共频道；/reload、进出副本照旧 8 秒
             if a1 == true then LY.loginAt = now() end
+            C_Timer.After(3, orbLoad)   -- 11-24 位面悬浮小球
             local wait = LY.ChanReady() and 8 or (LY.CHAN_WAIT - (now() - LY.loginAt) + 1)
             C_Timer.After(wait, function() pcall(LY.SyncPub); LY.Beat(true) end)
         else
@@ -1240,26 +1274,20 @@ LY._onUpdate = onUpdate
 
 -- ---------- 斜杠命令 /gi layer … ----------
 -- 11-22 帮助文字（和新加的 /gi layer stat 换层成功率）搬到按需加载的 _LayerUI（LayerCredit.lua 的 ns.LayerSlash），省主插件登录内存
-local function help(sub)
-    pcall((C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn, "GearInsight_Forever_LayerUI")
-    if ns.LayerSlash then ns.LayerSlash(sub) end
-end
 
 -- 11-13：三个自动行为的命令开关（存 true / false，之后不再问）
-local AUTO_TEXT = {
-    autoHelp = function(on) return on and L("换层求助：自动拉（没组队时，不弹框）", "Layer requests: auto-invite when solo") or L("换层求助：每次弹框问我", "Layer requests: ask each time") end,
-    autoAccept = function(on) return on and L("会长 / 官员的组队邀请：自动接受", "Leader/officer invites: auto-accept") or L("会长 / 官员的组队邀请：不再自动接受", "Leader/officer invites: manual") end,
-    autoLeave = function(on) return on and L("换过去后：自动退队", "After the move: leave the group") or L("换过去后：不自动退队", "After the move: stay in the group") end,
-}
+-- 1.5.0 内核减肥（11-24）：改完说的那句（原 AUTO_TEXT 三组文字）搬进 _LayerUI（LayerCredit.lua 的 LC.AutoText；
+--   调这里的只有位面页按钮和 /gi layer 命令，那时 _LayerUI 都已加载；万一没装 = 照改，只是不说那句）
 function LY.SetAuto(key, on)
-    if not AUTO_TEXT[key] then return false end
+    if key ~= "autoHelp" and key ~= "autoAccept" and key ~= "autoLeave" then return false end
     LY.DB()[key] = on and true or false
     LY.DB().giAuto[key] = nil   -- 玩家自己定的：不再算「公会自动开的」
     if askFrame and askFrame.key == key then askFrame.key, askFrame.opts = nil, nil; askFrame:Hide(); LY.AskNext() end
     for i = #LY.askQ, 1, -1 do if LY.askQ[i].key == key then table.remove(LY.askQ, i) end end
     if ns.RefreshSettings then pcall(ns.RefreshSettings) end
     LY.dirty = true
-    ns.Print(AUTO_TEXT[key](on) .. L("（右侧『位面』页签 → 设置里也能改）", " (also in the Layers tab -> Settings)"))
+    pcall((C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn, "GearInsight_Forever_LayerUI")
+    if ns.LayerCredit then ns.Print(ns.LayerCredit.AutoText(key, on)) end
     return true
 end
 
@@ -1277,35 +1305,14 @@ function LY.SetGather(code, lead)
     LY.dirty = true
 end
 
+-- 1.5.0 内核减肥（11-24）：/gi layer 各子命令（lead / join / leave / accept / autohelp / autoleave / auto / helper / pub / probe / log / on / off）
+--   原样搬进按需加载的 _LayerUI（LayerCredit.lua 的 ns.LayerSlash），这里只留「不带参数 = 打开位面页」和拆参数
 ns.ExtraSlash = ns.ExtraSlash or {}
 ns.ExtraSlash.layer = function(rest, rawRest)
     local sub, arg = (rest or ""):match("^(%S*)%s*(.-)$")
-    local rawArg = (rawRest or ""):match("^%S*%s*(.-)$") or arg
-    local d = LY.DB()
-    if sub == "" then ns.ToggleMain("layer")
-    elseif sub == "lead" or sub == "join" then
-        if rawArg == "" then help(); return end
-        LY.SetGather(rawArg, sub == "lead")
-        ns.Print(sub == "lead" and L("集合频道已建，口令「" .. rawArg .. "」发到群里让会员 /gi layer join " .. rawArg, "Gather channel up; members: /gi layer join " .. rawArg)
-            or L("已加入集合频道「" .. rawArg .. "」", "Joined gather channel " .. rawArg))
-    elseif sub == "leave" then LY.SetGather(nil); ns.Print(L("已退出集合频道", "Left gather channel"))
-    elseif sub == "accept" and (arg == "on" or arg == "off") then LY.SetAuto("autoAccept", arg == "on")
-    elseif sub == "autohelp" and (arg == "on" or arg == "off") then LY.SetAuto("autoHelp", arg == "on")
-    elseif sub == "autoleave" and (arg == "on" or arg == "off") then LY.SetAuto("autoLeave", arg == "on")
-    elseif sub == "auto" and (arg == "on" or arg == "off") then
-        for _, k in ipairs(LY.ASK_KEYS) do LY.SetAuto(k, arg == "on") end
-    elseif sub == "helper" and (arg == "on" or arg == "off") then
-        d.helper = (arg == "on"); LY.Beat(true)
-        ns.Print(d.helper and L("已打开「帮别人换到我这层」：收到请求会弹提示，点了才邀请", "Helping others hop: on (you click to invite)") or L("已关闭「帮别人换层」", "Helping others hop: off"))
-    elseif sub == "pub" and (arg == "on" or arg == "off") then
-        LY.SetPub(arg == "on")
-        ns.Print(LY.PubMsg(d.pub))
-    elseif sub == "probe" and ns.LayerProbe then ns.LayerProbe.Toggle()
-    elseif sub == "log" then
-        ns.ShowBox(L("换层记录", "Layer log"), L("复制全部发给开发者", "Copy all and send to the developer"), table.concat(d.log or {}, "\n"))
-    elseif sub == "off" or sub == "on" then
-        d.on = (sub == "on"); LY.SyncPub(); ns.Print(d.on and L("位面识别已打开", "Layer detection on") or L("位面识别已关闭", "Layer detection off"))
-    else help(sub) end
+    if sub == "" then return ns.ToggleMain("layer") end
+    pcall((C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn, "GearInsight_Forever_LayerUI")
+    if ns.LayerSlash then ns.LayerSlash(sub, (rawRest or ""):match("^%S*%s*(.-)$") or arg, arg) end
 end
 ns.ExtraSlash["位面"] = ns.ExtraSlash.layer
 

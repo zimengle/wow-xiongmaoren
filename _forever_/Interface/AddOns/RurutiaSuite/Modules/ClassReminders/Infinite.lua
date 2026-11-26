@@ -1,5 +1,4 @@
--- 文件职责：无限服职业增益缺失提醒的Runtime生命周期与事件合并。
--- 边界：仅无限（Forever）装配；只在脱战且非休息状态持有玩家光环事件。
+-- 无限服职业增益、食物和武器提醒的 Runtime 生命周期与事件合并。
 local _, ns = ...
 if not ns.Build.Is("classic-infinite") or not ns.Build.HasModule("ClassReminders") then return end
 local Adapter, View = ns.ClassReminderAdapter, ns.ClassReminderView
@@ -10,6 +9,9 @@ end
 local Definition = {defaultEnabled = true, defaults = {profile = {
     classEnabled = true, generalEnabled = false, intellect = true, frostArmor = true, hideResting = true, arcaneBlast = true,
     fortitude = true, innerFire = false, wild = true, righteousFury = true, warlockArmor = true, elementalShield = false,
+    shout = true, food = false, foodDuration = 3, foodOwnedOnly = true,
+    poison = true, poisonMain = true, poisonOff = true, poisonWarnMinutes = 3,
+    shamanWeapon = true, shamanWeaponMain = true, shamanWeaponOff = true, shamanWeaponWarnMinutes = 3,
 }}}
 local ClassRows = {
     MAGE = {
@@ -42,6 +44,10 @@ local ClassRows = {
         {setting = "elementalShield", label = "元素护盾", key = "class.elementalShield", order = 10,
             spellID = 324, members = {{id = 324, level = 8}, {id = 408510, level = 1}}, text = "护盾没了"},
     },
+    WARRIOR = {
+        {setting = "shout", label = "怒吼提醒", key = "class.shout", order = 10,
+            spellID = 6673, members = {{id = 6673, level = 1}, {id = 403215, level = 1}}, text = "怒吼没了"},
+    },
 }
 
 local function Cancel(module, key)
@@ -51,6 +57,20 @@ end
 local blastSpells = { [400574] = true, [1239696] = true, [1239697] = true, [1239699] = true, [1239700] = true }
 local blastDuration = 18
 local blastKey = "class.arcaneBlast"
+local foodKey = "class.food"
+local weaponWarnMinutes = {[0] = true, [1] = true, [2] = true, [3] = true, [5] = true}
+local numericSettings = {
+    foodDuration = {[0] = true, [3] = true, [5] = true, [10] = true},
+    poisonWarnMinutes = weaponWarnMinutes,
+    shamanWeaponWarnMinutes = weaponWarnMinutes,
+}
+local weaponReminders = {
+    ROGUE = { key = "class.poison", order = 110, icon = 8680, main = "poisonMain", off = "poisonOff",
+        minutes = "poisonWarnMinutes", missing = "毒药没了", expiring = "毒药快没了" },
+    SHAMAN = { key = "class.shamanWeapon", order = 115, icon = 8232, main = "shamanWeaponMain", off = "shamanWeaponOff",
+        minutes = "shamanWeaponWarnMinutes", missing = "武器附魔没了", expiring = "武器附魔快没了" },
+}
+local foodCooldown = 20
 
 local function BlastPosition(module)
     local p = module.db.profile
@@ -213,10 +233,17 @@ function Definition:Initialize()
     self.isMage = class == "MAGE"
     self.settingGroups = {}
     self.armorOwners = {}
-    self.localSettings = {hideResting = true, arcaneBlast = self.isMage}
+    self.isRogue = class == "ROGUE"
+    self.isShaman = class == "SHAMAN"
+    self.weaponReminder = weaponReminders[class]
+    self.localSettings = {hideResting = true, arcaneBlast = self.isMage,
+        food = true, foodDuration = true, foodOwnedOnly = true,
+        poison = self.isRogue, poisonMain = self.isRogue, poisonOff = self.isRogue, poisonWarnMinutes = self.isRogue,
+        shamanWeapon = self.isShaman, shamanWeaponMain = self.isShaman, shamanWeaponOff = self.isShaman,
+        shamanWeaponWarnMinutes = self.isShaman}
     for _, entry in ipairs({
         {"MAGE", "法师"}, {"WARLOCK", "术士"}, {"PRIEST", "牧师"},
-        {"PALADIN", "圣骑士"}, {"DRUID", "德鲁伊"}, {"SHAMAN", "萨满"},
+        {"PALADIN", "圣骑士"}, {"DRUID", "德鲁伊"}, {"SHAMAN", "萨满"}, {"WARRIOR", "战士"},
     }) do
         local classKey, options = entry[1], {}
         for _, spec in ipairs(ClassRows[classKey]) do
@@ -229,12 +256,14 @@ function Definition:Initialize()
             if classKey == class then self.localSettings[spec.setting] = true end
         end
         if classKey == "MAGE" then options[#options + 1] = {"arcaneBlast", "奥冲层数"} end
+        if classKey == "SHAMAN" then options[#options + 1] = {"shamanWeapon", "武器附魔"} end
         self.settingGroups[#self.settingGroups + 1] = {entry[2], options}
     end
-    table.insert(self.settingGroups, 1, {"通用", {{"hideResting", "休息时不提醒"}}})
+    self.settingGroups[#self.settingGroups + 1] = {"盗贼", {{"poison", "毒药提醒"}}}
+    table.insert(self.settingGroups, 1, {"通用", {{"hideResting", "休息时不提醒"}, {"food", "食物提醒"}}})
     self:MigratePageSwitches()
     self.states = nil
-    if #self.buffRows > 0 then ns.CenterTextGroup:RegisterSource("class", self) end
+    ns.CenterTextGroup:RegisterSource("class", self)
     ns.ClassReminderSettings:Register(self)
     if self.isMage and ns.RegisterMoveProvider then
         ns:RegisterMoveProvider({name = "ClassReminders", reset = "ResetBlastPosition",
@@ -281,7 +310,16 @@ end
 
 function Definition:SetSetting(key, value)
     if Adapter:IsInCombat() or self.db.profile[key] == nil then return false end
-    self.db.profile[key] = value == true
+    local options = numericSettings[key]
+    if options then
+        if not options[value] then return false end
+        self.db.profile[key] = value
+    else
+        self.db.profile[key] = value == true
+    end
+    if key == "food" or key == "foodDuration" or key == "foodOwnedOnly" then
+        self.lastFoodShow = nil
+    end
     if self.localSettings[key] and self:IsEnabled() then self:Restart() end
     return true
 end
@@ -300,11 +338,12 @@ end
 function Definition:IsWatching()
     return self.active == true and ns.CenterTextGroup.active == true
         and not Adapter:IsInCombat() and not Adapter:IsPlayerDeadOrGhost() and not Adapter:IsOnTaxi()
+        and not Adapter:IsFlying()
         and not (self.db.profile.hideResting and Adapter:IsResting())
 end
 
 function Definition:OnAura(_, unit)
-    if unit == "player" then self:QueueRefresh() end
+    if (not issecretvalue or not issecretvalue(unit)) and unit == "player" then self:QueueRefresh() end
 end
 
 function Definition:QueueRefresh()
@@ -314,9 +353,126 @@ function Definition:QueueRefresh()
     end, "ClassReminders aura refresh")
 end
 
+function Definition:OnCarriedItemsChanged()
+    self.carriedFood, self.carriedPoison = nil, nil
+    self:QueueRefresh()
+end
+
+function Definition:OnWeaponInventory(event, unitOrSlot)
+    if event == "UNIT_INVENTORY_CHANGED" then
+        if (issecretvalue and issecretvalue(unitOrSlot)) or unitOrSlot ~= "player" then return end
+    elseif event == "PLAYER_EQUIPMENT_CHANGED" then
+        if (issecretvalue and issecretvalue(unitOrSlot)) or (unitOrSlot ~= 16 and unitOrSlot ~= 17) then return end
+        self.carriedPoison = nil
+    end
+    self:QueueRefresh()
+end
+
+function Definition:OnMovementChanged()
+    if self.listeningWeapon then
+        if not self:IsWatching() then self:Refresh(); return end
+        Cancel(self, "weaponWarnTimer")
+    end
+    self:QueueRefresh()
+end
+
+function Definition:HideFood()
+    Cancel(self, "foodHideTimer")
+    View:Hide(self, foodKey)
+end
+
+local function EndFoodDisplay(module)
+    module.foodHideTimer = nil
+    View:Hide(module, foodKey)
+end
+
+function Definition:RenderFood(preview)
+    if not self.watchFood then return end
+    if preview then
+        self:HideFood()
+        View:RenderRow(self, foodKey, 100, "食物没了", 19705)
+        return
+    end
+    local p = self.db.profile
+    if p.foodOwnedOnly and self.carriedFood == nil then
+        self.carriedFood = Adapter:HasCarriedFood(self.foodItems)
+    end
+    if (p.foodOwnedOnly and not self.carriedFood) or Adapter:HasFoodBuff(self.foodBuffs) ~= false then
+        self:HideFood()
+        return
+    end
+    local duration = numericSettings.foodDuration[p.foodDuration] and p.foodDuration or 3
+    if duration == 0 then
+        Cancel(self, "foodHideTimer")
+        View:RenderRow(self, foodKey, 100, "食物没了", 19705)
+        return
+    end
+    local now = GetTime()
+    if self.lastFoodShow and now - self.lastFoodShow < foodCooldown then
+        if not self.foodHideTimer then View:Hide(self, foodKey) end
+        return
+    end
+    Cancel(self, "foodHideTimer")
+    self.lastFoodShow = now
+    View:RenderRow(self, foodKey, 100, "食物没了", 19705)
+    self.foodHideTimer = self:Schedule(duration, EndFoodDisplay, "ClassReminders food display")
+end
+
+local function ReadWeaponReminder(p, spec)
+    local minutes = p[spec.minutes]
+    local threshold = (weaponWarnMinutes[minutes] and minutes or 3) * 60
+    local text, delay
+    for slot = 16, 17 do
+        if p[slot == 16 and spec.main or spec.off] then
+            local status, seconds = Adapter:ReadWeaponImbue(slot)
+            if status == "missing" then return spec.missing end
+            if seconds then
+                if seconds > threshold then
+                    local remaining = seconds - threshold
+                    delay = delay and math.min(delay, remaining) or remaining
+                elseif threshold > 0 then
+                    text = spec.expiring
+                end
+            end
+        end
+    end
+    return text, delay
+end
+
+local function RefreshWeaponReminder(module)
+    module.weaponWarnTimer = nil
+    module:Refresh()
+end
+
+function Definition:RenderWeapon(preview)
+    local spec = self.weaponReminder
+    if not spec then return end
+    local text, delay
+    local shaman = self.shamanWeaponState
+    if preview then
+        if self.watchPoison or self.watchShamanWeapon then text = spec.missing end
+    else
+        if self.watchPoison and self.carriedPoison == nil then
+            self.carriedPoison = self.poisonItems ~= nil and Adapter:HasCarriedPoison(self.poisonItems)
+        end
+        if (self.watchPoison and self.carriedPoison) or (self.watchShamanWeapon and shaman and shaman.known) then
+            text, delay = ReadWeaponReminder(self.db.profile, spec)
+        end
+    end
+    local icon = shaman and (shaman.iconID or shaman.previewID) or spec.icon
+    View:RenderRow(self, spec.key, spec.order, text or spec.missing, text and icon or nil)
+    if not text and delay then
+        self.weaponWarnTimer = self:Schedule(math.max(0.2, delay), RefreshWeaponReminder, "ClassReminders weapon warning")
+    end
+end
+
 function Definition:Render()
-    if not self.states then self.states = Adapter:BuildStates(self.buffRows, self.armorRow, self.selectedArmor) end
     local preview = self.preview == true
+    if not preview and self.watchShamanWeapon and not self.shamanWeaponState then
+        self.shamanWeaponState, self.states = Adapter:ResolveShamanWeaponImbue(self.buffRows, self.armorRow, self.selectedArmor)
+    elseif not self.states then
+        self.states = Adapter:BuildStates(self.buffRows, self.armorRow, self.selectedArmor)
+    end
     if not preview then Adapter:ReadAuras(self.states) end
     for index = 1, #self.buffRows do
         local spec, state = self.buffRows[index], self.states[index]
@@ -324,20 +480,51 @@ function Definition:Render()
             and ((preview and state.previewID ~= nil) or (state.known and state.has == false))
         View:RenderRow(self, spec.key, spec.order, spec.text, missing and (state.iconID or state.previewID) or nil)
     end
+    self:RenderFood(preview)
+    self:RenderWeapon(preview)
 end
 
 function Definition:Refresh()
     Cancel(self, "refreshTimer")
-    local watching = self:IsWatching() and self.watchBuffs
+    Cancel(self, "weaponWarnTimer")
+    local watching = self:IsWatching()
     local preview = self.preview == true and self.active == true and ns.CenterTextGroup.active == true
-    local listening = watching and not preview
+    local listening = watching and not preview and (self.watchBuffs or self.watchFood)
     if listening ~= self.listening then
         self.listening = listening
         if listening then self:RegisterEvent("UNIT_AURA", self.OnAura)
         else self:UnregisterEvent("UNIT_AURA") end
     end
-    if not (watching or preview) then
+    local listenPoison = watching and not preview and self.watchPoison
+    local listenWeapon = watching and not preview and (self.watchPoison or self.watchShamanWeapon)
+    self.listeningFoodBags = listening and self.watchFood and self.db.profile.foodOwnedOnly == true
+    local listenBags = self.listeningFoodBags or listenPoison
+    if listenBags ~= self.listeningBags then
+        self.listeningBags, self.carriedFood, self.carriedPoison = listenBags, nil, nil
+        if listenBags then
+            self:RegisterEvent("BAG_UPDATE_DELAYED", self.OnCarriedItemsChanged)
+            self:RegisterEvent("PLAYER_LEVEL_UP", self.OnCarriedItemsChanged)
+        else
+            self:UnregisterEvent("BAG_UPDATE_DELAYED")
+            self:UnregisterEvent("PLAYER_LEVEL_UP")
+        end
+    end
+    if listenWeapon ~= self.listeningWeapon then
+        self.listeningWeapon = listenWeapon
+        if listenWeapon then
+            self.weaponEnchantEvent = Adapter:GetWeaponEnchantEvent()
+            self:RegisterEvent(self.weaponEnchantEvent, self.OnWeaponInventory)
+            self:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", self.OnWeaponInventory)
+        else
+            if self.weaponEnchantEvent then self:UnregisterEvent(self.weaponEnchantEvent) end
+            self.weaponEnchantEvent = nil
+            self:UnregisterEvent("PLAYER_EQUIPMENT_CHANGED")
+        end
+    end
+    if not (preview or watching and (self.watchBuffs or self.watchFood or self.watchPoison or self.watchShamanWeapon)) then
         for _, spec in ipairs(self.buffRows) do View:Hide(self, spec.key) end
+        self:HideFood()
+        if self.weaponReminder then View:Hide(self, self.weaponReminder.key) end
         return
     end
     self:Render()
@@ -346,6 +533,10 @@ end
 function Definition:OnContextChanged(event)
     if event == "PLAYER_DEAD" and self.blastStacks then self:ClearBlast() end
     if self.blastUnlocked and event == "PLAYER_REGEN_DISABLED" then self:SetUnlocked(false) end
+    if event == "PLAYER_ENTERING_WORLD" then self.carriedFood = nil end
+    if event == "PLAYER_ENTERING_WORLD" or event == "SPELLS_CHANGED" then
+        self.carriedPoison, self.shamanWeaponState = nil, nil
+    end
     if event == "SPELLS_CHANGED" or event == "PLAYER_ENTERING_WORLD"
         or event == "PLAYER_TALENT_UPDATE" or event == "TRAIT_CONFIG_UPDATED" then self.states = nil end
     self:Refresh()
@@ -370,16 +561,28 @@ function Definition:StartWork()
         end
     end
     local watchBlast = self.isMage and self.db.profile.arcaneBlast
-    self.active = self.db.profile.classEnabled ~= false and (self.watchBuffs or watchBlast)
+    local p = self.db.profile
+    if p.classEnabled ~= false and p.food and not self.foodItems then
+        self.foodItems, self.foodBuffs = Adapter:GetAttributeFood()
+    end
+    self.watchFood = p.food == true and self.foodItems ~= nil
+    self.watchPoison = self.isRogue and p.poison == true and (p.poisonMain or p.poisonOff) == true
+    self.watchShamanWeapon = self.isShaman and p.shamanWeapon == true and (p.shamanWeaponMain or p.shamanWeaponOff) == true
+    local watchWeapon = self.watchPoison or self.watchShamanWeapon
+    if p.classEnabled ~= false and self.watchPoison then self.poisonItems = Adapter:GetPoisonItems() end
+    self.active = p.classEnabled ~= false and (self.watchBuffs or self.watchFood or watchWeapon or watchBlast)
     if not self.active then return end
     if watchBlast then
         self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", self.OnBlastCast)
     end
     self:RegisterEvent("PLAYER_DEAD", self.OnContextChanged)
-    if self.watchBuffs then
+    if self.watchBuffs or watchWeapon then self:RegisterEvent("SPELLS_CHANGED", self.OnContextChanged) end
+    if self.watchBuffs or self.watchFood or watchWeapon then
+        self:RegisterEvent("PLAYER_MOUNT_DISPLAY_CHANGED", self.OnMovementChanged)
+        self:RegisterEvent("UPDATE_SHAPESHIFT_FORM", self.OnMovementChanged)
         -- Control events can precede the taxi flag transition. Sample it after the event.
-        self:RegisterEvent("PLAYER_CONTROL_LOST", self.QueueRefresh)
-        self:RegisterEvent("PLAYER_CONTROL_GAINED", self.QueueRefresh)
+        self:RegisterEvent("PLAYER_CONTROL_LOST", self.OnMovementChanged)
+        self:RegisterEvent("PLAYER_CONTROL_GAINED", self.OnMovementChanged)
         self:RegisterEvent("PLAYER_ALIVE", self.OnContextChanged)
         self:RegisterEvent("PLAYER_UNGHOST", self.OnContextChanged)
         if self.buffRows[1] and self.buffRows[1].requiredTalent then
@@ -388,7 +591,7 @@ function Definition:StartWork()
         end
     end
     self.states = nil
-    for _, event in ipairs({"PLAYER_ENTERING_WORLD", "SPELLS_CHANGED", "PLAYER_REGEN_DISABLED",
+    for _, event in ipairs({"PLAYER_ENTERING_WORLD", "PLAYER_REGEN_DISABLED",
         "PLAYER_REGEN_ENABLED", "PLAYER_UPDATE_RESTING"}) do
         self:RegisterEvent(event, self.OnContextChanged)
     end
@@ -398,6 +601,12 @@ end
 function Definition:StopWork()
     self:UnregisterAllEvents()
     Cancel(self, "refreshTimer")
+    Cancel(self, "weaponWarnTimer")
+    self:HideFood()
+    self.listeningBags, self.listeningFoodBags, self.listeningWeapon = false, false, false
+    self.carriedFood, self.carriedPoison, self.poisonItems = nil, nil, nil
+    self.weaponEnchantEvent, self.shamanWeaponState = nil, nil
+    self.foodItems, self.foodBuffs = nil, nil
     self.active, self.watching, self.listening, self.preview = false, false, false, false
     self.states = nil
     self:SetUnlocked(false)

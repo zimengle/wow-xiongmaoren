@@ -1,8 +1,5 @@
 VER 3 0000000000000001 "RXPTargeting" "Ability_eyeoftheowl"
-/targetexact 枯木掷斧者
-/targetexact 枯木猎头者
-/targetexact 枯木巫医
-/targetexact 屠戮者尼玛尔
+/targetexact 大财主里维加兹
 /tm !7
 /targetlasttarget [dead]
 END

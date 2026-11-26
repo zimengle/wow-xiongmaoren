@@ -152,7 +152,23 @@ local function build(p)
     end)
     p.hop:SetPoint("TOPLEFT", 12, y)
     p.hopSt = body:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    p.hopSt:SetPoint("LEFT", p.hop, "RIGHT", 12, 0); p.hopSt:SetWidth(CARD_W - 170); p.hopSt:SetJustifyH("LEFT")
+    p.hopSt:SetPoint("LEFT", p.hop, "RIGHT", 12, 0); p.hopSt:SetWidth(CARD_W - 316); p.hopSt:SetJustifyH("LEFT")
+    -- 11-24 用户截图「这里增加一个按钮，自动帮助别人（单人没组的情况）」：同下面设置里的「换层求助自动拉（没组队时）」（autoHelp），
+    --   放到「我想换一层」这一行最右边，一眼看得到、一下就开关；开 = 顺带打开「我愿意帮」
+    p.ahBtn = btn(body, "", 140, 24, nil, function()
+        local on = not (LY.DB().autoHelp == true and LY.DB().helper)
+        if on then LY.DB().helper = true end
+        LY.SetAuto("autoHelp", on); LY.Beat(true); p.refreshNow()
+    end)
+    p.ahBtn:SetPoint("TOPRIGHT", body, "TOPLEFT", 12 + CARD_W, y - 3)
+    p.ahBtn:SetScript("OnEnter", function(self)
+        -- 11-24 用户截图「规则写到这里」：原来锚左下 + 一整行不折行 → 提示框跑出屏幕左边看不全；改锚按钮正下方、每条一行、长的折行
+        GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+        if ns.LayerCredit and ns.LayerCredit.AhTip then ns.LayerCredit.AhTip(GameTooltip)
+        else GameTooltip:AddLine(L("我没组队时，别人求换层直接邀请（不弹框）；队伍 / 战斗 / 副本里不拉", "When solo, invite layer requests without a popup"), 1, 1, 1, true) end
+        GameTooltip:Show()
+    end)
+    p.ahBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
     p.hopSt:SetWordWrap(false)   -- 11-22 用户「看着像错位闪动」：倒计时每秒刷，折成两行就压到下面的额度卡片
     y = y - 36
     p.gHd = body:CreateFontString(nil, "OVERLAY", "GameFontNormal"); p.gHd:SetPoint("TOPLEFT", 12, y)
@@ -236,9 +252,10 @@ local function build(p)
         local m, z = LY.Mine()
         if m and z then
             local no = LY.LayerNo(m, z)
-            p.me:SetText(ns.EnSafe(string.format(L("我现在：%s · %s%s|r", "Me: %s - %s%s|r"), LY.MapName(m), hex(layerRGB(no)), LY.LayerName(m, z))))
-            p.meCode:SetText(L("层码 ", "code ") .. LY.Tail(z))
-            p.meHint:SetText("|cff999999" .. L("「第几层」按这张图在用的层码从小到大编，公会会员之间一致；不是官方层号", "Numbered by layer code; not official") .. "|r")
+            -- 11-24 层码为主（大字，不换层永不变），「第 N 层」名次放后面灰色小字（会随别人的层码出现 / 过期变）
+            p.me:SetText(ns.EnSafe(string.format(L("我现在：%s · %s层码 %s|r", "Me: %s - %scode %s|r"), LY.MapName(m), hex(layerRGB(no)), LY.Tail(z))))
+            p.meCode:SetText(no and string.format(L("第 %d 层", "layer %d"), no) or "")
+            p.meHint:SetText("|cff999999" .. L("层码不换层不变；「第几层」是名次，会随别人变", "Code stays until you move; layer No. may shift") .. "|r")
         else
             p.me:SetText(ns.EnSafe(string.format(L("我现在：%s · 还没认出在哪层", "Me: %s - layer unknown"), LY.MapName(m))))
             p.meCode:SetText("")
@@ -267,6 +284,8 @@ local function build(p)
         end
         -- 11-12：在队里 / 正在确认时也能点：点了告诉你「已经换过来了」或「正在确认，别重复求助」（不会再发求助）
         p.hop:SetEnabled(not why or why == "confirming" or why == "ingroup")
+        local ah = LY.DB().autoHelp == true and LY.DB().helper
+        p.ahBtn:SetText(ah and L("|cff33ff66自动帮别人：开|r", "|cff33ff66Auto-help: ON|r") or L("|cff999999自动帮别人：关|r", "|cff999999Auto-help: OFF|r"))
         for _, cb in ipairs(p.checks) do cb:SetChecked(cb.get() and true or false) end
 
         local _, _, groups, unknown = (LH.GuildByLayer or function() return nil, nil, {}, {} end)()
@@ -289,8 +308,8 @@ local function build(p)
             if g then
                 local col = layerRGB(g.no)
                 local n = #g.members + (g.mine and 1 or 0)
-                c.title:SetText(string.format("%s%s|r  |cffcccccc%d %s|r", hex(col), g.name, n, L("人", "")))
-                c.code:SetText(L("层码 ", "code ") .. LY.Tail(g.z))
+                c.title:SetText(string.format("%s%s|r  |cffcccccc%d %s|r", hex(col), g.name, n, L("人", "")))   -- 11-24 g.name = LayerName：「层码 9776（第 N 层）」层码为主
+                c.code:SetText("")
                 c.tag:SetText(g.mine and ("|cff33ff66" .. L("你在这里", "You are here") .. "|r")
                     or ((g.known and #g.members == 0) and ("|cff888888" .. L("你来过 · 现在没有公会会员", "visited - no guildmates now") .. "|r") or ""))
                 c.bar:SetColorTexture(col[1], col[2], col[3], 1)

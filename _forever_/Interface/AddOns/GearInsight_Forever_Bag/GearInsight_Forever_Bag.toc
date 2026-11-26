@@ -4,7 +4,7 @@
 ## Notes: GearInsight Forever bag cleanup (destroy cheapest first) and merchant sell-junk panel (loads the first time you use them)
 ## Notes-zhCN: GearInsight 无限版的清背包（按价值从低到高一键摧毁）和商人处卖垃圾面板：第一次用到时才加载
 ## Author: GearInsight
-## Version: 1.4.19
+## Version: 1.5.4
 ## Dependencies: GearInsight_Forever
 ## LoadOnDemand: 1
 ## IconTexture: Interface\Icons\INV_Misc_Bag_07
@@ -17,6 +17,7 @@
 MerchantDockUI.lua
 Trash.lua
 SellJunk.lua
-# 11-20 上马自动换饰品（HOLD）：主插件 MountStub.lua 第一次上马、背包里有坐骑饰品时才加载
-MountTrinket.lua
+# 11-24 上马换装 MountTrinket.lua 搬去独立子插件 GearInsight_Forever_Mount
+# 11-24 1.5.1 内核减肥：/gi itemprobe 物品接口探针从主插件 Perf.lua 搬来（BagStub.lua 放命令占位）
+ItemProbe.lua
 BagInit.lua

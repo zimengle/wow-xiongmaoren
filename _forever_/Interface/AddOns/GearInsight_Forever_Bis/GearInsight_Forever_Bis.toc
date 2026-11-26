@@ -1,0 +1,21 @@
+## Interface: 16001, 11507
+## Title: GearInsight |cff33ff99Forever|r - Lv60 BiS
+## Title-zhCN: GearInsight |cff33ff99无限版|r · 60 级 BiS
+## Notes: GearInsight Forever Lv60 BiS in the retail style: gear + enchants per slot (WCL, high item level), loads the first time you look at Lv60 gear picks
+## Notes-zhCN: GearInsight 无限版 60 级 BiS（正式服样式）：每格装备 + 附魔（WCL 高装等实测），第一次看 60 级推荐装备时才加载
+## Author: GearInsight
+## Version: 1.5.4
+## Dependencies: GearInsight_Forever
+## LoadOnDemand: 1
+## IconTexture: Interface\Icons\INV_Enchant_FormulaGood_01
+
+# 11-25 用户「能不能把60的BIS界面换成正式服的那种，有附魔各种的，展示」（设计稿 bis60_retail_style_design.md，用户「都按推荐」）：
+#   _Plan 的「推荐装备」页目标 60 级时 LoadAddOn 这里（PagePlan.lua bisLoad）；内核不动、不进 ModManifest。
+#   从 PagePlan.lua 搬来只给 60 级用的「前5」面板 + 装备页（BisTop.lua），新的 60 级纸娃娃 + 附魔（BisPage.lua），附魔数据（EnchantData.lua，scripts/gi_forever_bis_wcl.py 生成）。
+#   整个子插件 HOLD（_hold.txt）：发版脚本整个文件夹不进包（gi_forever_pack.WHOLE_HOLD_OK），网易DD 包也不并；游戏里实测过、用户说「发版」才解除
+# 11-26 用户「点击都可以看到任务线才行」：QuestChainData.lua = 任务奖励件的完整任务线（scripts/gi_forever_bis_quest_chain.py 生成，BisTop.lua 点任务件时才拆）
+#   ⛔ 这里的文件都晚于主插件加载：文件头一律 ns = _G.GearInsightForever or ns；最后一个文件置就绪标记 ns._bisReady
+EnchantData.lua
+QuestChainData.lua
+BisTop.lua
+BisPage.lua

@@ -104,7 +104,7 @@ local function BuildLivePreview(parent, yOff)
     -- numButtonsShowable --------------------------------------------------
     local buttons = {}
     local DEFAULT_FONT = (EllesmereUI.GetFontPath("actionBars"))
-        or "Interface\\AddOns\\EllesmereUI\\media\\fonts\\Expressway.ttf"
+        or "Interface\\AddOns\\EllesmereUI\\media\\fonts\\EUI Highway.ttf"
 
     for i = 1, maxBtns do
         local bf = CreateFrame("Frame", nil, pf)
@@ -529,8 +529,8 @@ local function BuildLivePreview(parent, yOff)
                     if not blizzAB and (square or zoom > 0 or btnShape == "cropped") then
                         local z = zoom
                         if btnShape == "cropped" then
-                            -- Preserve aspect ratio: trim top/bottom by 10%
-                            icon:SetTexCoord(z, 1 - z, z + 0.10, 1 - z - 0.10)
+                            -- 80% as tall as wide: the top and bottom are cut, the art keeps its proportions
+                            icon:SetTexCoord(z, 1 - z, 0.1 + 0.8 * z, 0.9 - 0.8 * z)
                         else
                             icon:SetTexCoord(z, 1 - z, z, 1 - z)
                         end
@@ -738,7 +738,7 @@ local function BuildLivePreview(parent, yOff)
                     if icon.SetTexCoord then
                         local z = zoom
                         if btnShape == "cropped" then
-                            icon:SetTexCoord(z, 1 - z, z + 0.10, 1 - z - 0.10)
+                            icon:SetTexCoord(z, 1 - z, 0.1 + 0.8 * z, 0.9 - 0.8 * z)
                         else
                             if z > 0 or square then
                                 icon:SetTexCoord(z, 1 - z, z, 1 - z)

@@ -44,6 +44,7 @@ if M then
         icon = "Interface\\Icons\\INV_Misc_Bag_07", file = "Trash.lua" })
     M:Slash({ "摧毁", "trash" }, "Trash.lua")
     M:Slash({ "卖", "sell", "卖垃圾" }, "SellJunk.lua")
+    M:Slash({ "itemprobe" }, "ItemProbe.lua")   -- 11-24 1.5.1 内核减肥：物品接口探针（开发诊断）从 Perf.lua 搬进子插件
     M:Shell("SellJunkOpen", { file = "SellJunk.lua" })   -- 背包上的「卖垃圾」按钮
     M:Shell("TrashFullTip", { file = "Trash.lua" })      -- 背包满提示（要扫背包找最便宜的那件）
     M:Shell("SellJunkMerchant", { file = "SellJunk.lua" })   -- 开商人：弹面板 / 自动卖灰
@@ -99,7 +100,8 @@ do
     end
 end
 
-ns.SellCfg = cfg("sellJunk", { panel = true, auto = false, white = false, sort = "value" }, function(k, v)
+-- 11-24 GI-349「装备和材料都提示拍卖比卖店贵多少，想把这个提示关掉」：ahTip = 物品鼠标提示里那行「拍卖比商店 ±N%」（nil = 开，false = 关）
+ns.SellCfg = cfg("sellJunk", { panel = true, auto = false, white = false, sort = "value", ahTip = true }, function(k, v)
     local S = loaded("SellJunk")
     if not S then return end
     if k == "panel" and not v and S.Hide then S.Hide() end
@@ -203,7 +205,7 @@ function A.HookTooltip()
     if tipHooked or not ns.BagHas("SellJunk.lua") then return end
     tipHooked = true
     local function add(tt, id)
-        if not id or tt.__gifAH == id then return end
+        if not id or tt.__gifAH == id or not ns.SellCfg.Opt("ahTip") then return end
         local ln = A.TipLine(id)
         if not ln then return end
         tt.__gifAH = id
@@ -284,6 +286,8 @@ if ns.RegisterSettings then
               get = function() return S.Opt("panel") and true or false end, set = function(v) S.SetOpt("panel", v) end },
             { type = "check", id = "sell.auto", text = function() return L("打开商人时自动卖灰色物品（默认关；只卖灰色，购回页可买回）", "Auto-sell grey items at merchants (off by default; grey only, buy back to undo)") end,
               get = function() return S.Opt("auto") and true or false end, set = function(v) S.SetOpt("auto", v) end },
+            { type = "check", id = "sell.ahtip", text = function() return L("物品鼠标提示里显示「拍卖比商店 +N%」（拍卖价读 Auctionator）", "Show \"AH vs vendor +N%\" in item tooltips (AH price from Auctionator)") end,
+              get = function() return S.Opt("ahTip") and true or false end, set = function(v) S.SetOpt("ahTip", v) end },
             { type = "note", text = function() return L("面板按价值从低到高列出商人肯收钱的东西（不分品质），点一行卖一格，绿色以上点两下；任务物品、炉石、工具、施法材料、弹药、不摧毁名单里的永远不列。「一键卖」只卖灰色，每次最多 12 件（= 购回页格数）",
                 "Lists everything merchants pay for, cheapest first; click a row to sell (green+ needs two clicks). Quest items, hearthstone, tools, reagents, ammo and the keep list are never listed. One-click sells grey only, up to 12 (= buyback slots)") end },
         } })

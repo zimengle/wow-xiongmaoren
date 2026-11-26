@@ -280,7 +280,7 @@ local function build(p)
     buildFeatures(p)
 
     -- ① 通用
-    mkBlock("general", { "lang", "ui", "callword", "trade", "bagbuttons_gen", "dnav" })   -- 11-17 bagbuttons_gen = 背包上的清背包按钮（BagButtons.lua；右键「不再显示」后来这里找回）；11-15 trade = 交易回执（TradeReceipt.lua）；dnav = 副本导航（DungeonNav.lua）；没加载 = 这组不画
+    mkBlock("general", { "lang", "ui", "callword", "trade", "mounttrinket", "bagbuttons_gen", "dnav" })   -- 11-17 bagbuttons_gen = 背包上的清背包按钮（BagButtons.lua；右键「不再显示」后来这里找回）；11-15 trade = 交易回执（TradeReceipt.lua）；dnav = 副本导航（DungeonNav.lua）；没加载 = 这组不画；11-24 GI-350 mounttrinket = 上马自动换胡萝卜（MountStub.lua，常驻）
 
     -- ② 窗口与提醒（第 1 期「找得回」：所有浮窗 / 提醒条集中一处 —— 现在开没开、怎么再打开、位置拖丢了怎么重置）
     do

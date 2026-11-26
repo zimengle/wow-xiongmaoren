@@ -369,7 +369,7 @@ function M.View(ctx)
                 GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
                 GameTooltip:AddLine(beastName(b), 1, 0.82, 0)
                 GameTooltip:AddDoubleLine(ns.L("等级", "Level"), (b.lo or "?") .. ((b.hi and b.hi ~= b.lo) and ("-" .. b.hi) or ""), 0.7, 0.7, 0.7, 1, 1, 1)
-                if Tm.ZoneName then GameTooltip:AddDoubleLine(ns.L("地区", "Zone"), Tm.ZoneName(b.ui), 0.7, 0.7, 0.7, 1, 1, 1) end
+                if Tm.PlaceName or Tm.ZoneName then GameTooltip:AddDoubleLine(ns.L("地区", "Zone"), (Tm.PlaceName or function(x) return Tm.ZoneName(x.ui) end)(b), 0.7, 0.7, 0.7, 1, 1, 1) end   -- 11-24 副本野兽显示「黑石塔（副本）」
                 if b.x then GameTooltip:AddDoubleLine(ns.L("坐标", "Coords"), string.format("%.1f, %.1f", b.x, b.y or 0), 0.7, 0.7, 0.7, 1, 1, 1) end
                 if Tm.Verified and Tm.Verified(b, selS.en, rank) then GameTooltip:AddLine(GREEN .. ns.L("《无限》驯服实测过", "Verified in Forever") .. "|r") end
                 GameTooltip:AddLine(ns.L("点：地图标点", "Click: show on map"), 0.6, 0.6, 0.6)

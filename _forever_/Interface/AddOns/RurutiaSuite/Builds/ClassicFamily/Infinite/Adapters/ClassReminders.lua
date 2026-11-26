@@ -2,7 +2,7 @@
 local _, ns = ...
 if not ns.Build.Is("classic-infinite") or not ns.Build.HasModule("ClassReminders") then return end
 local Adapter = {}
-Adapter.description = "脱战检测本职业已学的常驻增益，缺失时显示中央文字；战斗中与休息时不提醒。"
+Adapter.description = "脱战时检测职业增益、属性食物、武器毒药和萨满武器附魔，缺失或临期时显示中央文字。"
 local AURA_SCAN_LIMIT = 80
 local function IsSecret(value) return issecretvalue and issecretvalue(value) end
 local function Number(value) return not IsSecret(value) and type(value) == "number" end
@@ -76,26 +76,27 @@ local function HasTalent(spellID)
     return false
 end
 
--- 只在启用、重新进入世界或技能变化后调用。仅解析当前职业的提醒组；技能书最多遍历一次。
-function Adapter:BuildStates(rows, armorRow, selectedArmor)
-    local states, names = {}, {}
-    for i, spec in ipairs(rows) do
-        local state = {names = {}, ids = {}, known = false, level = -1}
-        states[i] = state
-        local members = spec == armorRow and selectedArmor or spec.members
-        state.previewID = members[1] and members[1].id
-        for _, member in ipairs(members) do
-            state.ids[#state.ids + 1] = member.id
-            local name = SpellName(member.id)
-            if name then
-                state.names[#state.names + 1] = name
-                names[name] = {state = state, level = member.level}
-            elseif Known(member.id) then
-                state.unresolved = true
-            end
-            if Known(member.id) then SelectKnown(state, member.id, LearnedLevel(member.id, member.level)) end
-        end
+local shamanWeaponSpells = {
+    {level = 30, ids = {8232, 8235, 10486, 16362}},
+    {level = 10, ids = {8024, 8027, 8030, 16339, 16341, 16342}},
+    {level = 20, ids = {8033, 8038, 10456, 16355, 16356}},
+    {level = 1, ids = {8017, 8018, 8019, 10399, 16314, 16315, 16316}},
+}
+
+local function RegisterSpell(match, names, id)
+    local state = match.state
+    local name, known = SpellName(id), Known(id)
+    if name then
+        state.names[#state.names + 1] = name
+        names[name] = match
+    elseif known then
+        state.unresolved = true
     end
+    if known then SelectKnown(state, id, LearnedLevel(id, match.level)) end
+end
+
+local function ScanKnownSpells(names, weaponIDs)
+    if not weaponIDs and not next(names) then return end
     local book = C_SpellBook
     local bank = Enum and Enum.SpellBookSpellBank and Enum.SpellBookSpellBank.Player
     local future = Enum and Enum.SpellBookItemType and Enum.SpellBookItemType.FutureSpell
@@ -113,8 +114,9 @@ function Adapter:BuildStates(rows, armorRow, selectedArmor)
                             and not IsSecret(item.isOffSpec) and item.isOffSpec ~= true
                             and not IsSecret(item.future) and item.future ~= true
                             and not IsSecret(item.itemType) and (not future or item.itemType ~= future)
-                            and String(item.name) and Number(item.spellID) then
-                            local match = names[item.name]
+                            and Number(item.spellID) then
+                            local match = (weaponIDs and weaponIDs[item.spellID])
+                                or (String(item.name) and names[item.name])
                             if match then SelectKnown(match.state, item.spellID, LearnedLevel(item.spellID, match.level)) end
                         end
                     end
@@ -122,12 +124,43 @@ function Adapter:BuildStates(rows, armorRow, selectedArmor)
             end
         end
     end
+end
+
+-- 只在启用、重新进入世界或技能变化后解析已学技能，共用一次技能书遍历。
+function Adapter:BuildStates(rows, armorRow, selectedArmor, includeShamanWeapon)
+    local states, names = {}, {}
+    for i, spec in ipairs(rows) do
+        local members = spec == armorRow and selectedArmor or spec.members
+        local state = {names = {}, ids = {}, known = false, level = -1, previewID = members[1] and members[1].id}
+        states[i] = state
+        for _, member in ipairs(members) do
+            state.ids[#state.ids + 1] = member.id
+            RegisterSpell({state = state, level = member.level}, names, member.id)
+        end
+    end
+    local weapon, weaponIDs
+    if includeShamanWeapon then
+        weapon, weaponIDs = {names = {}, known = false}, {}
+        for _, family in ipairs(shamanWeaponSpells) do
+            local match = {state = weapon, level = family.level}
+            for _, id in ipairs(family.ids) do
+                weaponIDs[id] = match
+                RegisterSpell(match, names, id)
+            end
+        end
+    end
+    ScanKnownSpells(names, weaponIDs)
     for index, spec in ipairs(rows) do
         if spec.requiredTalent then
             states[index].known = states[index].known and HasTalent(spec.requiredTalent)
         end
     end
-    return states
+    return states, weapon and {known = weapon.known, iconID = weapon.iconID, previewID = 8232}
+end
+
+function Adapter:ResolveShamanWeaponImbue(rows, armorRow, selectedArmor)
+    local states, weapon = self:BuildStates(rows or {}, armorRow, selectedArmor, true)
+    return weapon, states
 end
 
 -- 名称查询未命中时所有组共用一次有界扫描。true优先，未知不当作缺失。
@@ -184,6 +217,77 @@ end
 
 function Adapter:IsOnTaxi()
     return type(UnitOnTaxi) == "function" and UnitOnTaxi("player")
+end
+
+function Adapter:IsFlying()
+    if type(IsFlying) ~= "function" then return false end
+    local ok, flying = pcall(IsFlying)
+    return not ok or IsSecret(flying) or flying == true
+end
+
+function Adapter:GetAttributeFood()
+    local data = ns.ConsumableBarDataRegistry
+    local catalog = data and data.GetByKey("forever")
+    if catalog then return data.GetAttributeFood(catalog.catalog) end
+end
+
+function Adapter:HasCarriedFood(items)
+    return ns.ConsumableBarAdapter:HasCarriedFood(items)
+end
+
+function Adapter:GetPoisonItems()
+    local data = ns.ConsumableBarDataRegistry
+    local catalog = data and data.GetByKey("forever")
+    if not catalog then return end
+    local items = {}
+    for _, item in ipairs(catalog.catalog) do
+        if item.poisonFamily and item.itemID then items[item.itemID] = true end
+    end
+    return items
+end
+
+function Adapter:HasCarriedPoison(items)
+    return ns.ConsumableBarAdapter:HasCarriedPoison(items)
+end
+
+function Adapter:HasFoodBuff(buffs)
+    local reader = ns.ConsumableBarAdapter
+    if reader:ShouldAurasBeSecret() then return end
+    local complete = true
+    for i = 1, AURA_SCAN_LIMIT do
+        local _, id, state = reader:GetHelpfulAura(i)
+        if state == "end" then
+            if complete then return false end
+            return
+        end
+        if state == "unknown" then complete = false end
+        if id and buffs[id] then return true end
+    end
+end
+
+function Adapter:ReadWeaponImbue(slot)
+    local reader = ns.ConsumableBarAdapter
+    if not reader then return "unknown" end
+    local weapon = reader:GetEquippedWeapon(slot)
+    if weapon == false then return "notWeapon" end
+    if not weapon then return "unknown" end
+    local record = reader:ReadCategoryEnchant(slot, "imbue")
+    if IsSecret(record) then return "unknown" end
+    if record == false then return "missing" end
+    if type(record) == "table" then
+        local seconds = record.seconds
+        return "present", Number(seconds) and seconds >= 0 and seconds < math.huge and seconds or nil
+    end
+    return "unknown"
+end
+
+function Adapter:IsPoisonMissing(slot)
+    return self:ReadWeaponImbue(slot) == "missing"
+end
+
+function Adapter:GetWeaponEnchantEvent()
+    local reader = ns.ConsumableBarAdapter
+    return reader and reader:GetWeaponEnchantEvent() or "UNIT_INVENTORY_CHANGED"
 end
 
 function Adapter:IsResting()

@@ -7,14 +7,58 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "classic-infinite" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-infinite",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b44d3c4ff6a5302009b229d8c8d6a8f0932012d3fc71c0f88fbcd563ec501d30",
         historySourceId = "none:forever-product-starts-at-4.x",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.9.2",
-            date = "2026-11-20",
-            noticeKey = "4.9.2:6c48081143a7a6c8c6a2",
-            content = [=[%sv4.9.2（2026-11-20）|r
+            version = "4.9.6",
+            date = "2026-11-26",
+            noticeKey = "4.9.6:cc74a64f594719443e6c",
+            content = [=[%sv4.9.6（2026-11-26）|r
+
+%s[游戏设置]|r
+• 伤害跳转方式，改为滑块调节，重排效果与战斗选项顺序。
+
+%s[猎人守护与追踪]|r
+• 新增追踪格与独立追踪条，支持战斗中悬浮切换及显隐排序管理。
+
+%sv4.9.5（2026-11-26）|r
+
+%s[游戏设置]|r
+• 隐藏友方蓝名，新增开关，默认关闭，避免重载后被重置。
+• 战斗数字，新增治疗数字、伤害尺寸与跳转方式调节。
+
+%s[猎人守护条]|r
+• 修复战斗中切换守护不亮边、脱战后不自动恢复高亮的问题。
+
+%sv4.9.4（2026-11-26）|r
+
+%s[职业提醒]|r
+• 属性食物，改为默认关闭，修复循环提醒的问题。
+
+%s[随机本工具]|r
+• 修复战斗中隐藏退队和传送按钮触发报错的问题。
+
+%sv4.9.3（2026-11-26）|r
+
+%s[任务自动交接]|r
+• 北极星，新增自动接取与交付。
+
+%s[职业提醒]|r
+• 战士怒吼，恢复缺失提醒。
+• 属性食物，新增缺失提醒。
+• 盗贼毒药，新增缺失与临期提醒。
+• 萨满武器附魔，新增缺失与临期提醒。
+
+%s[消耗品动作条]|r
+• 药剂分类，合并战斗与守护药剂。
+• 消耗品数据，新增赞扎、黑标朗姆酒、太阳果及战场药膏等。
+• 增益时间，分类大格与油、毒药格新增剩余时间显示。
+• 分类大格，支持按角色和天赋记住上次使用的物品。
+• 感谢 momothewolf 通过PR #101贡献倒计时与消耗品参考。
+• 巫师之油和法力之油，修复放在材料包或附魔包内无法涂油的问题。
+
+%sv4.9.2（2026-11-20）|r
 
 %s[主窗口]|r
 • 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。
@@ -1007,14 +1051,35 @@ end
 if buildID == "classic-era" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-era",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b44d3c4ff6a5302009b229d8c8d6a8f0932012d3fc71c0f88fbcd563ec501d30",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.9.2",
-            date = "2026-11-20",
-            noticeKey = "4.9.2:fba0bb5b399420d20cc3",
-            content = [=[%sv4.9.2（2026-11-20）|r
+            version = "4.9.6",
+            date = "2026-11-26",
+            noticeKey = "4.9.6:a05ab19256283d98f5f4",
+            content = [=[%sv4.9.6（2026-11-26）|r
+
+%s[游戏设置]|r
+• 伤害跳转方式，改为滑块调节，重排效果与战斗选项顺序。
+
+%sv4.9.5（2026-11-26）|r
+
+%s[游戏设置]|r
+• 隐藏友方蓝名，新增开关，默认关闭，避免重载后被重置。
+• 战斗数字，新增治疗数字、伤害尺寸与跳转方式调节。
+
+%sv4.9.4（2026-11-26）|r
+
+%s[随机本工具]|r
+• 修复战斗中隐藏退队和传送按钮触发报错的问题。
+
+%sv4.9.3（2026-11-26）|r
+
+%s[消耗品动作条]|r
+• 巫师之油和法力之油，修复放在材料包或附魔包内无法涂油的问题。
+
+%sv4.9.2（2026-11-20）|r
 
 %s[主窗口]|r
 • 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。
@@ -1614,14 +1679,35 @@ end
 if buildID == "classic-anniversary" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-anniversary",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b44d3c4ff6a5302009b229d8c8d6a8f0932012d3fc71c0f88fbcd563ec501d30",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.9.2",
-            date = "2026-11-20",
-            noticeKey = "4.9.2:fba0bb5b399420d20cc3",
-            content = [=[%sv4.9.2（2026-11-20）|r
+            version = "4.9.6",
+            date = "2026-11-26",
+            noticeKey = "4.9.6:a05ab19256283d98f5f4",
+            content = [=[%sv4.9.6（2026-11-26）|r
+
+%s[游戏设置]|r
+• 伤害跳转方式，改为滑块调节，重排效果与战斗选项顺序。
+
+%sv4.9.5（2026-11-26）|r
+
+%s[游戏设置]|r
+• 隐藏友方蓝名，新增开关，默认关闭，避免重载后被重置。
+• 战斗数字，新增治疗数字、伤害尺寸与跳转方式调节。
+
+%sv4.9.4（2026-11-26）|r
+
+%s[随机本工具]|r
+• 修复战斗中隐藏退队和传送按钮触发报错的问题。
+
+%sv4.9.3（2026-11-26）|r
+
+%s[消耗品动作条]|r
+• 巫师之油和法力之油，修复放在材料包或附魔包内无法涂油的问题。
+
+%sv4.9.2（2026-11-20）|r
 
 %s[主窗口]|r
 • 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。
@@ -2221,14 +2307,30 @@ end
 if buildID == "classic-wrath-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-wrath-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b44d3c4ff6a5302009b229d8c8d6a8f0932012d3fc71c0f88fbcd563ec501d30",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.9.2",
-            date = "2026-11-20",
-            noticeKey = "4.9.2:6c281c703ab50be293af",
-            content = [=[%sv4.9.2（2026-11-20）|r
+            version = "4.9.6",
+            date = "2026-11-26",
+            noticeKey = "4.9.6:a05ab19256283d98f5f4",
+            content = [=[%sv4.9.6（2026-11-26）|r
+
+%s[游戏设置]|r
+• 伤害跳转方式，改为滑块调节，重排效果与战斗选项顺序。
+
+%sv4.9.5（2026-11-26）|r
+
+%s[游戏设置]|r
+• 隐藏友方蓝名，新增开关，默认关闭，避免重载后被重置。
+• 战斗数字，新增治疗数字、伤害尺寸与跳转方式调节。
+
+%sv4.9.4（2026-11-26）|r
+
+%s[随机本工具]|r
+• 修复战斗中隐藏退队和传送按钮触发报错的问题。
+
+%sv4.9.2（2026-11-20）|r
 
 %s[主窗口]|r
 • 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。
@@ -2804,14 +2906,30 @@ end
 if buildID == "classic-cata-legacy" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-cata-legacy",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b44d3c4ff6a5302009b229d8c8d6a8f0932012d3fc71c0f88fbcd563ec501d30",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.9.2",
-            date = "2026-11-20",
-            noticeKey = "4.9.2:6c281c703ab50be293af",
-            content = [=[%sv4.9.2（2026-11-20）|r
+            version = "4.9.6",
+            date = "2026-11-26",
+            noticeKey = "4.9.6:a05ab19256283d98f5f4",
+            content = [=[%sv4.9.6（2026-11-26）|r
+
+%s[游戏设置]|r
+• 伤害跳转方式，改为滑块调节，重排效果与战斗选项顺序。
+
+%sv4.9.5（2026-11-26）|r
+
+%s[游戏设置]|r
+• 隐藏友方蓝名，新增开关，默认关闭，避免重载后被重置。
+• 战斗数字，新增治疗数字、伤害尺寸与跳转方式调节。
+
+%sv4.9.4（2026-11-26）|r
+
+%s[随机本工具]|r
+• 修复战斗中隐藏退队和传送按钮触发报错的问题。
+
+%sv4.9.2（2026-11-20）|r
 
 %s[主窗口]|r
 • 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。
@@ -3397,14 +3515,30 @@ end
 if buildID == "classic-mists" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-mists",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b44d3c4ff6a5302009b229d8c8d6a8f0932012d3fc71c0f88fbcd563ec501d30",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.9.2",
-            date = "2026-11-20",
-            noticeKey = "4.9.2:6c281c703ab50be293af",
-            content = [=[%sv4.9.2（2026-11-20）|r
+            version = "4.9.6",
+            date = "2026-11-26",
+            noticeKey = "4.9.6:a05ab19256283d98f5f4",
+            content = [=[%sv4.9.6（2026-11-26）|r
+
+%s[游戏设置]|r
+• 伤害跳转方式，改为滑块调节，重排效果与战斗选项顺序。
+
+%sv4.9.5（2026-11-26）|r
+
+%s[游戏设置]|r
+• 隐藏友方蓝名，新增开关，默认关闭，避免重载后被重置。
+• 战斗数字，新增治疗数字、伤害尺寸与跳转方式调节。
+
+%sv4.9.4（2026-11-26）|r
+
+%s[随机本工具]|r
+• 修复战斗中隐藏退队和传送按钮触发报错的问题。
+
+%sv4.9.2（2026-11-20）|r
 
 %s[主窗口]|r
 • 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。
@@ -4001,14 +4135,30 @@ end
 if buildID == "classic-titan" then
     RS.Presentation.ChangelogData.classic = {
         viewId = "classic-titan",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b44d3c4ff6a5302009b229d8c8d6a8f0932012d3fc71c0f88fbcd563ec501d30",
         historySourceId = "classic:903bff1bbdc3e0829afe990a59b7493aa1c3104d:RurutiaSuite/Core/Changelog.lua",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.9.2",
-            date = "2026-11-20",
-            noticeKey = "4.9.2:6c281c703ab50be293af",
-            content = [=[%sv4.9.2（2026-11-20）|r
+            version = "4.9.6",
+            date = "2026-11-26",
+            noticeKey = "4.9.6:a05ab19256283d98f5f4",
+            content = [=[%sv4.9.6（2026-11-26）|r
+
+%s[游戏设置]|r
+• 伤害跳转方式，改为滑块调节，重排效果与战斗选项顺序。
+
+%sv4.9.5（2026-11-26）|r
+
+%s[游戏设置]|r
+• 隐藏友方蓝名，新增开关，默认关闭，避免重载后被重置。
+• 战斗数字，新增治疗数字、伤害尺寸与跳转方式调节。
+
+%sv4.9.4（2026-11-26）|r
+
+%s[随机本工具]|r
+• 修复战斗中隐藏退队和传送按钮触发报错的问题。
+
+%sv4.9.2（2026-11-20）|r
 
 %s[主窗口]|r
 • 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。

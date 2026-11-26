@@ -910,6 +910,13 @@ local function build(host)
         QM.Request(); QM.ScanNear(); QM.Render()
     end, "primary")
     for i, b in ipairs({ d.fBehind, d.fZone, d.share, d.refresh }) do b:SetPoint("TOPLEFT", PAD + (i - 1) * (BW + GAP), y) end
+    -- 11-24 用户「任务自动组队去哪里了」「UI怎么操作啊」：点过横幅「不用了」后横幅永久不出，界面上找不回 → 这排常驻一个「配对 开/关」
+    --   （子插件 _GroupPair 在才排进来，五个等宽；不在 = 原来四个）。排版在 QM.QPPaint
+    d.qpBtn = btn("", BW, function() QM.QPSet(not (type(ns.db.qp) == "table" and ns.db.qp.on == true)) end)
+    d.qpBtn:SetScript("OnEnter", function(self) QM.QPTip(self, "ANCHOR_RIGHT", true) end)
+    d.qpBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    d.qpBtn:Hide()
+    d._row = { y = y, w = INNER, gap = GAP }
     -- 表头（右侧留滚动条槽，别让滚动条压在表头上）
     y = y - 34
     d.head = CreateFrame("Frame", nil, d)
@@ -1137,6 +1144,7 @@ function QM.Render()
     d.pin:SetText(cfg.pinned and L("已钉住", "Pinned") or L("钉住", "Pin"))
     if cfg.pinned then d.pin:LockHighlight() else d.pin:UnlockHighlight() end
     for _, b in ipairs({ d.fBehind, d.fZone, d.share }) do if ns.W and ns.W.PaintButton then ns.W.PaintButton(b) end end
+    pcall(QM.QPPaint)
     if cfg.onlyBehind then d.fBehind:LockHighlight() else d.fBehind:UnlockHighlight() end
     d.fZone:LockHighlight()   -- 范围永远是生效状态
     if cfg.share then d.share:LockHighlight() else d.share:UnlockHighlight() end
@@ -1709,9 +1717,61 @@ function QM.SetMode(m)
 end
 -- 11-23 任务配对（子插件 _GroupPair，HOLD，默认关）：任务组队列表上方一条横幅。没开过 = 介绍 + [开启] [不用了]（点「不用了」存 false，不再出现）；
 --   开着 = 一行状态 + [暂停 30 分钟] [关]；子插件不在（发行包里 HOLD 掉了）= 不出
+local function qpOn() return type(ns.db.qp) == "table" and ns.db.qp.on == true end
+local function qpAvail() return ns.ModuleAvailable and ns.ModuleAvailable("qp") and true or false end
+function QM.QPTip(self, anchor, sw)
+    GameTooltip:SetOwner(self, anchor or "ANCHOR_TOP"); GameTooltip:AddLine(L("任务配对", "Quest pairing"), 1, 0.82, 0)
+    GameTooltip:AddLine(L("你在杀怪任务的目标区域（看到目标怪）时，附近也在打同一个任务、也开了这个功能的插件用户，两人里只有一人弹卡问要不要邀请；点了才邀请，对方也要点「加入」才进队。公会会员也一样。只管杀怪目标和精英任务。同一个人 2 小时只提示一次。",
+        "When you're at a kill quest's area (target mobs in sight) and another addon user with this on is there for the same quest, one of you gets a card. Nothing is automatic: invite / join only on click, guild members too. Kill objectives and elite quests only; each player at most once per 2h."), 1, 1, 1, true)
+    if sw then
+        GameTooltip:AddLine(qpOn() and L("现在：开 · 点一下关", "Now: on - click to turn off") or L("现在：关 · 点一下开", "Now: off - click to turn on"), 0.6, 0.6, 0.6, true)
+        GameTooltip:AddLine(L("组队设置（齿轮）/ 全部设置里搜「配对」也能开关", "Also in Group settings (gear) / search \"pairing\" in All settings"), 0.6, 0.6, 0.6, true)
+    end
+    GameTooltip:Show()
+end
+-- 开 / 关（常驻按钮、设置勾选、横幅都走这里）：开 = 加载子插件 + QP.SetOn(true)；关 = SetOn(false)（子插件没加载就直接改存档）
+function QM.QPSet(v)
+    local q = type(ns.db.qp) == "table" and ns.db.qp or {}
+    ns.db.qp = q
+    if v then
+        q.on = true
+        if ns.LoadModule("qp") and ns.QP then ns.QP.pauseUntil = nil; ns.QP.SetOn(true) end   -- 手动再开 = 不再暂停
+        ns.Print(L("任务配对：已开启。在杀怪任务区域遇到同任务的插件用户时弹卡问你（不会自动邀请 / 自动进队）", "Quest pairing on: asks you when an addon user on the same kill quest is nearby (never auto-invites / auto-joins)"))
+    else
+        if ns.QP then ns.QP.SetOn(false) else q.on = false end
+        ns.Print(L("任务配对：已关（组队页「配对」按钮 / 组队设置里随时再开）", "Quest pairing: off (turn on again: \"Pairing\" button on the Group page / Group settings)"))
+    end
+    pcall(QM.QPBanner)
+    if ns.RefreshSettings then pcall(ns.RefreshSettings) end
+end
+-- 常驻按钮：子插件在 = 五个等宽一排、开绿字 / 暂停金字 / 关灰字；不在 = 隐藏、原来四个等宽
+function QM.QPPaint()
+    local d = QM.drawer
+    local b, r = d and rawget(d, "qpBtn"), d and rawget(d, "_row")
+    if not (b and r) then return end
+    local av = qpAvail()
+    if rawget(d, "_qpCols") ~= av then
+        d._qpCols = av
+        local row = { d.fBehind, d.fZone, d.share, av and b or nil, d.refresh }
+        local n = av and 5 or 4
+        local bw = math.floor((r.w - r.gap * (n - 1)) / n)
+        local i = 0
+        for k = 1, 5 do
+            local x = row[k]
+            if x then x:ClearAllPoints(); x:SetWidth(bw); x:SetPoint("TOPLEFT", PAD + i * (bw + r.gap), r.y); i = i + 1 end
+        end
+    end
+    if not av then b:Hide(); return end
+    local on = qpOn()
+    local paused = on and ns.QP and ns.QP.pauseUntil and GetTime and GetTime() < ns.QP.pauseUntil
+    b:SetText(on and (paused and (GOLD .. L("配对 暂停", "Pair paused") .. "|r") or ("|cff33ff99" .. L("配对 开", "Pairing on") .. "|r"))
+        or (DIM .. L("配对 关", "Pairing off") .. "|r"))
+    b:Show()
+end
 function QM.QPBanner()
     local d = QM.drawer
     if not d then return end
+    pcall(QM.QPPaint)
     local b = rawget(d, "qpBar")
     local q = type(ns.db.qp) == "table" and ns.db.qp or {}
     local list = not (rawget(d, "gearOn") or rawget(d, "mwOn") or (rawget(d, "lfg") and d.lfg:IsShown()))
@@ -1725,25 +1785,14 @@ function QM.QPBanner()
         end
         b.t = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         b.t:SetPoint("LEFT", 8, 0); b.t:SetPoint("RIGHT", -180, 0); b.t:SetJustifyH("LEFT"); b.t:SetWordWrap(false)
-        b.no = ns.Button(b, "", 70, 20, function()
-            if ns.QP then ns.QP.SetOn(false) else ns.db.qp = q; q.on = false end
-            ns.Print(L("任务配对：不用了（想开：/gi qp on）", "Quest pairing: off (turn on: /gi qp on)")); QM.QPBanner()
-        end)
+        b.no = ns.Button(b, "", 70, 20, function() QM.QPSet(false) end)   -- 11-24 之后横幅不再出；上面那排「配对」按钮 / 组队设置里随时再开
         b.no:SetPoint("RIGHT", -4, 0)
         b.yes = ns.Button(b, "", 100, 20, function()
             if ns.QP and ns.QP.On() then ns.QP.Pause(1800); ns.Print(L("任务配对：暂停 30 分钟", "Quest pairing: paused 30 min")); QM.QPBanner(); return end
-            ns.db.qp = q; q.on = true
-            if ns.LoadModule("qp") and ns.QP then ns.QP.SetOn(true) end
-            ns.Print(L("任务配对：已开启。在杀怪任务区域遇到同任务的插件用户时弹卡问你（不会自动邀请 / 自动进队）", "Quest pairing on: asks you when an addon user on the same kill quest is nearby (never auto-invites / auto-joins)"))
-            QM.QPBanner()
+            QM.QPSet(true)
         end)
         b.yes:SetPoint("RIGHT", b.no, "LEFT", -4, 0)
-        b:SetScript("OnEnter", function(self)
-            GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:AddLine(L("任务配对", "Quest pairing"), 1, 0.82, 0)
-            GameTooltip:AddLine(L("你在杀怪任务的目标区域（看到目标怪）时，附近也在打同一个任务、也开了这个功能的插件用户，两人里只有一人弹卡问要不要邀请；点了才邀请，对方也要点「加入」才进队。公会会员也一样。只管杀怪目标和精英任务。同一个人 2 小时只提示一次。",
-                "When you're at a kill quest's area (target mobs in sight) and another addon user with this on is there for the same quest, one of you gets a card. Nothing is automatic: invite / join only on click, guild members too. Kill objectives and elite quests only; each player at most once per 2h."), 1, 1, 1, true)
-            GameTooltip:Show()
-        end)
+        b:SetScript("OnEnter", function(self) QM.QPTip(self) end)
         b:SetScript("OnLeave", function() GameTooltip:Hide() end)
         d.qpBar = b
     end
@@ -1930,6 +1979,18 @@ if QM._ev then
         local valid = not (C_EventUtils and C_EventUtils.IsEventValid) or C_EventUtils.IsEventValid(e)
         if valid then pcall(QM._ev.RegisterEvent, QM._ev, e) end
     end
+end
+-- 11-24 任务配对的设置项：组队抽屉齿轮「组队设置」+ 全部设置索引（搜「配对」「自动组队」「任务组队」）；子插件 _GroupPair 不在（HOLD 剔掉）= 不出
+if ns.RegisterSettings then
+    ns.RegisterSettings({ key = "questpair", order = 95.5, drawer = "group", avail = qpAvail,
+        title = function() return L("任务配对（自动串连组队）", "Quest pairing (auto group-up)") end, short = function() return L("任务配对", "Pairing") end,
+        items = {
+            { type = "check", id = "questpair.on", keys = "配对 自动组队 任务组队 自动串连 quest pairing auto group",
+              text = function() return L("任务配对：杀怪任务区域遇到同任务的插件用户时弹卡问要不要组队（点了才邀请 / 进队）", "Quest pairing: ask to group when an addon user on the same kill quest is nearby (invite / join only on click)") end,
+              get = qpOn, set = function(v) QM.QPSet(v) end },
+            { type = "note", indent = 28, text = function() return L("组队页「全部进度 / 码内 / 共享 / 配对 / 刷新」那排的「配对」按钮是同一个开关；命令 /gi qp on | off",
+                  "Same switch as the \"Pairing\" button on the Group page; command /gi qp on | off") end },
+        } })
 end
 QM.uiLoaded = true
 pcall(QM.EnsureSubTabs)   -- 页签先挂好、界面后加载：子页签现在补上

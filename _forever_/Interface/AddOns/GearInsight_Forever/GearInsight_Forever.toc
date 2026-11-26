@@ -4,7 +4,7 @@
 ## Notes: WoW: Forever helper - talent planner, leveling plan, loot table and wishlist, Tier 1 sets, macros, news, change tooltips, beta data
 ## Notes-zhCN: 《无限》助手：天赋模拟 · 升级规划 · 掉落表与心愿单 · T1 套装 · 宏库 · 资讯 · 改动提示 · 公测数据
 ## Author: GearInsight
-## Version: 1.4.19
+## Version: 1.5.4
 ## SavedVariables: GearInsightForeverDB
 ## IconTexture: Interface\Icons\inv_misc_map_01
 ## AddonCompartmentFunc: GearInsightForever_OnAddonCompartmentClick
@@ -101,6 +101,8 @@ BagStub.lua
 BagButtons.lua
 # 11-20 上马自动换饰品（HOLD）：触发桩，排在 BagStub.lua 后面；换装逻辑在 _Bag 的 MountTrinket.lua，上马且背包里有胡萝卜等才加载
 MountStub.lua
+# 11-24 瘟疫之地自动戴银色黎明委任徽章（HOLD，和 _Mount 的 MountCommission.lua 一起解除）：设置总开关 + 进区加载 _Mount；排在 MountStub.lua 后面（往它的设置组里加一项）
+MountCommStub.lua
 # 11-15 交易成功后私聊对方交易回执（HOLD）
 TradeReceipt.lua
 # 11-15 副本导航样品（HOLD）：进黑暗深渊弹「副本导航」小面板（首领顺序 / 怎么走 / 注意事项，击杀自动推进），/gi 导航
@@ -108,6 +110,10 @@ DungeonNav.lua
 DungeonNavData.lua
 DungeonNavMap.lua
 # 11-21 GI-329 外服登录自动加入 Chinese 频道（HOLD）：排在 Settings.lua / Layer.lua 后面（登记设置项、认插件自己的频道）
+# 11-24 发现稀有 → 弹框问要不要喊公会（HOLD，和 _Gate 的 RareCall.lua 一起解除）：认稀有 + 防打扰 + 设置项；排在 Settings.lua 后面（用 ns.RegisterSettings）
+RareCallStub.lua
+# 11-24 插件过期提醒（1.5.1 解除 HOLD）：排在 Layer.lua / Settings.lua 后面（往位面心跳加 v 字段、登记设置项）
+VerNotice.lua
 # 合并打包：以下来自 GearInsight_Forever_Plan，这个包里和主插件一起登录加载
 BisData.lua
 SpecGearData.lua

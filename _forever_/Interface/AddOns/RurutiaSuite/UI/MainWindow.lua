@@ -1645,7 +1645,12 @@ function MainWindow:Open(pageId, data)
     self.window:SetVisible(true)
     self.window.frame:RegisterEvent("PLAYER_REGEN_DISABLED")
     self.window.frame:RegisterEvent("PLAYER_REGEN_ENABLED")
-    self.window.frame:SetScript("OnEvent", function() self:RefreshPageActions() end)
+    self.window.frame:SetScript("OnEvent", function()
+        local page = self.actionPage
+        if page and page.options and page.options.refreshOnCombatChange
+            and self.system.pages:Refresh(page.context.id, "combat") then return end
+        self:RefreshPageActions()
+    end)
     local selectedId = self.system.pages:ResolveId(pageId)
     if not selectedId or not self.availablePageSet[selectedId] then
         selectedId = self.currentPage

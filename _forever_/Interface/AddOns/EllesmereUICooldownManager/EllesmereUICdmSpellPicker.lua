@@ -876,6 +876,9 @@ function ns.EnumerateCDMSettingsCatalog(wantSet)
     return result
 end
 
+-- WoW Forever: Soulstone Resurrection ranks, whose cooldown is on the stone (the Soulstone item preset).
+local FOREVER_ITEM_CD_SPELLS = EllesmereUI.IS_FOREVER and { [20707] = true, [20762] = true, [20763] = true, [20764] = true, [20765] = true } or {}
+
 -- True when the picker's spell list for a CD/utility bar holds spellID (or a
 -- variant of it): a cooldown in Blizzard's Essential/Utility viewers or its
 -- settings catalog, talented or not (GetCDMSpellsForBar's own sources). Added
@@ -884,7 +887,7 @@ end
 -- left out, as the list leaves it out: it has no Blizzard frame, so EUI draws
 -- its own and those settings work. Built per call (Add Custom Spell only).
 function ns.IsCDMTrackedCooldown(spellID)
-    if not _IsUsableSID(spellID) then return false end
+    if not _IsUsableSID(spellID) or FOREVER_ITEM_CD_SPELLS[spellID] then return false end
     local gci = C_CooldownViewer and C_CooldownViewer.GetCooldownViewerCooldownInfo
     local set = {}
     local function Add(cdID, sid)
@@ -930,13 +933,17 @@ function ns.GetCDMSpellsForBar(barKey, includeUntalented)
         end
     end
 
+    local function OnThisBar(sid)
+        return ResolveVariantValue(ourPool, sid) == true
+            or (ourNames ~= nil and ourNames[RankName(sid) or false] == true)
+    end
     -- Picker only enumerates pool members, so every result is Blizzard-tracked.
     local entries = EnumerateCDMViewerSpells(isBuffType)
 
     local spells = {}
     for _, e in ipairs(entries) do
         local sid = e.sid
-        local name = C_Spell.GetSpellName(sid)
+        local name = not (FOREVER_ITEM_CD_SPELLS[sid] and not isBuffType and not OnThisBar(sid)) and C_Spell.GetSpellName(sid)
         local tex  = C_Spell.GetSpellTexture(sid)
         if name then
             local isOnThisBar = (ResolveVariantValue(ourPool, sid) == true)
@@ -969,7 +976,7 @@ function ns.GetCDMSpellsForBar(barKey, includeUntalented)
                 StoreVariantValue(seenSid, e.sid, true, false)
             end
             for _, ce in ipairs(catalog) do
-                if not seenCd[ce.cdID]
+                if not seenCd[ce.cdID] and not (FOREVER_ITEM_CD_SPELLS[ce.sid] and not OnThisBar(ce.sid))
                    and not ResolveVariantValue(seenSid, ce.sid) then
                     local name = C_Spell.GetSpellName(ce.sid)
                     local tex  = C_Spell.GetSpellTexture(ce.sid)
@@ -2094,6 +2101,67 @@ function ns.IsPresetOnBar(barKey, preset)
         end
     end
     return false
+end
+
+--- The one-spell potion preset a typed id names: its buff spell or any of its
+--- items. Multi-spell presets are left out: their timer starts on the primary
+--- id alone, so the aura path tracks their variants better.
+local _potionPresetByID
+function ns.PotionPresetForTypedID(id)
+    if not _potionPresetByID then
+        _potionPresetByID = {}
+        local con = EllesmereUI.CONSUMABLES
+        for _, preset in ipairs(ns.BUFF_BAR_PRESETS or {}) do
+            local c = con and con[preset.key]
+            if c and c.itemID and #preset.spellIDs == 1 then
+                _potionPresetByID[preset.spellIDs[1]] = preset
+                _potionPresetByID[c.itemID] = preset
+                for _, alt in ipairs(c.altItemIDs or {}) do
+                    _potionPresetByID[alt] = preset
+                end
+            end
+        end
+    end
+    return _potionPresetByID[id]
+end
+
+--- Turn Custom Spell ID entries naming a potion into that potion's preset, so
+--- they join the bar's row and follow its order. True when anything changed.
+function ns.AdoptPotionCustomEntries(sd)
+    local tags = sd and sd.customSpellIDs
+    local list = sd and sd.assignedSpells
+    if not (tags and list) then return false end
+    local adopted = false
+    for i = #list, 1, -1 do
+        local id = list[i]
+        local preset = type(id) == "number" and tags[id] and ns.PotionPresetForTypedID(id)
+        if preset and not (sd.spellDurations and (sd.spellDurations[id] or 0) > 0) then
+            local sid = preset.spellIDs[1]
+            local keep = true
+            if id ~= sid then
+                for _, other in ipairs(list) do
+                    if other == sid then keep = false; break end
+                end
+                if keep then list[i] = sid else table.remove(list, i) end
+                local order = sd.buffDisplayOrder
+                if type(order) == "table" then
+                    for o = #order, 1, -1 do
+                        if order[o] == "s" .. id then
+                            if keep then order[o] = "s" .. sid else table.remove(order, o) end
+                        end
+                    end
+                end
+            end
+            if keep then
+                if not sd.spellDurations then sd.spellDurations = {} end
+                sd.spellDurations[sid] = preset.duration or 30
+            end
+            tags[id] = nil
+            adopted = true
+        end
+    end
+    if adopted then ns._spellOrderDirty = true end
+    return adopted
 end
 
 --- Add a tracked spell (spellID) to a bar. Picker-driven add: always treated

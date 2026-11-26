@@ -136,29 +136,47 @@ local function ReadOilCharges(module, bag, slot)
     return charges
 end
 
+local function MaxCarriedBagSlot()
+    local regularSlots = tonumber(_G.NUM_BAG_SLOTS) or 4
+    local equippedSlots = tonumber(_G.NUM_TOTAL_EQUIPPED_BAG_SLOTS)
+    if equippedSlots and equippedSlots >= regularSlots then return equippedSlots end
+    return regularSlots
+end
+
 function Base:FindOilSlot(module, itemID)
     local bags = _G.C_Container
     if not bags or not bags.GetContainerItemID then return end
+    local sawMatch, singleBag, singleSlot
     local bestBag, bestSlot, bestCharges
-    for bag = 0, _G.NUM_BAG_SLOTS or 4 do
-        for slot = 1, bags.GetContainerNumSlots(bag) do
+    for bag = 0, MaxCarriedBagSlot() do
+        local slots = bags.GetContainerNumSlots(bag)
+        for slot = 1, tonumber(slots) or 0 do
             if bags.GetContainerItemID(bag, slot) == itemID then
+                -- A single unlocked bottle needs no tooltip. Compare charges once a second one is found.
+                if singleBag ~= nil then
+                    local charges = ReadOilCharges(module, singleBag, singleSlot)
+                    if charges and charges > 0 then
+                        bestBag, bestSlot, bestCharges = singleBag, singleSlot, charges
+                    end
+                    singleBag = nil
+                end
                 local info = bags.GetContainerItemInfo(bag, slot)
-                if not info or info.isLocked then return end
-                if bestBag == nil then
-                    bestBag, bestSlot = bag, slot
-                else
-                    bestCharges = bestCharges or ReadOilCharges(module, bestBag, bestSlot)
-                    local charges = ReadOilCharges(module, bag, slot)
-                    if not bestCharges or not charges then return end
-                    if charges > 0 and (bestCharges == 0 or charges < bestCharges) then
-                        bestBag, bestSlot, bestCharges = bag, slot, charges
+                if info and not info.isLocked then
+                    if not sawMatch then
+                        singleBag, singleSlot = bag, slot
+                    else
+                        local charges = ReadOilCharges(module, bag, slot)
+                        if charges and charges > 0 and (not bestCharges or charges < bestCharges) then
+                            bestBag, bestSlot, bestCharges = bag, slot, charges
+                        end
                     end
                 end
+                sawMatch = true
             end
         end
     end
-    if bestCharges ~= 0 then return bestBag, bestSlot end
+    if singleBag ~= nil then return singleBag, singleSlot end
+    return bestBag, bestSlot
 end
 
 function Base:GetItemName(itemID)

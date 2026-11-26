@@ -56,31 +56,84 @@ function A.WantKind()
     return nil
 end
 
--- 身上的弹药（弹药栏那组的数量）
-function A.AmmoCount()
-    if not (GetInventorySlotInfo and GetInventoryItemCount) then return nil end
+-- 11-24 用户截图「箭袋里满满的瑟银之箭，浮标写 0」：以前只读弹药栏一格的数量（《无限》读出 0）。
+--   现在逐格数背包 + 箭袋里 kind 那类（箭 / 子弹）、等级够用的全部；先只读物品 ID，是弹药才读数量。
+--   和弹药栏那格的读数取大的（刚上线背包没读到时兜底）。返回：总数, 需求等级最高那种的 ID, 它的需求等级；都读不出 → nil
+local kindOf = {}
+local function sec(v) return ns.Secret and ns.Secret(v) end
+function A.AmmoCount(kind)
+    kind = kind or A.WantKind()
+    local C, total, bestID, bestReq = C_Container, nil, nil, -1
+    if kind and C and C.GetContainerNumSlots and C.GetContainerItemID and C.GetContainerItemInfo then
+        local myLv = tonumber(UnitLevel and UnitLevel("player")) or 60
+        total = 0
+        for bag = 0, NUM_BAG_SLOTS or 4 do
+            local ok, n = pcall(C.GetContainerNumSlots, bag)
+            for s = 1, (ok and not sec(n) and tonumber(n)) or 0 do
+                local ok2, id = pcall(C.GetContainerItemID, bag, s)
+                id = ok2 and not sec(id) and tonumber(id)
+                local k = id and kindOf[id]
+                if id and k == nil then
+                    local c, sub = instant(id)
+                    k = c and ((c == 6 and (sub == 2 and ARROW or sub == 3 and BULLET)) or 0)
+                    kindOf[id] = k   -- 物品信息没缓存 = nil：下次再问
+                end
+                if k == kind then
+                    local ok3, info = pcall(C.GetContainerItemInfo, bag, s)
+                    local cnt = ok3 and type(info) == "table" and not sec(info.stackCount) and tonumber(info.stackCount) or 0
+                    local req = A.ReqOf(id) or 0
+                    if cnt > 0 and req <= myLv then
+                        total = total + cnt
+                        if req > bestReq then bestID, bestReq = id, req end
+                    end
+                end
+            end
+        end
+    end
     local ok, slot = pcall(GetInventorySlotInfo, "AmmoSlot")
-    if not ok or not slot then return nil end
-    return GetInventoryItemCount("player", slot)
+    local ok2, n = false, nil
+    if ok and slot and GetInventoryItemCount then ok2, n = pcall(GetInventoryItemCount, "player", slot) end
+    n = ok2 and not sec(n) and tonumber(n)
+    if not total and not n then return nil end
+    return math.max(total or 0, n or 0), bestID, bestID and bestReq or nil
 end
 
--- 11-17 用户截图「锯齿箭 · 40 以后要买这个了」「现在提示不对」：商人常卖的四档弹药（vmangos item_template + locales_item）
---   { 需求等级, 物品 ID, 中文名, 英文名, 每秒伤害+ }；51 / 52 级的冰线 / 瑟银只有奥山 / 声望商人卖，不算常卖档
+-- 商人常卖的四档 + 52 级瑟银档：{ 需求等级, 物品 ID, 中文名, 英文名, 每秒伤害+（vmangos 伤害平均）, 来源（nil = 弹药商常卖） }
+-- 11-24 用户「到了这个等级提醒用户去买这个」：⛔ 核过 QuestieDB Forever，瑟银之箭 18042 / 瑟银弹 15997 没有商人卖：
+--   箭 = 200 发瑟银弹找考拉克 / 舍尔杜换 200 支（可重复任务），弹 = 工程学做，两样拍卖行都有 → 只当「该换」提醒，不进找商人 / 商人按钮。
+--   51 级冰线箭矢 / 枪弹只有奥山军需官卖（要声望），不算
+local TH_ARROW = { zh = "商人不卖：拍卖行买，或拿 200 发瑟银弹去%s换 200 支（任务「%s」，可重复）",
+    en = "not sold by vendors: buy on the AH, or trade 200 Thorium Shells for 200 at %s (repeatable quest \"%s\")",
+    H = { 1454, 75.0, 23.1, "赏金猎人考拉克", "Bounty Hunter Kolark", "公平交易", "A Fair Trade", "奥格瑞玛", "Orgrimmar" },
+    A = { 1455, 19.6, 51.8, "炮兵舍尔杜", "Artilleryman Sheldonore", "胆小鬼才用弓箭！", "Arrows Are For Sissies", "铁炉堡", "Ironforge" } }
 A.TIERS = {
-    [ARROW] = { { 1, 2512, "劣质箭", "Rough Arrow", 1 }, { 10, 2515, "锋利的箭", "Sharp Arrow", 3 },
-        { 25, 3030, "锐锋箭", "Razor Arrow", 7 }, { 40, 11285, "锯齿箭", "Jagged Arrow", 13 } },
-    [BULLET] = { { 1, 2516, "轻弹丸", "Light Shot", 1 }, { 10, 2519, "重弹丸", "Heavy Shot", 3 },
-        { 25, 3033, "实心子弹", "Solid Shot", 7 }, { 40, 11284, "精准弹丸", "Accurate Slugs", 13 } },
+    [ARROW] = { { 1, 2512, "劣质箭", "Rough Arrow", "1.5" }, { 10, 2515, "锋利的箭", "Sharp Arrow", "3.5" },
+        { 25, 3030, "锐锋箭", "Razor Arrow", "7.5" }, { 40, 11285, "锯齿箭", "Jagged Arrow", "13" },
+        { 52, 18042, "瑟银之箭", "Thorium Headed Arrow", "17.5", TH_ARROW } },
+    [BULLET] = { { 1, 2516, "轻弹丸", "Light Shot", "1.5" }, { 10, 2519, "重弹丸", "Heavy Shot", "3.5" },
+        { 25, 3033, "实心子弹", "Solid Shot", "7.5" }, { 40, 11284, "精准弹丸", "Accurate Slugs", "13" },
+        { 52, 15997, "瑟银弹", "Thorium Shells", "17.5", { zh = "商人不卖：工程学做，或拍卖行买", en = "not sold by vendors: Engineering-made, or buy on the AH" } } },
 }
--- 这个等级能买的最好那档：{ lv, id, zh, en, dps }
-function A.Tier(kind, lv)
+-- 这个等级能在弹药商买到的最好那档（找商人 / 商人按钮用）；all = 含商人不卖的瑟银档（该不该换看它）
+function A.Tier(kind, lv, all)
     lv = lv or (UnitLevel and UnitLevel("player")) or 1
     local best
-    for _, t in ipairs(A.TIERS[kind] or {}) do if t[1] <= lv then best = t end end
+    for _, t in ipairs(A.TIERS[kind] or {}) do if t[1] <= lv and (all or not t[6]) then best = t end end
     return best
 end
 function A.TierName(t) return t and ns.L(t[3], t[4]) or "" end
--- 某种弹药的需求等级：四档表里有就直接用，没有问客户端；读不出 → nil
+-- 商人不卖的那档：去哪弄一句话 + 换的 NPC（按阵营，{ ui, x, y, name }；没有 → nil）
+function A.TierSource(t)
+    local src = t and t[6]
+    if not src then return nil end
+    local f = UnitFactionGroup and UnitFactionGroup("player")
+    local n = src[f == "Horde" and "H" or f == "Alliance" and "A" or ""]
+    if not n then return ns.L(src.zh, src.en), nil end
+    local where = string.format(ns.L("%s「%s」（%.1f, %.1f）", "%s - %s (%.1f, %.1f)"),
+        ns.L(n[8], n[9]), ns.L(n[4], n[5]), n[2], n[3])
+    return string.format(ns.L(src.zh, src.en), where, ns.L(n[6], n[7])), { ui = n[1], x = n[2], y = n[3], name = ns.L(n[4], n[5]) }
+end
+-- 某种弹药的需求等级：档位表里有就直接用，没有问客户端；读不出 → nil
 function A.ReqOf(id)
     if not id then return nil end
     for _, list in pairs(A.TIERS) do
@@ -200,7 +253,8 @@ local ICON_ARROW, ICON_BULLET = "Interface\\Icons\\INV_Ammo_Arrow_02", "Interfac
 local function tag(text, hex) return "|cff" .. hex .. "[" .. text .. "]|r" end
 
 local function weaponLine()
-    local want, cnt = A.WantKind(), A.AmmoCount()
+    local want = A.WantKind()
+    local cnt = A.AmmoCount(want)
     local ic = GetInventoryItemTexture and (GetInventoryItemTexture("player", 18) or GetInventoryItemTexture("player", 16))
     local w = want == ARROW and ns.L("远程武器用 |cffffd100箭|r", "Ranged weapon uses |cffffd100arrows|r")
         or want == BULLET and ns.L("远程武器用 |cffffd100子弹|r", "Ranged weapon uses |cffffd100bullets|r")

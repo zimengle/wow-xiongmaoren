@@ -52,6 +52,22 @@ function Data.GetByKey(key)
     return expansion and Data.LoadByExpansion(expansion) or nil, expansion
 end
 
+-- Project the catalog without exposing its mutable records or runtime settings.
+function Data.GetAttributeFood(catalog)
+    local items, buffs = {}, {}
+    for _, item in ipairs(catalog) do
+        if item.kind == "food" and item.buffID then
+            local id = item.itemID or item.displayItemID
+            if id then
+                local level = item.requiredLevel or 0
+                items[id] = math.min(items[id] or level, level)
+            end
+            buffs[item.buffID] = true
+        end
+    end
+    return items, buffs
+end
+
 function Data.GetKeys(result)
     result = result or {}
     local key

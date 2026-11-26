@@ -96,34 +96,7 @@ function LG.RefLayer()
     return ld, ld
 end
 
--- 会长视图的名单：返回 { groups = { same = {…}, other = {…}, unknown = {…}, away = {…} }, queue = {…}, sameN }
-function LG.Board()
-    local ref = LG.RefLayer()
-    local via = LY.gather and "gather" or "guild"
-    local g = { same = {}, other = {}, unknown = {}, away = {} }
-    for _, p in ipairs(LY.Peers(via)) do
-        if not (ref and p.name == ref.name) then   -- 会长自己不进名单（同层人数里单独加 1）
-            local k = LG.Classify(p, ref)
-            table.insert(g[k], p)
-        end
-    end
-    -- 邀请队列：求拉的在前（按请求时间），再是同图别层的；跳过 60 秒内刚邀请过的、已在队伍里的
-    local q, seen = {}, {}
-    local function inGroup(n) return (UnitInParty and UnitInParty(n)) or (UnitInRaid and UnitInRaid(n)) end
-    local reqs = {}
-    for n, t in pairs(LG.requests) do
-        if now() - t > 600 then LG.requests[n] = nil else reqs[#reqs + 1] = { n = n, t = t } end
-    end
-    table.sort(reqs, function(a, b) return a.t < b.t end)
-    for _, r in ipairs(reqs) do
-        if not seen[r.n] and not inGroup(r.n) then seen[r.n] = true; q[#q + 1] = { name = r.n, asked = r.t, p = LY.peers[r.n] } end
-    end
-    for _, p in ipairs(g.other) do
-        if not seen[p.name] and not inGroup(p.name) then seen[p.name] = true; q[#q + 1] = { name = p.name, p = p } end
-    end
-    local sameN = #g.same + ((ref and ref.z) and 1 or 0)
-    return { groups = g, queue = q, sameN = sameN, ref = ref }
-end
+-- LG.Board（会长视图名单 / 邀请队列）、LG.ConvertToRaid：页面早删了那块，11-24 删掉省内核（会长照样收到「请你拉他」聊天提示）
 
 function LG.Need()
     local gi = _G.GuildInsight
@@ -162,29 +135,7 @@ LY.handlers.Q = function(t, s, via)
     ns.Print(L(s .. " 请你拉他进团（/gi layer 打开位面面板，点「邀请」）", s .. " asks to be pulled to your layer (/gi layer)"))
 end
 
--- 会长：邀请（⛔ 只在按钮点击里调）
-function LG.InviteOne(name)
-    if not name then return false end
-    local ok = LY.Invite(name)
-    if ok then LG.requests[name] = nil; LY.dirty = true end
-    return ok
-end
-function LG.NextInQueue()
-    local b = LG.Board()
-    for _, r in ipairs(b.queue) do
-        local t = LY.invited[r.name]
-        if not t or now() - t > 60 then return r.name end
-    end
-    return nil
-end
-function LG.ConvertToRaid()
-    if IsInRaid and IsInRaid() then return "already" end
-    local f = (C_PartyInfo and C_PartyInfo.ConvertToRaid) or ConvertToRaid
-    if not f then return "noapi" end
-    if not (UnitIsGroupLeader and UnitIsGroupLeader("player")) then return "notlead" end
-    local ok = pcall(f)
-    return ok and "ok" or "fail"
-end
+-- LG.InviteOne / NextInQueue（旧「邀请下一个」按钮用）页面早删了按钮，11-24 删掉省内核
 
 
 LY.OnEvent("GUILD_ROSTER_UPDATE", function() LG.ReadRoster() end)
@@ -260,7 +211,7 @@ function LG.UpdateBar()
     if LY.gather and k == "other" and ref and now() >= LG.barHideUntil then
         local m, z = LY.Mine()
         b.text:SetText(ns.EnSafe(string.format(L("|TInterface\\DialogFrame\\UI-Dialog-Icon-AlertNew:14|t 你和会长不在同一层（%s 在 %s · 你在 %s）", "You're on a different layer from %s (%s vs you %s)"),
-            ref.name, LY.Label(ref.m, ref.z), LY.Label(m, z))))
+            ref.name, LY.LayerName(ref.m, ref.z), LY.LayerName(m, z))))
         b:Show()
     else
         b:Hide()

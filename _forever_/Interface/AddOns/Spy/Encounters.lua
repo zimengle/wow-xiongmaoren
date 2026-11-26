@@ -21,6 +21,11 @@ local L = AceLocale:GetLocale("Spy")
 local HBDP = LibStub("HereBeDragons-Pins-2.0")
 local Guard = Spy.ForeverGuard
 
+-- Below the other addons' map icons (HereBeDragons puts them at AREA_POI by default, as
+-- Questie does) and below the game's quests (CurseForge comment: skulls hid Questie's
+-- turn-in marks). DIG_SITE is a level the world map registers under AREA_POI.
+Spy.EncounterPinLevel = "PIN_FRAME_LEVEL_DIG_SITE"
+
 Spy.EncounterLimit = 5000         -- fights kept per character, the oldest go first (was 500)
 local PROBABLE_WINDOW = 10        -- seconds he must have been our target or targeting us
 local PROBABLE_DELAY = 1          -- wait for a PARTY_KILL before calling a death probable
@@ -251,7 +256,7 @@ function Spy:RefreshEncounterMap()
 			paint(icon.texture, markKey)
 			local color = COLORS[entry.r] or COLORS.W
 			icon.texture:SetVertexColor(color[1], color[2], color[3])
-			HBDP:AddWorldMapIconMap(Spy.EncounterRef, icon, entry.m, entry.x, entry.y, HBD_PINS_WORLDMAP_SHOW_PARENT)
+			HBDP:AddWorldMapIconMap(Spy.EncounterRef, icon, entry.m, entry.x, entry.y, HBD_PINS_WORLDMAP_SHOW_PARENT, Spy.EncounterPinLevel)
 		end
 	end
 	Spy.EncountersShown = shown
@@ -399,9 +404,9 @@ Spy.options.args.MapOptions.args.CombatMap = {
 			desc = L["EncounterMapLimitDescription"],
 			type = "range",
 			order = 6.5,
-			min = 50,
+			min = 5, -- Forever: down to the last 5 fights (CurseForge comment)
 			max = 1000,
-			step = 50,
+			step = 5,
 			get = function() return tonumber(settings().EncounterMapLimit) or Spy.MapSkullLimit end,
 			set = function(_, value)
 				Spy.db.profile.EncounterMapLimit = value

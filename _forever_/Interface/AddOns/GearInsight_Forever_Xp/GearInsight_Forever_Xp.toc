@@ -4,7 +4,7 @@
 ## Notes: GearInsight Forever leveling buff helper page and departure checklist: bonuses and supplies with where to get them (loads the first time you use it)
 ## Notes-zhCN: GearInsight 无限版的练级 BUFF 补全器：经验加成页、出发前清单、增益 / 物资和「从哪来」：第一次用到时才加载
 ## Author: GearInsight
-## Version: 1.4.19
+## Version: 1.5.4
 ## Dependencies: GearInsight_Forever
 ## LoadOnDemand: 1
 ## IconTexture: Interface\Icons\INV_Misc_Tent

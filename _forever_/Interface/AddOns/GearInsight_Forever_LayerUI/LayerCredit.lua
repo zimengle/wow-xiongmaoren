@@ -189,8 +189,44 @@ end
 function ns.LayerStatText()
     return LC.StatTip(LC.Sum(7)) .. "\n" .. LC.StatTip(LC.Sum(), L("近 14 天（存档只留 14 天）", "Last 14 days"))
 end
+-- 11-13 三个自动行为改完说的那句（1.5.0 内核减肥 11-24：从主插件 Layer.lua 的 AUTO_TEXT 原样搬来，LY.SetAuto 调）
+local AUTO_TEXT = {
+    autoHelp = function(on) return on and L("换层求助：自动拉（没组队时，不弹框）", "Layer requests: auto-invite when solo") or L("换层求助：每次弹框问我", "Layer requests: ask each time") end,
+    autoAccept = function(on) return on and L("会长 / 官员的组队邀请：自动接受", "Leader/officer invites: auto-accept") or L("会长 / 官员的组队邀请：不再自动接受", "Leader/officer invites: manual") end,
+    autoLeave = function(on) return on and L("换过去后：自动退队", "After the move: leave the group") or L("换过去后：不自动退队", "After the move: stay in the group") end,
+}
+function LC.AutoText(key, on) return AUTO_TEXT[key](on) .. L("（右侧『位面』页签 → 设置里也能改）", " (also in the Layers tab -> Settings)") end
 -- /gi layer 帮助（11-22 从主插件 Layer.lua 搬来省登录内存）+ /gi layer stat
-function ns.LayerSlash(sub)
+-- 1.5.0 内核减肥（11-24）：/gi layer 的各个子命令也从主插件 Layer.lua 的 ns.ExtraSlash.layer 原样搬来（主插件只留「不带参数 = 打开位面页」）。
+--   sub = 第一个词（小写），rawArg = 后面原样（口令保留大小写），arg = 后面小写
+function ns.LayerSlash(sub, rawArg, arg)
+    rawArg = rawArg or ""
+    arg = arg or rawArg
+    local d = LY.DB()
+    if sub == "lead" or sub == "join" then
+        if rawArg == "" then return ns.LayerSlash() end
+        LY.SetGather(rawArg, sub == "lead")
+        return ns.Print(sub == "lead" and L("集合频道已建，口令「" .. rawArg .. "」发到群里让会员 /gi layer join " .. rawArg, "Gather channel up; members: /gi layer join " .. rawArg)
+            or L("已加入集合频道「" .. rawArg .. "」", "Joined gather channel " .. rawArg))
+    elseif sub == "leave" then LY.SetGather(nil); return ns.Print(L("已退出集合频道", "Left gather channel"))
+    elseif sub == "accept" and (arg == "on" or arg == "off") then return LY.SetAuto("autoAccept", arg == "on")
+    elseif sub == "autohelp" and (arg == "on" or arg == "off") then return LY.SetAuto("autoHelp", arg == "on")
+    elseif sub == "autoleave" and (arg == "on" or arg == "off") then return LY.SetAuto("autoLeave", arg == "on")
+    elseif sub == "auto" and (arg == "on" or arg == "off") then
+        for _, k in ipairs(LY.ASK_KEYS) do LY.SetAuto(k, arg == "on") end
+        return
+    elseif sub == "helper" and (arg == "on" or arg == "off") then
+        d.helper = (arg == "on"); LY.Beat(true)
+        return ns.Print(d.helper and L("已打开「帮别人换到我这层」：收到请求会弹提示，点了才邀请", "Helping others hop: on (you click to invite)") or L("已关闭「帮别人换层」", "Helping others hop: off"))
+    elseif sub == "pub" and (arg == "on" or arg == "off") then
+        LY.SetPub(arg == "on")
+        return ns.Print(LY.PubMsg(d.pub))
+    elseif sub == "probe" and ns.LayerProbe then return ns.LayerProbe.Toggle()
+    elseif sub == "log" then
+        return ns.ShowBox(L("换层记录", "Layer log"), L("复制全部发给开发者", "Copy all and send to the developer"), table.concat(d.log or {}, "\n"))
+    elseif sub == "off" or sub == "on" then
+        d.on = (sub == "on"); LY.SyncPub(); return ns.Print(d.on and L("位面识别已打开", "Layer detection on") or L("位面识别已关闭", "Layer detection off"))
+    end
     if sub == "stat" then return ns.Print(ns.LayerStatText()) end
     if sub == "pub" then local a, b = LC.Pub(); return ns.Print(a .. "\n" .. b) end
     -- 文字里写死 /gi，打印时换成实际的命令前缀（少一串拼接；繁体表也能按整句查到）
@@ -233,11 +269,33 @@ function LC.Tip()
         L("互助额度：帮别人换层攒，向公会外的人求换层用", "Help credits: earn by helping, spend outside your guild"),
         string.format(L("· 帮别人拉成一次 +1（别人求你时点「邀请」，或公会会员求助自动拉），最多攒 %d 次，现在 %d；3 天没帮人也没用就清空", "- +1 per pull (max %d, now %d); cleared after 3 idle days"), LC.MAX, bank),
         L("· 只在真被公会外的人拉过去时扣 1；没人拉、被公会会员拉都不扣", "- Charged only when a non-guildie moves you"),
+        L("· 开着「自动帮别人」：在线每 10 分钟 +1（攒满就不加）", "- Auto-help ON: +1 every 10 min online (until max)") .. (LC.AhLeft() or ""),
+        L("· 每天送的当天用不完不攒", "- Daily free credits don't carry over"),
         L("· 本公会内互相拉：不限、不扣", "- Guildmates: unlimited, free"),
         string.format(L("· 你累计帮过别人 %d 次：求助时对方会看到；帮过 5 次一轮自动换人最多请 4 位，20 次 5 位（现在 %d 位）", "- You've helped %d times (shown to helpers); 5+ = up to 4 asks per round, 20+ = 5 (now %d)"), n, LC.ChainMax()),
         L("· 没有额度时：「我想换一层」只找公会会员", "- Out of credits: \"Switch layer\" asks guildmates only"),
         "", LC.StatTip(LC.Sum(7)),   -- 11-22 换层成功率细分（卡片上不再写，只在这里）
-    }, "\n")
+    }, "\n") .. (ns.LayerOrb and not ns.LayerOrb.Shown() and ("\n\n" .. ns.LayerOrb.GUIDE()) or "")   -- 11-24 小球默认不显示：引导一句
+end
+-- 11-24 用户「打开自动帮助，每10分钟加一次，最多次数总数不变」：计时在主插件 LayerHop.lua（存档 cr.s 累计秒数），这里只写规则 / 进度
+LC.AH_SEC = 600
+function LC.AhOn() local d = LY.DB(); return d.on and d.helper and d.autoHelp == true end
+-- 开着时：「再过 N 分钟 +1」/「攒满了」；关着 = nil
+function LC.AhLeft()
+    if not LC.AhOn() then return nil end
+    local c = LC.State()
+    if c.b >= LC.MAX then return string.format(L("  （攒满 %d 次了，用掉再接着算）", "  (at max %d - resumes after you spend one)"), LC.MAX) end
+    return string.format(L("  （开着：再在线 %d 分钟 +1）", "  (ON: +1 in %d min)"), math.ceil((LC.AH_SEC - (tonumber(c.s) or 0)) / 60))
+end
+-- 位面页「自动帮别人」按钮的鼠标提示（PageLayer.lua 调；每条单独一行、长的折行，锚在按钮正下方不出屏）
+function LC.AhTip(tt)
+    tt:AddLine(LC.AhOn() and L("自动帮别人：开", "Auto-help: ON") or L("自动帮别人：关", "Auto-help: OFF"), 1, 0.82, 0)
+    tt:AddLine(L("开着：在线每 10 分钟公会外换层额度 +1（最多攒 ", "ON: +1 out-of-guild credit every 10 min online (max ") .. LC.MAX .. L(" 次，攒满不加）", ")"), 0.2, 1, 0.4, true)
+    local s = LC.AhLeft()
+    if s then tt:AddLine(s, 0.2, 1, 0.4, true) end
+    tt:AddLine(L("我没组队时，别人求换层直接邀请（不弹框）", "When solo, invite layer requests without a popup"), 1, 1, 1, true)
+    tt:AddLine(L("队伍 / 战斗 / 副本里不拉", "Not while grouped, in combat or in instances"), 1, 1, 1, true)
+    tt:AddLine(L("帮拉成一次另外 +1", "+1 more per successful pull"), 1, 1, 1, true)
 end
 -- 插一行到「我想换一层」和「XX 的位面」标题之间：标题和公会卡片整体下移 BOX_H（PageLayer.lua 每次刷新从 p.cardsY 往下排）
 function LC.Mount(p)
@@ -282,7 +340,8 @@ function LC.Lines()
     else
         a = "|cffff7766" .. string.format(L("公会外换层额度用完了：只找公会会员，明天再送 %d 次", "No credits: guild only, %d more tomorrow"), LC.FREE) .. "|r"
     end
-    return a, L("|cffffaa33只有帮别人才能攒额度：帮拉成一次 +1|r · 每天送的当天不攒 · 指这里看规则", "|cffffaa33Only helping earns credits: +1 per pull|r - hover for rules")
+    -- 11-24 加「开着自动帮别人每 10 分钟 +1」；「每天送的当天不攒」挪进鼠标提示（一行装不下）
+    return a, L("|cffffaa33只有帮别人才能攒额度：帮拉成一次 +1|r · 开自动帮人每 10 分钟 +1 · 指这里看规则", "|cffffaa33Only helping earns: +1 per pull|r - auto-help ON: +1 / 10 min - hover for rules")
 end
 function LC.Paint(p)
     if not p then return end

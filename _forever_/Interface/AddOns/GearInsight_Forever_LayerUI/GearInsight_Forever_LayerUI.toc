@@ -4,7 +4,7 @@
 ## Notes: GearInsight Forever Layers page: other addon users on this map via the public channel (loads the first time you open the Layers page)
 ## Notes-zhCN: GearInsight 无限版「位面」页里「同图其他玩家（公共频道）」那一块：第一次打开位面页时才加载
 ## Author: GearInsight
-## Version: 1.4.19
+## Version: 1.5.4
 ## Dependencies: GearInsight_Forever
 ## LoadOnDemand: 1
 ## IconTexture: Interface\Icons\Spell_Arcane_PortalOrgrimmar
@@ -17,4 +17,6 @@
 
 # 11-21 位面互助额度（HOLD）：要排在 LayerPub.lua 前面（LayerPub.lua 最后置就绪标记）
 LayerCredit.lua
+# 11-24 位面悬浮小球（HOLD，待用户实测）：排在 LayerPub.lua 前（LayerPub.lua 最后置就绪标记、跑 FlushInits）
+LayerOrb.lua
 LayerPub.lua

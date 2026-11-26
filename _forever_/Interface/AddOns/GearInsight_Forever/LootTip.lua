@@ -87,13 +87,30 @@ local function onLoot()
 end
 
 -- ---------- 物品鼠标提示 ----------
+-- 11-24 GI-332「一箱异国零件为什么没任务，道具在背包」：《无限》新增任务物品不开任务（ItemSparse 无 StartQuestID），
+--   游戏提示只写「任务物品」看不出给哪个任务 → 加一行用途；任务日志里没有、也没交过 → 告诉玩家去哪重接。数据：wowhead 无限站
+--   [物品] = { 任务, 用途中, 英, 不在任务日志时中, 英 }；交过的（IsQuestFlaggedCompleted）只出用途行
+local QITEM = {
+    [250725] = { 92009, "任务「厚望之箱」：2 小时内送到海加尔山 凯莱娜·春语 60,62", "Quest Crate Expectations: to Kaylaena Springwhisper, Hyjal 60,62 in 2h",
+        "任务日志里没有 → 回冬泉谷 努米 61,37 重接（过期也找她补）", "Not in quest log: get it again from Nami, Winterspring 61,37" },
+}
 local function addItemLine(tt, id)
     if not id or tt.__gifItem == id then return end
     local d, b = where(id)
-    if not d then return end
+    local q = QITEM[id]
+    if not d and not q then return end
     tt.__gifItem = id
-    tt:AddLine("|cff33ff99GI|r " .. ns.L("掉落：", "Drops: ") .. nm(d) .. " · " .. nm(b), 1, 0.82, 0.4)
-    if isWished(id) then tt:AddLine("|cff33ff99GI|r " .. ns.L("在你的心愿单里", "On your wishlist"), 1, 0.82, 0) end
+    if d then
+        tt:AddLine("|cff33ff99GI|r " .. ns.L("掉落：", "Drops: ") .. nm(d) .. " · " .. nm(b), 1, 0.82, 0.4)
+        if isWished(id) then tt:AddLine("|cff33ff99GI|r " .. ns.L("在你的心愿单里", "On your wishlist"), 1, 0.82, 0) end
+    end
+    if q then
+        tt:AddLine("|cff33ff99GI|r " .. ns.L(q[2], q[3]), 1, 0.82, 0.4, true)
+        local C = C_QuestLog
+        if not ((C and C.IsQuestFlaggedCompleted and C.IsQuestFlaggedCompleted(q[1])) or (GetQuestLogIndexByID and (GetQuestLogIndexByID(q[1]) or 0) > 0)) then
+            tt:AddLine("|cff33ff99GI|r " .. ns.L(q[4], q[5]), 1, 0.3, 0.3, true)
+        end
+    end
     tt:Show()
 end
 ns._LootAddItemLine = addItemLine   -- 测试用

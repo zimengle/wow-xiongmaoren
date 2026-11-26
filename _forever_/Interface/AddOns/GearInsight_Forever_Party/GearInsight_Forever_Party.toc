@@ -1,0 +1,16 @@
+## Interface: 16001, 11507
+## Title: GearInsight |cff33ff99Forever|r - Group assignments
+## Title-zhCN: GearInsight |cff33ff99无限版|r · 队长分配
+## Notes: GearInsight Forever leader assignments (loaded when a plan arrives or you lead a raid / dungeon group)
+## Notes-zhCN: GearInsight 无限版的队长分配：分配表、同步、我的任务；收到队友的分配 / 自己带队时才加载（_BuffCheck 末尾的桩触发）
+## Author: GearInsight
+## Version: 1.5.4
+## Dependencies: GearInsight_Forever
+## LoadOnDemand: 1
+## IconTexture: Interface\Icons\Spell_Holy_GreaterBlessingofKings
+
+# 11-25 用户「有效帮助队长能够掌控并提醒所有应该加的BUFF，分配」：设计稿 docs/forever/party-status-design.md 第 1 期；
+#   _BuffCheck 的桩 LoadAddOn（收到 GIFPS1 / 我带队 / 点「分配」）；不在 MERGED / LAZY / MANIFEST_KEYS；整个文件夹 HOLD 时发版不出这个文件夹
+PartyPlan.lua
+PartySync.lua
+PartyTasks.lua

@@ -206,6 +206,8 @@ local function reqLv(it) return (it.req and it.req > 0) and it.req or (it.min or
 -- 获取方式一行（悬停 / 聊天框共用）
 function BC.SourceText(it)
     if (it.src == "craft" or it.src == "vendor") and ns.GearSourceText then return ns.GearSourceText(it) end
+    -- 11-26 用户截图「写清楚来源」：60 级 BiS 池外件（商人 / 声望 / 任务 / 世界掉落…）按它自己的来源写，别一律叫「地下城掉落」
+    if it.src == "bis" and ns.BisSrcText then return ns.BisSrcText(it.how, it.srcName, it.srcName) end
     if it.src == "quest" then
         local t = ns.L("任务「", "Quest \"") .. ns.TD(it.srcName or "?") .. ns.L("」", "\"")
         local g = BC.QuestGiver(it.srcName)
@@ -232,6 +234,10 @@ function BC.Guide(it, button)
     if not it then return end
     if ns.ItemModClick and ns.ItemModClick(it.id, it.n) then return "mod" end   -- Shift 发聊天 / Ctrl 试穿
     if (it.src == "craft" or it.src == "vendor") and ns.GearGuide then return ns.GearGuide(it) end
+    if it.src == "bis" then
+        if ns.BisLoad and ns.BisLoad() and ns.BisOpenItem then return ns.BisOpenItem(it.id) end
+        ns.Print(BC.SourceText(it)); return "text"
+    end
     if it.src == "quest" then
         local g = BC.QuestGiver(it.srcName)
         ns.Print(BC.SourceText(it) .. ns.L("（", " (") .. reqLv(it) .. ns.L(" 级可接）", "+)"))
@@ -260,7 +266,9 @@ local function eqName(id)
         local c = ITEM_QUALITY_COLORS and q and ITEM_QUALITY_COLORS[q]
         return (c and c.hex or "|cffffffff") .. name .. "|r"
     end
-    return "item:" .. id
+    -- 11-26 用户截图「你现在：item:12653」：名字还没缓存 → 请求一次，先显示「读取中」，再指上去就有了
+    if C_Item and C_Item.RequestLoadItemDataByID then pcall(C_Item.RequestLoadItemDataByID, id) end
+    return ns.L("（读取中，再指一次）", "(loading...)")
 end
 
 function BC.OnEnter(m)
@@ -293,7 +301,7 @@ function BC.OnEnter(m)
     end
     -- 获取方式：掉落那行全局物品提示（PageLoot）已经加了就不重复（10-07 用户嫌重复）
     if it.src == "quest" or it.src == "craft" or it.src == "vendor" or rawget(GameTooltip, "__gifItem") ~= it.id then
-        GameTooltip:AddLine("|cff33ff99GI|r " .. ns.L("获取：", "Source: ") .. BC.SourceText(it) .. ns.L("（需要 ", " (req ") .. reqLv(it) .. ns.L(" 级）", ")"), 1, 0.82, 0.4, true)
+        GameTooltip:AddLine("|cff33ff99GI|r " .. ns.L("获取：", "Source: ") .. BC.SourceText(it) .. (reqLv(it) > 0 and (ns.L("（需要 ", " (req ") .. reqLv(it) .. ns.L(" 级）", ")")) or ""), 1, 0.82, 0.4, true)
     end
     if e.alt and ns.GearAltText then
         GameTooltip:AddLine("|cff33ff99GI|r " .. ns.GearAltText(e.alt), 0.4, 0.8, 1, true)
@@ -302,7 +310,9 @@ function BC.OnEnter(m)
         local top = SG.TopStats(it.id, it.slot, cls, BC.spec, BC.lv, 3)
         if #top > 0 then GameTooltip:AddLine(ns.L("对这个天赋最值钱：", "Best stats for this spec: ") .. table.concat(top, " · "), 0.8, 0.8, 0.8, true) end
     end
-    if it.src == "quest" then
+    if it.src == "bis" then
+        GameTooltip:AddLine(ns.L("点击：看这件怎么拿（任务线 / 来源说明）", "Click: how to get it (quest chain / source)"), 0.55, 0.55, 0.55)
+    elseif it.src == "quest" then
         GameTooltip:AddLine(ns.L("点击：在地图上标出接任务的人", "Click: pin the quest giver on the map"), 0.55, 0.55, 0.55)
     elseif it.src == "vendor" then
         GameTooltip:AddLine(ns.L("点击：在地图上标出商人", "Click: pin the vendor on the map"), 0.55, 0.55, 0.55)
@@ -342,8 +352,9 @@ local function mark(inv)
     m.check:SetTexture(CHECK)
     m.check:Hide()
     if m.RegisterForClicks then m:RegisterForClicks("LeftButtonUp", "RightButtonUp") end
-    m:SetScript("OnEnter", function(s) local ok, err = pcall(BC.OnEnter, s); if not ok then BC.lastErr = err end end)
-    m:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    -- 11-26 用户截图「这个视图按 SHIFT 也应该有效」：指着角标时按 / 松 Shift 重画提示（只在指着时听这个事件）
+    m:SetScript("OnEnter", function(s) BC.hover = s; pcall(BC.ev.RegisterEvent, BC.ev, "MODIFIER_STATE_CHANGED"); local ok, err = pcall(BC.OnEnter, s); if not ok then BC.lastErr = err end end)
+    m:SetScript("OnLeave", function() BC.hover = nil; pcall(BC.ev.UnregisterEvent, BC.ev, "MODIFIER_STATE_CHANGED"); GameTooltip:Hide() end)
     m:SetScript("OnClick", function(s, button)
         if IsAltKeyDown and IsAltKeyDown() then
             BC.NextPos()
@@ -415,6 +426,10 @@ for _, e in ipairs({ "PLAYER_EQUIPMENT_CHANGED", "PLAYER_LEVEL_UP", "CHARACTER_P
 end
 ev:SetScript("OnEvent", function(_, e, a1)
     if e == "PLAYER_ENTERING_WORLD" then BC.Hook(); return end
+    if e == "MODIFIER_STATE_CHANGED" then
+        if BC.hover and (a1 == "LSHIFT" or a1 == "RSHIFT") and GameTooltip:IsOwned(BC.hover) then pcall(BC.OnEnter, BC.hover) end
+        return
+    end
     if e == "PLAYER_REGEN_ENABLED" then
         if not BC.pendingCombat then return end
         BC.pendingCombat = nil

@@ -21,11 +21,11 @@ if IS_STANDALONE then
     shared.__euiCoreNS = EUI_NS
 end
 -------------------------------------------------------------------------------
---  Constants & Colours (BURNE STAY AWAY FROM THIS SECTION)
+--  Constants & Colors (BURNE STAY AWAY FROM THIS SECTION)
 -------------------------------------------------------------------------------
 --  Visual Settings  (edit these to adjust the look -- values only, no tables)
 -------------------------------------------------------------------------------
--- Accent colour -- canonical default: #0CD29D teal. The Forever client opens
+-- Accent color -- canonical default: #0CD29D teal. The Forever client opens
 -- on #DCA77F (soft bronze) instead; a chosen accent always wins over this.
 local DEFAULT_ACCENT_R, DEFAULT_ACCENT_G, DEFAULT_ACCENT_B = 12/255, 210/255, 157/255
 if EUI_CLIENT_FOREVER == true then
@@ -69,7 +69,7 @@ local THEME_BG_FILES = {
 -- layer at alpha 0, so nothing flashes), or at PLAYER_LOGIN for the player whose
 -- saved theme it is (EllesmereUI._PreloadLazyThemeBG).
 EllesmereUI._THEME_BG_LAZY = { ["Pixels"] = true }
--- Accent overlay per theme: its accent-coloured pieces (logo mark, rules, close X)
+-- Accent overlay per theme: its accent-colored pieces (logo mark, rules, close X)
 -- as white art, cropped to their band of the 1500x1154 canvas (x, y = top-left
 -- offset; w, h = size, all in canvas units). Drawn above the theme art and tinted
 -- with the live UI accent; built on the theme's first apply (CreateMainFrame).
@@ -80,10 +80,10 @@ EllesmereUI.THEME_ACCENT_OVERLAYS = {
 -- tight rect around its border; bx, by, bw, bh = outer rect of the border line
 -- itself and bd = its depth (the hover glow lights only that ring); gx, gy =
 -- centre of its X; gs = glyph size drawn over a copy (16 when absent); r, g, b =
--- the X colour; sh = alpha of the dark rim under a glyph; acc = alpha of a
+-- the X color; sh = alpha of the dark rim under a glyph; acc = alpha of a
 -- live-accent glyph stacked on top (art whose X comes from its accent overlay);
 -- ex, ey = top-left of the 76 unit square around the painted logo emblem; rr, rg,
--- rb = the logo badge ring colour. The collapse button and the collapsed mini
+-- rb = the logo badge ring color. The collapse button and the collapsed mini
 -- window rebuild their boxes and badge from these rects of the art on screen.
 EllesmereUI.THEME_CLOSE_BOX = {
     ["backgrounds\\eui-bg-new.png"] = { x = 1346, y = 114, w = 43, h = 41, gx = 1368, gy = 134,
@@ -187,7 +187,7 @@ local STYLE = {
     -- Slider  (white + alpha for track -- adapts to any background tint)
     SL_TRACK_R = 1, SL_TRACK_G = 1, SL_TRACK_B = 1,        -- track bg (white + alpha)
     SL_TRACK_A = 0.16,                                     -- track bg alpha
-    SL_FILL_A = 0.75,                                      -- filled portion alpha (colour = accent)
+    SL_FILL_A = 0.75,                                      -- filled portion alpha (color = accent)
     SL_INPUT_R = 0.030, SL_INPUT_G = 0.023, SL_INPUT_B = 0.018, -- input box background (darker than bg, stays as-is)
     SL_INPUT_A = 0.25,                                     -- input box alpha (all sliders)
     SL_INPUT_BRD_A = 0.12,                                 -- input box border alpha (white; a visible outline, dimmer than a dropdown's)
@@ -199,7 +199,7 @@ local STYLE = {
     -- Toggle  (white + alpha for off states -- adapts to any background tint)
     TG_OFF_R = 0.267, TG_OFF_G = 0.267, TG_OFF_B = 0.267,  -- track when OFF (#444)
     TG_OFF_A = 0.65,                                       -- track OFF alpha
-    TG_ON_A = 0.75,                                        -- track alpha at full ON (colour = accent)
+    TG_ON_A = 0.75,                                        -- track alpha at full ON (color = accent)
     TG_KNOB_OFF_R = 1, TG_KNOB_OFF_G = 1, TG_KNOB_OFF_B = 1, -- knob when OFF (white + alpha)
     TG_KNOB_OFF_A = 0.5,                                   -- knob OFF alpha
     TG_KNOB_ON_R = 1, TG_KNOB_ON_G = 1, TG_KNOB_ON_B = 1,  -- knob when ON
@@ -213,18 +213,18 @@ local STYLE = {
     BTN_BG_R = 0.089, BTN_BG_G = 0.080, BTN_BG_B = 0.072,  -- background
     BTN_BG_A = 0.6,
     BTN_BG_HA = 0.65,                                      -- background alpha hovered
-    BTN_BRD_A = 0.3,                                       -- border alpha (colour = white)
+    BTN_BRD_A = 0.3,                                       -- border alpha (color = white)
     BTN_BRD_HA = 0.45,                                     -- border alpha hovered
-    BTN_TXT_A = 0.55,                                      -- text alpha (colour = white)
+    BTN_TXT_A = 0.55,                                      -- text alpha (color = white)
     BTN_TXT_HA = 0.70,                                     -- text alpha hovered
 
     -- Dropdown
     DD_BG_R = 0.103, DD_BG_G = 0.095, DD_BG_B = 0.088,     -- background
     DD_BG_A = 0.9,
     DD_BG_HA = 0.98,                                       -- background alpha hovered
-    DD_BRD_A = 0.20,                                       -- border alpha (colour = white)
+    DD_BRD_A = 0.20,                                       -- border alpha (color = white)
     DD_BRD_HA = 0.30,                                      -- border alpha hovered
-    DD_TXT_A = 0.50,                                       -- selected value text alpha (colour = white)
+    DD_TXT_A = 0.50,                                       -- selected value text alpha (color = white)
     DD_TXT_HA = 0.60,                                      -- selected value text alpha hovered
     DD_ITEM_HL_A = 0.08,                                   -- menu item highlight alpha (hover)
     DD_ITEM_SEL_A = 0.04,                                  -- menu item highlight alpha (active selection)
@@ -284,7 +284,7 @@ local TEXT_WHITE      = { r = STYLE.TEXT_WHITE_R, g = STYLE.TEXT_WHITE_G, b = ST
 local TEXT_DIM        = { r = STYLE.TEXT_DIM_R, g = STYLE.TEXT_DIM_G, b = STYLE.TEXT_DIM_B, a = STYLE.TEXT_DIM_A }
 local TEXT_SECTION    = { r = STYLE.TEXT_SECTION_R, g = STYLE.TEXT_SECTION_G, b = STYLE.TEXT_SECTION_B, a = STYLE.TEXT_SECTION_A }
 
--- Dropdown widget colours: widgets reference DD_BG_*, DD_BRD_*, DD_TXT_* directly
+-- Dropdown widget colors: widgets reference DD_BG_*, DD_BRD_*, DD_TXT_* directly
 
 local CONTENT_PAD = 45
 local CONTENT_HEADER_TOP_PAD = 10  -- extra top padding on scroll content when header is present
@@ -374,7 +374,7 @@ EllesmereUI.PREVIEW_ROSTER = {
 }
 
 -- Font (Expressway lives in EllesmereUI/media)
-local EXPRESSWAY = MEDIA_PATH .. "fonts\\Expressway.ttf"
+local EXPRESSWAY = MEDIA_PATH .. "fonts\\EUI Highway.ttf"
 
 -- Locale system-font fallback for glyphs our fonts lack (CJK, Cyrillic). Resolved by
 -- EllesmereUI_Locale.lua from the EFFECTIVE locale (client or override); nil = Expressway.
@@ -1580,7 +1580,7 @@ EllesmereUI.EYE_VISIBLE_ICON   = MEDIA_PATH .. "icons\\eui-visible.png"
 EllesmereUI.EYE_INVISIBLE_ICON = MEDIA_PATH .. "icons\\eui-invisible.png"
 EllesmereUI.UNLOCK_ICON     = MEDIA_PATH .. "icons\\unlockmode.png"
 
--- Shared chat/tooltip colour escapes. Leave codes inside L()/Lf() literals alone:
+-- Shared chat/tooltip color escapes. Leave codes inside L()/Lf() literals alone:
 -- that text is the translation key.
 EllesmereUI.COLOR_CODES = {
     WHITE = "|cffffffff",
@@ -3572,7 +3572,7 @@ end
 -------------------------------------------------------------------------------
 --  Slash commands
 -------------------------------------------------------------------------------
-EllesmereUI.VERSION = "9.9.2"
+EllesmereUI.VERSION = "9.9.5"
 
 -- Register this addon's version into a shared global table (taint-free at load time)
 if not _G._EUI_AddonVersions then _G._EUI_AddonVersions = {} end
@@ -4748,22 +4748,12 @@ initFrame:SetScript("OnEvent", function(self, event)
         -- Register per-type callbacks instead of AllTypes to avoid firing on every unit/currency tooltip in the game (major CPU savings).
         local _isSecret = issecretvalue  -- cache global once
 
-        -- The spell/item/icon ID lines can be gated behind a held modifier (the "Use Modifier"
-        -- cog: none | shift | control | alt, default none). "none" shows them whenever Show
-        -- Spell ID is on (the original behavior); the others only surface the lines while that key is held.
-        local function IsSpellIDModifierHeld()
-            local mod = (EllesmereUIDB and EllesmereUIDB.spellIDModifier) or "none"
-            if mod == "none" then return true end
-            if mod == "control" then return IsControlKeyDown() end
-            if mod == "alt" then return IsAltKeyDown() end
-            return IsShiftKeyDown()
-        end
-
-        -- The Max Item Stack lines can be gated behind a held modifier (the "Use Modifier" cog:
-        -- none | shift | control | alt, default none). "none" shows them whenever Show Max Stack
-        -- for items is on (the original behavior); the others only surface the lines while that key is held.
-        local function IsItemStackModifierHeld()
-            local mod = (EllesmereUIDB and EllesmereUIDB.itemStackModifier) or "none"
+        -- The spell/item/icon ID, Max Stack and Item Level lines can each be gated behind a held
+        -- modifier (their "Use Modifier" cog, saved under `key`: none | shift | control | alt,
+        -- default none). "none" shows the lines whenever their toggle is on; the others only
+        -- surface them while that key is held.
+        local function ModifierHeld(key)
+            local mod = (EllesmereUIDB and EllesmereUIDB[key]) or "none"
             if mod == "none" then return true end
             if mod == "control" then return IsControlKeyDown() end
             if mod == "alt" then return IsAltKeyDown() end
@@ -4810,7 +4800,7 @@ initFrame:SetScript("OnEvent", function(self, event)
                     end
                 end
             end
-            local want = (on and IsSpellIDModifierHeld()) and "1" or "0"
+            local want = (on and ModifierHeld("spellIDModifier")) and "1" or "0"
             if GetCVar("tooltipShowAuraSpellIDs") == want then return end
             pcall(EllesmereUI.SetCVar, "tooltipShowAuraSpellIDs", want)
         end
@@ -4862,7 +4852,7 @@ initFrame:SetScript("OnEvent", function(self, event)
 
         local function SpellIDTooltipHook(tooltip, data)
             if not EllesmereUI.SpellIDOn() then return end
-            if not IsSpellIDModifierHeld() then return end
+            if not ModifierHeld("spellIDModifier") then return end
             if not data or not data.id then return end
             if _isSecret and _isSecret(data.id) then return end
             -- Aura IDs are rendered engine-side by the tooltipShowAuraSpellIDs CVar (see
@@ -4884,7 +4874,7 @@ initFrame:SetScript("OnEvent", function(self, event)
 
         local function ItemIDTooltipHook(tooltip, data)
             if not EllesmereUI.SpellIDOn() then return end
-            if not IsSpellIDModifierHeld() then return end
+            if not ModifierHeld("spellIDModifier") then return end
             if not data or not data.id then return end
             if _isSecret and _isSecret(data.id) then return end
             if not tooltip or not tooltip.GetName then return end
@@ -4911,7 +4901,7 @@ initFrame:SetScript("OnEvent", function(self, event)
 
         local function ItemIdMaxStackHook(tooltip, data)
             if not (EllesmereUIDB and EllesmereUIDB.showItemMaxStacks) then return end
-            if not IsItemStackModifierHeld() then return end
+            if not ModifierHeld("itemStackModifier") then return end
             if not data or not data.id then return end
             if _isSecret and _isSecret(data.id) then return end
             if not tooltip or not tooltip.GetName then return end
@@ -4933,7 +4923,7 @@ initFrame:SetScript("OnEvent", function(self, event)
         -- to (honoring conditionals) is exposed as the FIRST tooltip line's tooltipID, read from the tooltip data.
         local function MacroSpellIDTooltipHook(tooltip, _data)
             if not EllesmereUI.SpellIDOn() then return end
-            if not IsSpellIDModifierHeld() then return end
+            if not ModifierHeld("spellIDModifier") then return end
             if not tooltip or not tooltip.GetName or not tooltip.GetTooltipData then return end
             local ok, info = pcall(tooltip.GetTooltipData, tooltip)
             if not ok or type(info) ~= "table" or not info.lines then return end
@@ -4964,6 +4954,140 @@ initFrame:SetScript("OnEvent", function(self, event)
             TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Macro, MacroSpellIDTooltipHook)
         end
         TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, ItemIdMaxStackHook)
+
+        if EllesmereUI.IS_FOREVER then
+            -- Item Level on weapon and armor tooltips, WoW Forever only: its tooltips carry no
+            -- item level line, where retail's carry one natively. Independent of the tooltip
+            -- reskin, like the ID lines above (Tooltips & Menus > Show Item Level for Items, off
+            -- unless true; its cog holds the tooltipItemLevelItems* options below). Registered on
+            -- first enable only (ActivateItemLevelTooltip): a post call cannot be removed, so the
+            -- hook returns at once after a toggle back off.
+            local _ITEM_CLASS = Enum.ItemClass
+            -- Equipped slots an item of each equip location replaces; nil = no comparison.
+            local _ILVL_SLOTS = {
+                INVTYPE_HEAD = { 1 }, INVTYPE_NECK = { 2 }, INVTYPE_SHOULDER = { 3 },
+                INVTYPE_CHEST = { 5 }, INVTYPE_ROBE = { 5 }, INVTYPE_WAIST = { 6 },
+                INVTYPE_LEGS = { 7 }, INVTYPE_FEET = { 8 }, INVTYPE_WRIST = { 9 },
+                INVTYPE_HAND = { 10 }, INVTYPE_FINGER = { 11, 12 }, INVTYPE_TRINKET = { 13, 14 },
+                INVTYPE_CLOAK = { 15 }, INVTYPE_WEAPON = { 16, 17 }, INVTYPE_2HWEAPON = { 16 },
+                INVTYPE_WEAPONMAINHAND = { 16 }, INVTYPE_WEAPONOFFHAND = { 17 },
+                INVTYPE_SHIELD = { 17 }, INVTYPE_HOLDABLE = { 17 },
+            }
+            -- Ranged items: the ranged slot where the client has one, else the main hand.
+            local _rangedSlots
+            local function RangedSlots()
+                if not _rangedSlots then
+                    local okSlot, slot = pcall(GetInventorySlotInfo, "RangedSlot")
+                    _rangedSlots = { (okSlot and type(slot) == "number") and slot or 16 }
+                end
+                return _rangedSlots
+            end
+
+            -- The lowest item level among the equipped items in the slots this one replaces
+            -- (nil: none equipped, or the hovered item is one of them).
+            local function EquippedItemLevel(equipLoc, link)
+                local slots = _ILVL_SLOTS[equipLoc]
+                if not slots and (equipLoc == "INVTYPE_RANGED" or equipLoc == "INVTYPE_RANGEDRIGHT"
+                    or equipLoc == "INVTYPE_THROWN" or equipLoc == "INVTYPE_RELIC") then
+                    slots = RangedSlots()
+                end
+                if not slots then return nil end
+                local lowest
+                for i = 1, #slots do
+                    local eqLink = GetInventoryItemLink("player", slots[i])
+                    -- A one-hander replaces an off-hand weapon, never a shield or held item.
+                    if eqLink and slots[i] == 17 and equipLoc == "INVTYPE_WEAPON"
+                        and select(6, C_Item.GetItemInfoInstant(eqLink)) ~= _ITEM_CLASS.Weapon then
+                        eqLink = nil
+                    end
+                    if eqLink then
+                        if link and eqLink == link then return nil end
+                        local eq = C_Item.GetDetailedItemLevelInfo(eqLink)
+                        if eq and eq > 0 and (not lowest or eq < lowest) then lowest = eq end
+                    end
+                end
+                return lowest
+            end
+
+            local function ItemLevelTooltipHook(tooltip, data)
+                local db = EllesmereUIDB
+                if not (db and db.tooltipItemLevelItems) then return end
+                if not ModifierHeld("tooltipItemLevelItemsModifier") then return end
+                if not data or not data.id then return end
+                if _isSecret and _isSecret(data.id) then return end
+                if not tooltip or not tooltip.GetName then return end
+                local ok, name = pcall(tooltip.GetName, tooltip)
+                if not ok or not name then return end
+                if name == "ItemSocketingDescription" then return end
+                local _, _, _, equipLoc, _, classID = C_Item.GetItemInfoInstant(data.id)
+                if not _ITEM_CLASS or not classID then return end
+                local gear = classID == _ITEM_CLASS.Weapon or classID == _ITEM_CLASS.Armor
+                if not gear and not (db.tooltipItemLevelItemsBags
+                    and (classID == _ITEM_CLASS.Container or classID == _ITEM_CLASS.Quiver)) then
+                    return
+                end
+                local link = data.hyperlink
+                local ilvl = C_Item.GetDetailedItemLevelInfo(link or data.id)
+                if not ilvl or ilvl <= 0 then return end
+                local text = string.format(ITEM_LEVEL or "Item Level %d", ilvl)
+                for i = 1, tooltip:NumLines() do
+                    local fs = _G[name .. "TextLeft" .. i]
+                    local txt = fs and fs:GetText()
+                    if txt and not (_isSecret and _isSecret(txt)) and txt:sub(1, #text) == text then return end
+                end
+                -- Difference with the equipped item, on the hovered item's own tooltip only
+                -- (the comparison tooltips show the equipped item itself).
+                local suffix = ""
+                if gear and db.tooltipItemLevelItemsCompare and not name:find("^ShoppingTooltip") then
+                    local eq = EquippedItemLevel(equipLoc, link)
+                    local diff = eq and (ilvl - eq)
+                    if diff and diff ~= 0 then
+                        suffix = string.format(diff > 0 and "  |cff20ff20(+%d)|r" or "  |cffff2020(%d)|r", diff)
+                    end
+                end
+                local r, g, b
+                local colorMode = db.tooltipItemLevelItemsColor or "gold"
+                if colorMode == "white" then
+                    r, g, b = 1, 1, 1
+                elseif colorMode == "quality" and C_Item.GetItemQualityByID and C_Item.GetItemQualityColor then
+                    local q = C_Item.GetItemQualityByID(link or data.id)
+                    if q then r, g, b = C_Item.GetItemQualityColor(q) end
+                end
+                if not r then
+                    local c = NORMAL_FONT_COLOR
+                    r, g, b = c and c.r or 1, c and c.g or 0.82, c and c.b or 0
+                end
+                -- Next to Name: the right column of the name line, which item tooltips leave
+                -- empty; the line goes to the bottom when something else already uses it.
+                if db.tooltipItemLevelItemsPosition == "name" then
+                    local right = _G[name .. "TextRight1"]
+                    if right then
+                        local short = string.format("%s %d", ITEM_LEVEL_ABBR or "iLvl", ilvl) .. suffix
+                        local cur = right:IsShown() and right:GetText() or nil
+                        if cur and _isSecret and _isSecret(cur) then cur = "?" end
+                        if not cur or cur == "" or cur == short then
+                            right:SetText(short)
+                            right:SetTextColor(r, g, b)
+                            right:Show()
+                            tooltip:Show()
+                            return
+                        end
+                    end
+                end
+                tooltip:AddLine(text .. suffix, r, g, b)
+                tooltip:Show()
+            end
+
+            local _ilvlHooked = false
+            function EllesmereUI.ActivateItemLevelTooltip()
+                if _ilvlHooked then return end
+                if not (EllesmereUIDB and EllesmereUIDB.tooltipItemLevelItems) then return end
+                if not (C_Item.GetDetailedItemLevelInfo and C_Item.GetItemInfoInstant) then return end
+                _ilvlHooked = true
+                TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, ItemLevelTooltipHook)
+            end
+            EllesmereUI.ActivateItemLevelTooltip()
+        end
 
         -- Spell ID on Tooltip with a modifier: a press or release of that key sets the engine's
         -- aura ID CVar (SyncAuraSpellIDCVar), and the aura tooltips show or drop the line on

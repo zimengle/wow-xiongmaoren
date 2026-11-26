@@ -11,6 +11,8 @@ Providers.options = {
     {key="questieTurnIn", label="Questie自动交", addon="Questie"},
     {key="ellesAccept", label="Elles自动接", addon="EllesmereUIQuestTracker"},
     {key="ellesTurnIn", label="Elles自动交", addon="EllesmereUIQuestTracker"},
+    {key="polestarAccept", label="北极星自动接", addon="Polestar"},
+    {key="polestarTurnIn", label="北极星自动交", addon="Polestar"},
 }
 
 local function Loaded(name)
@@ -18,6 +20,14 @@ local function Loaded(name)
     if type(api) ~= "function" then return false end
     local ok, value = pcall(api, name)
     return ok and value == true
+end
+
+local function ReadField(target, field)
+    return target[field]
+end
+
+local function WriteField(target, field, value)
+    target[field] = value
 end
 
 local function Resolve(key)
@@ -39,37 +49,57 @@ local function Resolve(key)
         if not Loaded("EllesmereUIQuestTracker") then return end
         local api = _G.EllesmereUIQuestTracker
         if type(api) == "table" and type(api.Cfg) == "function" and type(api.Set) == "function" then
-            return api, key == "ellesAccept" and "autoAccept" or "autoTurnIn", true
+            return api, key == "ellesAccept" and "autoAccept" or "autoTurnIn", "Cfg"
+        end
+    elseif key == "polestarAccept" or key == "polestarTurnIn" then
+        if not Loaded("Polestar") then return end
+        local api = _G.Polestar
+        if type(api) == "table" and type(api.Get) == "function" and type(api.Set) == "function" then
+            return api, key == "polestarAccept" and "behavior.autoAccept" or "behavior.autoTurnin", "Get"
         end
     end
 end
 
 function Providers:GetState(key)
-    local target, field, api = Resolve(key)
+    local target, field, readMethod = Resolve(key)
     if not target then return {available=false, enabled=false} end
-    local ok, value = pcall(function()
-        if api then return target.Cfg(field) end
-        return target[field]
-    end)
-    if not ok then return {available=false, enabled=false} end
+    local ok, value
+    if readMethod then
+        ok, value = pcall(target[readMethod], field)
+    else
+        ok, value = pcall(ReadField, target, field)
+    end
+    if not ok or (readMethod == "Get" and type(value) ~= "boolean") then
+        return {available=false, enabled=false}
+    end
     return {available=true, enabled=value == true}
 end
 
 function Providers:SetEnabled(key, value)
-    local target, field, api = Resolve(key)
+    local target, field, readMethod = Resolve(key)
     if not target then return false, "provider-unavailable" end
-    local readOK, before = pcall(function()
-        if api then return target.Cfg(field) end
-        return rawget(target, field)
-    end)
+    local readOK, before
+    if readMethod then
+        readOK, before = pcall(target[readMethod], field)
+    else
+        readOK, before = pcall(rawget, target, field)
+    end
     if not readOK then return false, "provider-read-failed" end
+    if readMethod == "Get" and type(before) ~= "boolean" then return false, "provider-unavailable" end
     local desired = value == true
-    local ok = pcall(function()
-        if api then target.Set(field, desired) else target[field] = desired end
-    end)
+    local ok
+    if readMethod then
+        ok = pcall(target.Set, field, desired)
+    else
+        ok = pcall(WriteField, target, field, desired)
+    end
     local state = self:GetState(key)
     if not ok or not state.available or state.enabled ~= desired then
-        if api then pcall(target.Set, field, before) else rawset(target, field, before) end
+        if readMethod then
+            pcall(target.Set, field, before)
+        else
+            pcall(rawset, target, field, before)
+        end
         return false, "provider-write-failed"
     end
     return true

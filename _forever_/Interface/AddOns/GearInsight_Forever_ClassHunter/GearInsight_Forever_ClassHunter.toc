@@ -4,7 +4,7 @@
 ## Notes: GearInsight Forever hunter-only crowdsourcing (pet taming results, beast abilities, Beast Training costs). Loads only on hunters
 ## Notes-zhCN: GearInsight 无限版的猎人专属众包（驯服结果 / 野兽会放的技能 / 训练野兽的训练点）：只有猎人角色才加载
 ## Author: GearInsight
-## Version: 1.4.19
+## Version: 1.5.4
 ## Dependencies: GearInsight_Forever
 ## LoadOnDemand: 1
 ## IconTexture: Interface\Icons\Ability_Hunter_BeastTaming
@@ -21,3 +21,8 @@ HunterObs.lua
 #   BeastTipData.lua = _Class 的 PetTameData 抽出的 npcID 索引（scripts/gi_forever_beast_tip_build.py 生成，约 6 KB，不为提示加载 _Class）
 BeastTipData.lua
 BeastTip.lua
+# 11-25 用户「海加尔邮政扣环…猎人专属，打开猎豹守护或者豹群守护就换上，关闭换下」（HOLD）：开守护换扣环、守护关了换回原饰品
+HunterAspect.lua
+TrueshotRemind.lua
+AspectRemind.lua
+# 11-26 用户截图天赋「强化追踪」：「这个天赋亮的时候提醒」「开追踪」（HOLD）：目标类型和现在开的追踪对不上时出浮标

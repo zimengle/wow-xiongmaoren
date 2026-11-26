@@ -1308,7 +1308,7 @@ function _G._EUI_BuildFontsPage(pageName, parent, yOffset)
     -- ResolveFontName honours them. CJK keeps the old System-Default-only picker.
     local localeCyrillic = localeRestricted and EllesmereUI.LOCALE_SCRIPT == "cyrillic"
 
-    local fontDropValues = {}
+    local fontDropValues = { _menuOpts = EllesmereUI.FONT_MENU_OPTS }
     local fontDropOrder  = {}
     if localeRestricted then
         fontDropValues[EllesmereUI.SYSTEM_FONT_KEY] = { text = "System Default", font = EllesmereUI.LOCALE_FONT_FALLBACK }
@@ -1335,8 +1335,8 @@ function _G._EUI_BuildFontsPage(pageName, parent, yOffset)
             end
         else
             -- Expressway is the informed Latin opt-in, using a distinct sentinel key so the untouched default still maps to System Default.
-            fontDropValues[EllesmereUI.EXPRESSWAY_FORCED_KEY] = { text = "Expressway (Latin only)",
-                font = EllesmereUI.MEDIA_PATH .. "fonts\\Expressway.TTF" }
+            fontDropValues[EllesmereUI.EXPRESSWAY_FORCED_KEY] = { text = EllesmereUI.LatinOnlyFontLabel(),
+                font = EllesmereUI.MEDIA_PATH .. "fonts\\EUI Highway.ttf" }
             fontDropOrder[#fontDropOrder + 1] = EllesmereUI.EXPRESSWAY_FORCED_KEY
         end
         EllesmereUI.AppendExternalSharedMediaFonts(fontDropValues, fontDropOrder)
@@ -1357,7 +1357,7 @@ function _G._EUI_BuildFontsPage(pageName, parent, yOffset)
                 fontDropOrder[#fontDropOrder + 1] = "---"
             else
                 local path = EllesmereUI.FONT_BLIZZARD[name]
-                    or (FONT_DIR_GLOBAL .. (EllesmereUI.FONT_FILES[name] or "Expressway.TTF"))
+                    or (FONT_DIR_GLOBAL .. (EllesmereUI.FONT_FILES[name] or "EUI Highway.ttf"))
                 local displayName = (EllesmereUI.FONT_DISPLAY_NAMES and EllesmereUI.FONT_DISPLAY_NAMES[name]) or name
                 fontDropValues[name] = { text = displayName, font = path }
                 fontDropOrder[#fontDropOrder + 1] = name
@@ -1526,7 +1526,7 @@ function _G._EUI_BuildFontsPage(pageName, parent, yOffset)
         local gtsPending
         _, h = W:DualRow(parent, y,
             { type="dropdown", text="Name Font",
-              -- Coloured inline rather than via tooltipOpts.color, which would tint the explanation red along with the warning.
+              -- Colored inline rather than via tooltipOpts.color, which would tint the explanation red along with the warning.
               tooltip="Sets the font for the names that float above players, NPCs and enemies in the world.\n\nSeparate from Global Font - changing this does not affect the rest of the UI, and Global Font does not affect it.\n\nBlizzard Default leaves the name text completely untouched.\n\n|cffff4d4dRequires a re-log or restart of WoW to take effect.|r",
               values=nameFontValues, order=nameFontOrder,
               getValue=function()

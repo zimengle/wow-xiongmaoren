@@ -552,7 +552,18 @@ end
 -- ---------- 招人页上的开关（DungeonChat renderRecruit 调；R = 招人页）----------
 local function sel(b, on) if ns.SegSelect and rawget(b, "_segFs") then ns.SegSelect(b, on) end end
 local EMPTY_HINT = { "；集合石里单人求组、合你设置的散人也会列在这里，开头标灰色「[集合石]」", "; solo Group Finder listings that fit show here too, tagged [LFG]" }
-function S.EmptyHint() return S.On() and L(EMPTY_HINT[1], EMPTY_HINT[2]) or "" end
+-- 11-25 用户「为啥没有立刻扫描集合石的单人申请」：空着时把上次搜的结果（几条 / 几个合设置 / 筛掉几个 / 被拦）直接写在列表里，不用去指按钮
+function S.EmptyHint()
+    if not S.On() then return "" end
+    local ok, note = pcall(S.Note)
+    return L(EMPTY_HINT[1], EMPTY_HINT[2]) .. ((ok and type(note) == "string" and note ~= "") and ("\n|cff909090" .. L("集合石：", "Group Finder: ") .. note .. "|r") or "")
+end
+-- 点「招人」页签 / 点喊话 = 玩家点击 → 顺手立刻搜一次（以前打开页面靠计时器搜：要等、还可能被游戏拦）
+function S.Kick() if S.On() then pcall(S.Search, true) end end
+if type(DC.Shout) == "function" then
+    local shout = DC.Shout
+    DC.Shout = function(...) local a, b = shout(...); S.Kick(); return a, b end
+end
 function S.Place(R)
     local LR = rawget(R, "lower") or R
     local tg = rawget(R, "lfgSoloBtn")

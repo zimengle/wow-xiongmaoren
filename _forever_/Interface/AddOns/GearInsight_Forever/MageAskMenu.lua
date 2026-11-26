@@ -7,7 +7,7 @@ local _, ns = ...
 
 local MA = {}
 ns.MageAskMenu = MA
-MA.MENU_TAGS = { "MENU_UNIT_FRIEND", "MENU_UNIT_PLAYER", "MENU_UNIT_PARTY", "MENU_UNIT_RAID_PLAYER", "MENU_UNIT_TARGET", "MENU_UNIT_FOCUS" }
+MA.MENU_TAGS = { "MENU_UNIT_FRIEND", "MENU_UNIT_PLAYER", "MENU_UNIT_PARTY", "MENU_UNIT_RAID_PLAYER", "MENU_UNIT_RAID", "MENU_UNIT_TARGET", "MENU_UNIT_FOCUS" }
 MA.NO_MANA = { WARRIOR = true, ROGUE = true }
 
 local function secret(v) return issecretvalue and issecretvalue(v) end

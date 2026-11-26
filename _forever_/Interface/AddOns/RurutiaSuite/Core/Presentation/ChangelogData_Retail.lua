@@ -7,14 +7,25 @@ RS.Presentation.ChangelogData = RS.Presentation.ChangelogData or {}
 if buildID == "retail" then
     RS.Presentation.ChangelogData.retail = {
         viewId = "retail",
-        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:d90bba8918232880dd217f0072ffe1c4655e195a492fe494eaaa946c1c2b84f2",
+        sourceId = "candidate:RurutiaSuite/Changelog.md:sha256:b44d3c4ff6a5302009b229d8c8d6a8f0932012d3fc71c0f88fbcd563ec501d30",
         historySourceId = "retail:b109960e82a2b3db460e2ae597ea8870276d1479:RurutiaSuite/Changelog.md",
         showMissingVersionWarning = false,
         latest = {
-            version = "4.9.2",
-            date = "2026-11-20",
-            noticeKey = "4.9.2:f8a71ad64450713bf6db",
-            content = [=[%sv4.9.2（2026-11-20）|r
+            version = "4.9.6",
+            date = "2026-11-26",
+            noticeKey = "4.9.6:a05ab19256283d98f5f4",
+            content = [=[%sv4.9.6（2026-11-26）|r
+
+%s[游戏设置]|r
+• 伤害跳转方式，改为滑块调节，重排效果与战斗选项顺序。
+
+%sv4.9.5（2026-11-26）|r
+
+%s[游戏设置]|r
+• 隐藏友方蓝名，新增开关，默认关闭，避免重载后被重置。
+• 战斗数字，新增治疗数字、伤害尺寸与跳转方式调节。
+
+%sv4.9.2（2026-11-20）|r
 
 %s[主窗口]|r
 • 设置搜索自动索引标签、分组与主要功能项，点击或回车可直接定位并高亮。

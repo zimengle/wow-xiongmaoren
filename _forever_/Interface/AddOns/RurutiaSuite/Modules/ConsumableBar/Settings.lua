@@ -195,6 +195,19 @@ local function BuildPage(context, module)
         getValue = function() return module:GetProfile().cooldownDesaturate end,
         onChange = function(_, value) module:ToggleCooldownDesaturate(value) end,
     })
+    if Adapter.supportsCategoryEffects then
+        globalSettings:Checkbox("rememberLastUse", {
+            text = "记住上次使用",
+            getValue = function() return module:GetProfile().rememberLastUse end,
+            getEnabled = function() return not Adapter:IsInCombat() end,
+            onChange = function(_, value)
+                if Adapter:IsInCombat() then return false end
+                module:GetProfile().rememberLastUse = value == true
+                module:ClearPendingCategoryUse()
+                module:QueueSecureRefresh()
+            end,
+        })
+    end
     for index, group in ipairs(Data.groups) do
         local section = bar:Section(group.title or group.label or group.key)
         local groupActions = section:ActionRow({ columns = 2, allowMixed = true })
@@ -313,7 +326,8 @@ local function BuildPage(context, module)
             page:ShowTextDialog({
                 title = "恢复消耗品默认设置", confirmLabel = "恢复默认",
                 description = "将恢复整个消耗品模块的默认设置。",
-                value = "所有分组的位置、外观、物品选择和显示设置均会重置。",
+                value = "所有分组的位置、外观、物品选择和显示设置均会重置。"
+                    .. (Adapter.supportsCategoryEffects and "各角色和天赋记住的物品会保留。" or ""),
                 onConfirm = function()
                     module:ResetDefaults()
                     module:RefreshItemFilter(context, false)

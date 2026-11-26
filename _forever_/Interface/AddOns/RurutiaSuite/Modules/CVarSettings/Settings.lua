@@ -42,6 +42,65 @@ local function BuildSelectOptions(metadata)
     return options, order
 end
 
+local WORLD_TEXT_SCALE_MIN = 0.5
+local WORLD_TEXT_SCALE_MAX = 2.5
+local WORLD_TEXT_SCALE_STEP = 0.1
+local WORLD_TEXT_SCALE_DEFAULT = 1.0
+local DIRECTIONAL_SCALE_MIN = 0
+local DIRECTIONAL_SCALE_MAX = 5
+local DIRECTIONAL_SCALE_STEP = 1
+local DIRECTIONAL_SCALE_DEFAULT = 1
+
+local function NormalizeWorldTextScale(value)
+    local scale = tonumber(value)
+    if not scale or scale ~= scale then return WORLD_TEXT_SCALE_DEFAULT end
+    scale = math.max(WORLD_TEXT_SCALE_MIN, math.min(WORLD_TEXT_SCALE_MAX, scale))
+    return math.floor(scale * 10 + 0.5) / 10
+end
+
+local function NormalizeDirectionalScale(value)
+    local scale = tonumber(value)
+    if not scale or scale ~= scale then return DIRECTIONAL_SCALE_DEFAULT end
+    scale = math.max(DIRECTIONAL_SCALE_MIN, math.min(DIRECTIONAL_SCALE_MAX, scale))
+    return math.floor(scale + 0.5)
+end
+
+local function RuntimeCombatTextToggle(module, cvar)
+    local runtime = module:GetCVarValue(cvar)
+    return runtime ~= nil and tostring(runtime) == "1"
+end
+
+local function RuntimeDirectionalScale(module)
+    return NormalizeDirectionalScale(module:GetCVarValue("floatingCombatTextCombatDamageDirectionalScale"))
+end
+
+local function RuntimeWorldTextScale(module)
+    return NormalizeWorldTextScale(module:GetCVarValue("WorldTextScale"))
+end
+
+local function AddDirectToggle(row, module, data, cvarKey)
+    local metadata = data.metadata[cvarKey]
+    if not metadata or metadata.type ~= "toggle" then return false end
+    row:Checkbox(cvarKey, {
+        text = metadata.name,
+        tooltip = metadata.description,
+        value = ToggleValue(module, cvarKey, metadata),
+        getValue = function()
+            return ToggleValue(module, cvarKey, metadata)
+        end,
+        onChange = function(_, enabled)
+            local selected
+            if metadata.invert then
+                selected = enabled and "0" or "1"
+            else
+                selected = enabled and "1" or "0"
+            end
+            module:SetCustomSetting(cvarKey, selected)
+        end,
+    })
+    return true
+end
+
 local function BuildDirectSettings(owner, module, data, categoryKeys, appendToggles)
     local typeOrder = { "toggle", "select" }
     local typeIndex
@@ -420,20 +479,107 @@ local function BuildPage(context, module, data, adapter)
         end
     end
     BuildDirectSettings(interface, module, data, { "interface" }, appendInterfaceToggles)
+    if module:HasAnyFriendlyPlayerNameCVar() then
+        interface:QuadRow():Checkbox("hideFriendlyPlayerNames", {
+            text = "隐藏友方蓝名",
+            tooltip = "开启后强制隐藏友方玩家及宠物、仆从、图腾头顶的蓝色名字。登录、重载或被 EllesmereUI 等插件改回时，自动保持隐藏。默认关闭，取消勾选会恢复显示。",
+            value = profile.hideFriendlyPlayerNames,
+            getValue = function() return module:GetProfile().hideFriendlyPlayerNames end,
+            onChange = function(_, enabled)
+                module:SetHideFriendlyPlayerNames(enabled)
+            end,
+        })
+    end
 
     if adapter.supportsNameplateControls then
         BuildNameplateSection(commonTab, module, data, adapter)
     end
 
     local effects = commonTab:Section("效果与战斗")
-    BuildDirectSettings(effects, module, data, { "effects", "combat" }, function(row)
-        row:Checkbox("deathRecapLoginRepair", {
-            text = "修复死亡摘要",
-            tooltip = "重新开启时立即修复为300秒，战斗中延至脱战。默认开启，登录时补足300秒并保留更长设置，受登录时自动应用控制。关闭只取消后续修复，不还原当前值。",
-            getValue = function() return module:GetProfile().repairDeathRecap end,
-            onChange = function(_, value) module:SetDeathRecapRepairEnabled(value) end,
+    local effectToggles = {}
+    local placedEffects = {}
+    local function AppendEffectToggle(entry)
+        effectToggles[#effectToggles + 1] = entry
+    end
+    for _, key in ipairs({ "floatingCombatTextCombatDamage", "floatingCombatTextCombatHealing", "ffxGlow", "ffxDeath", "deathRecapLoginRepair", "lossOfControl" }) do
+        if key == "floatingCombatTextCombatHealing" then
+            if module:CVarExists(key) then AppendEffectToggle({ kind = "healing", key = key }) end
+        elseif key == "deathRecapLoginRepair" then
+            AppendEffectToggle({ kind = "deathRecap", key = key })
+        elseif data.metadata[key] and data.metadata[key].type == "toggle" then
+            placedEffects[key] = true
+            AppendEffectToggle({ kind = "direct", key = key })
+        end
+    end
+    for _, category in ipairs({ "effects", "combat" }) do
+        for _, key in ipairs(SettingOrder(data, category)) do
+            if not placedEffects[key] and data.metadata[key].type == "toggle" then
+                placedEffects[key] = true
+                AppendEffectToggle({ kind = "direct", key = key })
+            end
+        end
+    end
+    local effectRow
+    for index, entry in ipairs(effectToggles) do
+        if (index - 1) % 4 == 0 then effectRow = effects:QuadRow() end
+        if entry.kind == "direct" then
+            AddDirectToggle(effectRow, module, data, entry.key)
+        elseif entry.kind == "healing" then
+            effectRow:Checkbox("floatingCombatTextCombatHealing", {
+                text = "治疗数字",
+                tooltip = "显示对目标造成的治疗数字；直接读取并修改游戏 CVar，不写入 RS 配置。",
+                value = RuntimeCombatTextToggle(module, "floatingCombatTextCombatHealing"),
+                getValue = function()
+                    return RuntimeCombatTextToggle(module, "floatingCombatTextCombatHealing")
+                end,
+                onChange = function(control, enabled)
+                    module:SetManualCVarSwitch("floatingCombatTextCombatHealing", enabled)
+                    if control then
+                        control:SetValue(RuntimeCombatTextToggle(module, "floatingCombatTextCombatHealing"), true)
+                    end
+                end,
+            })
+        else
+            effectRow:Checkbox("deathRecapLoginRepair", {
+                text = "修复死亡摘要",
+                tooltip = "重新开启时立即修复为300秒，战斗中延至脱战。默认开启，登录时补足300秒并保留更长设置，受登录时自动应用控制。关闭只取消后续修复，不还原当前值。",
+                getValue = function() return module:GetProfile().repairDeathRecap end,
+                onChange = function(_, value) module:SetDeathRecapRepairEnabled(value) end,
+            })
+        end
+    end
+    if module:CVarExists("WorldTextScale") then
+        effects:Row():Slider("WorldTextScale", {
+            text = "伤害数字尺寸",
+            tooltip = "调整系统伤害、治疗等世界浮动文字缩放倍率（0.5-2.5）；直接读取并修改游戏 CVar，不写入 RS 配置。",
+            value = RuntimeWorldTextScale(module),
+            getValue = function() return RuntimeWorldTextScale(module) end,
+            min = WORLD_TEXT_SCALE_MIN,
+            max = WORLD_TEXT_SCALE_MAX,
+            step = WORLD_TEXT_SCALE_STEP,
+            onChange = function(control, selected)
+                local scale = NormalizeWorldTextScale(selected)
+                module:SetManualCVarValue("WorldTextScale", string.format("%.1f", scale))
+                if control then control:SetValue(RuntimeWorldTextScale(module), true) end
+            end,
         })
-    end)
+    end
+    if module:CVarExists("floatingCombatTextCombatDamageDirectionalScale") then
+        effects:Row():Slider("floatingCombatTextCombatDamageDirectionalScale", {
+            text = "伤害跳转方式",
+            tooltip = "0 为经典垂直弹出，1-5 为方向扩散弹出（数值越大扩散越广）；直接读取并修改游戏 CVar，不写入 RS 配置。",
+            value = RuntimeDirectionalScale(module),
+            getValue = function() return RuntimeDirectionalScale(module) end,
+            min = DIRECTIONAL_SCALE_MIN,
+            max = DIRECTIONAL_SCALE_MAX,
+            step = DIRECTIONAL_SCALE_STEP,
+            onChange = function(control, selected)
+                local scale = NormalizeDirectionalScale(selected)
+                module:SetManualCVarValue("floatingCombatTextCombatDamageDirectionalScale", tostring(scale))
+                if control then control:SetValue(RuntimeDirectionalScale(module), true) end
+            end,
+        })
+    end
 
     local debug = commonTab:Section("调试")
     BuildDirectSettings(debug, module, data, { "debug" })
@@ -474,7 +620,11 @@ function Settings:Register(module, data, adapter)
     if self.registered then return true end
     -- Index the Build's metadata without creating the page or its lazy popovers.
     local searchKeywords = { "游戏设置", "CVAR", "伤害数字", "血条距离", "装备比较", "镜头",
-        "死亡摘要", "死亡记录", "死亡回顾", "日经02", "combatLogRetentionTime" }
+        "死亡摘要", "死亡记录", "死亡回顾", "日经02", "combatLogRetentionTime",
+        "友方蓝名", "友方玩家名字", "友方宠物名字", "友方仆从", "隐藏友方蓝名",
+        "UnitNameFriendlyPlayerName", "UnitNameFriendlyPetName", "UnitNameFriendlyMinionName",
+        "治疗数字", "伤害数字尺寸", "伤害跳转方式", "WorldTextScale",
+        "floatingCombatTextCombatHealing", "floatingCombatTextCombatDamageDirectionalScale" }
     for cvar, metadata in pairs(data.metadata) do
         searchKeywords[#searchKeywords + 1] = cvar
         searchKeywords[#searchKeywords + 1] = metadata.name

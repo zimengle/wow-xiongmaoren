@@ -148,7 +148,15 @@ function PB.SetSoon(sec)
     PB.Refresh()
 end
 -- 职业的首选：玩家设过的（"M" / "W" / "K" / "0" = 不加）> 全给王者 > 默认
+--   11-25 队长分配（_Party，HOLD）：这支队伍里队长给我分了祝福 → 先听队长的（只在这支队伍里、不写存档；设置「队长的分配覆盖我自己的设置」可关）；
+--     没有分配表 / 没装 _Party = ns.PartyPlan 是 nil = 和以前一模一样
 function PB.ClassPref(c)
+    local PP = ns.PartyPlan
+    if PP and PP.BlessFor then
+        local v = PP.BlessFor(c)
+        if v == "0" then return nil end
+        if v and PB.TYPES[v] and PB.Knows(v) then return v end
+    end
     local by = PB.DB().by
     local v = type(by) == "table" and by[c] or nil
     if v == "0" then return nil end

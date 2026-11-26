@@ -79,10 +79,10 @@ nil,
 },
 ["tier"] = {
 ["tab"] = "dps",
-["mode"] = "talents",
-["sec"] = "changes",
-["nav"] = "spec",
 ["spec"] = "enh",
+["nav"] = "spec",
+["sec"] = "changes",
+["mode"] = "talents",
 ["cls"] = "SHAMAN",
 },
 ["talent"] = {

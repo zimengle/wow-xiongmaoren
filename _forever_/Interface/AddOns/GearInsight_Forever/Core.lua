@@ -589,22 +589,39 @@ end
 ns.UPLOAD_HINT_ZH = "① Ctrl+C 复制下面这行网址\n② 粘到浏览器地址栏打开，自动上传（手机微信里打开也行）\n也可以把整行粘到小程序「无限 · 公测数据」"
 ns.UPLOAD_HINT_EN = "1. Ctrl+C to copy the link below\n2. Open it in your browser - it uploads automatically"
 
+-- 11-24 用户截图「换层记录 / 复制全部发给开发者」框里只有光标：多行文字（/gi layer log、帐篷探针）塞进单行输入框显示不出来
+--   → 文字里有换行就用可滚动的多行框（第一次用到才建），照样全选好 Ctrl+C
+local function multi(f)
+    if rawget(f, "sf") then return end
+    f.sf = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
+    f.sf:SetPoint("TOPLEFT", f.hint, "BOTTOMLEFT", 2, -10); f.sf:SetPoint("BOTTOMRIGHT", -34, 46)
+    f.ml = CreateFrame("EditBox", nil, f.sf)
+    f.ml:SetMultiLine(true); f.ml:SetMaxLetters(0); f.ml:SetWidth(520); f.ml:SetFontObject(ChatFontNormal)
+    f.ml:SetScript("OnEscapePressed", function() f:Hide() end)
+    f.sf:SetScrollChild(f.ml)
+end
 function ns.ShowBox(title, hint, text, onOk, okText)
     box = box or makeBox()
     box.title:SetText(title or "")
     box.hint:SetText(hint or "")
-    box.edit:SetText(text or "")
-    box.edit:SetFocus(); box.edit:HighlightText()
+    local ml = type(text) == "string" and text:find("\n", 1, true) ~= nil
+    if ml then multi(box) end
+    local sf = rawget(box, "sf")
+    if sf then sf:SetShown(ml) end
+    box.edit:SetShown(not ml)
+    local e = ml and box.ml or box.edit
+    e:SetText(text or "")
+    e:SetFocus(); e:HighlightText()
     -- 框高跟说明行数走；确认键宽度按文字
     local hh = (box.hint.GetStringHeight and box.hint:GetStringHeight()) or 14
-    box:SetHeight(36 + math.max(14, hh) + 10 + 26 + 18 + 26 + 12)
+    box:SetHeight(36 + math.max(14, hh) + 10 + 26 + 18 + 26 + 12 + (ml and 240 or 0))
     box.cancel:SetShown(onOk ~= nil)
     if onOk then
         box.ok:SetText(okText or ns.L("确定", "OK"))
         local fs = box.ok.GetFontString and box.ok:GetFontString()
         local w = fs and fs.GetStringWidth and fs:GetStringWidth() or 0
         box.ok:SetWidth(math.max(90, (w or 0) + 30))
-        box.ok:SetScript("OnClick", function() onOk(box.edit:GetText() or ""); box:Hide() end)
+        box.ok:SetScript("OnClick", function() onOk(e:GetText() or ""); box:Hide() end)
         box.edit:SetScript("OnEnterPressed", function() onOk(box.edit:GetText() or ""); box:Hide() end)
     else
         box.ok:SetText(ns.L("关闭", "Close")); box.ok:SetWidth(90)

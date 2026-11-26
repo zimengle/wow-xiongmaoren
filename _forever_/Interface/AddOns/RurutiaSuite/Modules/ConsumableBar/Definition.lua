@@ -28,6 +28,11 @@ local Definition = {
     LAYOUT_SETTINGS_VERSION = 2,
 }
 
+if Adapter.supportsCategoryEffects then
+    Definition.defaults.profile.rememberLastUse = true
+    Definition.defaults.char = {}
+end
+
 local GROWTH_DIRECTIONS = {
     RIGHT = "向右",
     LEFT = "向左",
@@ -207,6 +212,9 @@ function Definition:BuildIndexes(forSettings)
     if forSettings or self.cooldownGroups ~= nil then return end
     self.cooldownGroups = {}
     self.foodBuffIDs = {}
+    if Adapter.supportsCategoryEffects then
+        self.categoryBuffIDs, self.categoryItemIDs, self.weaponItemCategories = {}, {}, {}
+    end
     local index
     for index = 1, #(Data.catalog or {}) do
         local item = Data.catalog[index]
@@ -226,6 +234,30 @@ function Definition:BuildIndexes(forSettings)
             end
         end
     end
+    if not Adapter.supportsCategoryEffects then return end
+    for _, group in ipairs(Data.groups) do
+        if group.categoryMenus then
+            for _, key in ipairs(group.items) do
+                local item = self.catalog[key]
+                local category = item and self:GetCategoryKey(item)
+                if category then
+                    local ids = self.categoryBuffIDs[category] or {}
+                    self.categoryBuffIDs[category] = ids
+                    if item.buffID then ids[item.buffID] = true end
+                    for _, id in ipairs(item.buffIDs or {}) do ids[id] = true end
+                    local clicks = rawget(item, "clicks")
+                    local left = clicks and clicks.left
+                    local id = left and left.type == "item" and left.id or self:GetPrimaryItemID(item)
+                    if id then
+                        local items = self.categoryItemIDs[category] or {}
+                        self.categoryItemIDs[category] = items
+                        items[id] = item
+                        if item.kind == "weaponConsumable" then self.weaponItemCategories[item] = category end
+                    end
+                end
+            end
+        end
+    end
 end
 
 function Definition:ReleaseIndexes()
@@ -234,6 +266,9 @@ function Definition:ReleaseIndexes()
     self.foodBuffIDs = nil
     self.visibleByGroup = {}
     self.foodBuffExpirations = {}
+    self.categoryBuffIDs, self.categoryItemIDs, self.weaponItemCategories = nil, nil, nil
+    self.foodBuffPresent, self.auraScanComplete = nil, nil
+    self.weaponEnchants, self.enchantIconIndex = nil, nil
     self.sharedCooldownCache = {}
     if not self.settingsVisible then
         self.itemIconCache = {}

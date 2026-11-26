@@ -408,6 +408,8 @@ function DC.OnInvite(inviter)
     inviter = clean(inviter)
     local a = inviter and DC.Applied(inviter)
     if not a or not AcceptGroup then return false end
+    local LY = ns.Layer   -- 11-24 GI-330：刚放了帐篷不自动进队（会被拉到别的位面，帐篷留原层）
+    if LY and LY.TentHold and LY.TentHold(inviter) then return false end
     local ok = pcall(AcceptGroup)
     if ok and StaticPopup_Hide then pcall(StaticPopup_Hide, "PARTY_INVITE") end
     if ok then
@@ -1747,7 +1749,7 @@ function ns.BuildDungeonPanel(host, w, h)
     DC.panel = P
     P.vSeek = seg(P, L("求组", "Find group"), 96, function() DC.view = "seek"; DC.Render() end)
     P.vSeek:SetPoint("TOPLEFT", 10, -6)
-    P.vRec = seg(P, L("招人", "Recruit"), 96, function() DC.view = "recruit"; DC.Render() end)
+    P.vRec = seg(P, L("招人", "Recruit"), 96, function() DC.view = "recruit"; if ns.LfgSolo and ns.LfgSolo.Kick then ns.LfgSolo.Kick() end; DC.Render() end)
     P.vRec:SetPoint("LEFT", P.vSeek, "RIGHT", 6, 0)
     local innerW = w - 20
 

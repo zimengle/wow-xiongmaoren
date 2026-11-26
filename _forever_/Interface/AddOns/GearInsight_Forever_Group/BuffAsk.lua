@@ -434,8 +434,10 @@ function BA.Here()
     local ok2, link = pcall(PS.PinLink, m, x, y)
     return ok2 and type(link) == "string" and link ~= "" and link or nil
 end
+-- 11-24 用户截图「地图标记搞个开关」→ 同日「默认不加这个位置，设置里可以打开」：rec.askPin = true 才带（nil / 老存档 false = 不带）
+function BA.PinOn() return ns.db ~= nil and DC.DB().rec.askPin == true end
 function BA.WithHere(text)
-    local w = BA.Here()
+    local w = BA.PinOn() and BA.Here()
     local s = w and (text .. " " .. w)
     return s and #s <= DC.MAX_BYTES and s or text
 end
@@ -1098,13 +1100,16 @@ BA.EVENTS = {
     auto = { "PLAYER_ENTERING_WORLD", "ZONE_CHANGED_NEW_AREA", "GROUP_ROSTER_UPDATE", "PLAYER_REGEN_ENABLED", "PLAYER_REGEN_DISABLED" },
 }
 BA.ALL_EVENTS = { "PLAYER_TARGET_CHANGED", "UPDATE_MOUSEOVER_UNIT", "NAME_PLATE_UNIT_ADDED", "PLAYER_REGEN_DISABLED", "GROUP_ROSTER_UPDATE",
-    "PLAYER_ENTERING_WORLD", "ZONE_CHANGED_NEW_AREA", "PLAYER_REGEN_ENABLED" }
+    "PLAYER_ENTERING_WORLD", "ZONE_CHANGED_NEW_AREA", "PLAYER_REGEN_ENABLED", "PARTY_LEADER_CHANGED", "UNIT_AURA" }
+local SS_EV = { GROUP_ROSTER_UPDATE = true, PARTY_LEADER_CHANGED = true, PLAYER_ENTERING_WORLD = true, PLAYER_REGEN_ENABLED = true }   -- 11-25 全队灵魂石：没加载前借这个框体等触发；加载后再加 UNIT_AURA 全转给它（两边都不另建框体，省内存）
+local ssPartyChk   -- 下面「全队灵魂石」那段（文件在包里才挂）赋值；不挂 ns（ns / BA 表各多一个键就可能撑到扩容，离线内存测得到）
 function BA.WantedEvents()
     local want = {}
     if not ns.db then return want end
     local function add(list) for _, e in ipairs(list) do want[e] = true end end
     if BA.FieldOn() or (BA.frame and BA.frame:IsShown()) then add(BA.EVENTS.field) end
     if BA.AutoOn() or (not ns.SoulstoneAsk and ssWant()) then add(BA.EVENTS.auto) end
+    if ssPartyChk then for e in pairs(SS_EV) do want[e] = true end; if ns.SoulstoneParty then want.UNIT_AURA = true end end
     return want
 end
 local ev = CreateFrame("Frame")
@@ -1234,6 +1239,11 @@ local function onUnit(u)
     if BA.FieldOn() then pcall(BA.Note, u); pcall(BA.FieldCheck, u) end
 end
 ev:SetScript("OnEvent", function(_, e, a1)
+    if SS_EV[e] or e == "UNIT_AURA" then
+        local sp = ns.SoulstoneParty
+        if sp then pcall(sp.OnEvent, e, a1) elseif ssPartyChk then pcall(ssPartyChk) end
+        if e == "PARTY_LEADER_CHANGED" or e == "UNIT_AURA" then return end
+    end
     if e == "PLAYER_TARGET_CHANGED" then onUnit("target")
     elseif e == "UPDATE_MOUSEOVER_UNIT" then onUnit("mouseover")
     elseif e == "NAME_PLATE_UNIT_ADDED" then if type(a1) == "string" then onUnit(a1) end
@@ -1338,9 +1348,53 @@ if ns.RegisterSettings then
             -- 11-17 用户「话术变化增多」：默认每次换个说法（称呼 × 请求 × 结尾 216 种）；勾上 = 回到固定老说法。要吃喝（找法师要水）也按这个
             { type = "check", id = "buffask.fixed", indent = 18, text = function() return L("固定一种说法（不勾 = 每次换个说法，像真人说话；要水也按这个）", "Use one fixed phrase (unchecked = vary the wording each time; also for water)") end,
               get = function() return DC.AskFixed() end, set = function(v) DC.DB().rec.askFixed = v and true or nil end },
+            { type = "check", id = "buffask.pin", indent = 18, text = function() return L("私聊要 BUFF 时句尾带 [地图标记位置]（对方点了看到你在哪）", "Add a [map pin] link when whispering for buffs") end,
+              get = function() return BA.PinOn() end, set = function(v) if v then DC.DB().rec.askPin = true else DC.DB().rec.askPin = nil end end },
         }) })
 end
 
+-- 11-25 队长视图「全队灵魂石」（_GroupMage 的 SoulstoneParty.lua，HOLD）：文件在包里才挂（HOLD 时这段不跑）。
+--   ssParty.mode：nil = 我是队长 / 团长 / 助理才显示（默认）· "all" = 不是队长也显示 · "off" = 关；条件满足（不在战斗）→ 静默加载 _GroupMage，之后它自己管
+--   两个开关挂在上面「要 BUFF」设置组末尾（不另起一组，省登录内存）
+if ns.ModHas and ns.ModHas("mage", "SoulstoneParty.lua") then
+    local function spd() if type(ns.db.ssParty) ~= "table" then ns.db.ssParty = {} end return ns.db.ssParty end
+    local function spChk()
+        if ns.SoulstoneParty or not ns.db or combat() or not bool(call(IsInGroup)) then return end
+        local m = spd().mode
+        if m == "all" or (m ~= "off" and (bool(call(UnitIsGroupLeader, "player")) or bool(call(UnitIsGroupAssistant, "player")))) then
+            pcall(ns.LoadModule, "mage", true)
+            if ns.SoulstoneParty then pcall(BA.SyncEvents) end   -- 加载后加注册 UNIT_AURA（事件都由上面的 OnEvent 转给它）
+        end
+    end
+    ssPartyChk = spChk
+    local g, all = ns.SettingsGroup and ns.SettingsGroup("buffask"), ns._SettingsItems
+    if g and all then
+        for _, d in ipairs({
+            { "ssparty.on", nil, "全队灵魂石：我是队长 / 团长 / 助理时显示谁身上有、剩多久、谁上的", "Party soulstones: as leader / assist, show who has one, time left, who cast it" },
+            { "ssparty.all", 18, "全队灵魂石：不是队长也显示", "Party soulstones: show even when not leader" },
+            { "ssparty.pop", 18, "灵魂石没了时弹框问要不要提醒（点了按钮才发话）", "When a soulstone is gone, pop up a prompt (sends only when you click)" } }) do
+            local id = d[1]
+            local it = { type = "check", id = id, indent = d[2], keys = "灵魂石 soulstone 全队 队长 团长", group = g, text = L(d[3], d[4]),   -- 语言登录时就定了（ns.zh 按客户端），直接存字串省闭包
+                get = function()
+                    if id == "ssparty.pop" then return ns.db.ssGonePop ~= false end
+                    local m = spd().mode
+                    if id == "ssparty.all" then return m == "all" end
+                    return m ~= "off"
+                end,
+                set = function(v)
+                    if id == "ssparty.pop" then if v then ns.db.ssGonePop = nil else ns.db.ssGonePop = false end return end
+                    local m = spd().mode
+                    if id == "ssparty.all" then if v then m = "all" elseif m == "all" then m = nil end
+                    elseif v then if m == "off" then m = nil end
+                    else m = "off" end
+                    spd().mode = m; spChk()
+                    if ns.SoulstoneParty then pcall(ns.SoulstoneParty.Update, "set") end
+                end }
+            g.items[#g.items + 1] = it
+            all[id] = it
+        end
+    end
+end
 -- /gi buff · /gi 要buff：打开组队设置；/gi buff test = 弹一个示例框（不发任何话）
 ns.ExtraSlash = ns.ExtraSlash or {}
 BA.BLESS_WORD = { ["王者"] = "kings", kings = "kings", ["力量"] = "might", might = "might", ["智慧"] = "wis", wisdom = "wis", ["自动"] = "auto", auto = "auto" }

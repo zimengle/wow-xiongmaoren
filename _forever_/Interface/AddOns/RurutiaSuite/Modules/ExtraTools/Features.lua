@@ -243,10 +243,15 @@ Register("LootTools", {
 })
 
 Register("LFGTools", {
-    "IsLFGToolsEnabled", "GetActiveLFGToolsPosition", "SetActiveLFGToolsPosition", "RunLFGAction",
+    "IsLFGToolsEnabled", "GetActiveLFGToolsPosition", "SetActiveLFGToolsPosition",
     "UpdateLFGTools", "QueueUpdateLFGTools", "ResetLFGToolsDefaults", "ResetLFGToolsPosition", "SetLFGToolsPreview",
 }, {
     Apply = function(self) return self:UpdateLFGTools() end,
+    RunLFGAction = function(self, action)
+        -- A secure button can remain visible until lockdown ends.
+        if not self:IsLFGToolsEnabled() then return false end
+        return Methods.RunLFGAction(self, action)
+    end,
     Enable = function(self)
         if not Adapter.features.lfgTools then return end
         self.runtimeActive = true
@@ -257,6 +262,8 @@ Register("LFGTools", {
     end,
     Disable = function(self)
         self.runtimeActive, self.isUnlocked, self.lfgToolsPreviewMode = false, false, false
+        self.lfgRegenSyncPending, self.lfgButtonsOwned = nil, false
+        -- During lockdown, Runtime releases the frames and defers secure cleanup.
         View:ReleaseLFGOwnership(self)
     end,
     SetUnlocked = function(self, value)

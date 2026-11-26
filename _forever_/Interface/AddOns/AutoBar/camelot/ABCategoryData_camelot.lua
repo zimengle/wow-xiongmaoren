@@ -35,6 +35,11 @@ function AB.InitializeCategories()
 		"WARLOCK", code.get_spell_name_by_name("Create Healthstone (Major)"),
 	})
 
+	AutoBarCategoryList["Spell.Warlock.Create Firestone"] = SpellsCategory:new( "Spell.Warlock.Create Firestone", spellIconList["Create Healthstone"],
+	{
+		"WARLOCK", code.get_spell_name_by_name("Create Firestone"),
+	})
+
 	AutoBarCategoryList["Spell.Warlock.Create Soulstone"] = SpellsCategory:new( "Spell.Warlock.Create Soulstone", spellIconList["Create Soulstone"],
 	{
 		"WARLOCK", code.get_spell_name_by_name("Create Soulstone (Minor)"),
@@ -152,6 +157,11 @@ function AB.InitializeCategories()
 		"HUNTER", code.get_spell_name_by_name("Beast Lore"),
 	})
 
+	AutoBarCategoryList["Spell.Rogue.Pick Lock"] = SpellsCategory:new("Spell.Rogue.Pick Lock", spellIconList["Feed Pet"],
+	{
+		"ROGUE", code.get_spell_name_by_name("Pick Lock"),
+	})
+
 	AutoBarCategoryList["Spell.Portals"] = SpellsCategory:new( "Spell.Portals", "spell_arcane_portalironforge", nil,
 	{
 		"DRUID", code.get_spell_name_by_name("Teleport: Moonglade"), code.get_spell_name_by_name("Teleport: Moonglade"),
@@ -162,7 +172,7 @@ function AB.InitializeCategories()
 		"MAGE", code.get_spell_name_by_name("Teleport: Ironforge"), code.get_spell_name_by_name("Portal: Ironforge"),
 		"MAGE", code.get_spell_name_by_name("Teleport: Orgrimmar"), code.get_spell_name_by_name("Portal: Orgrimmar"),
 		"SHAMAN", code.get_spell_name_by_name("Astral Recall"), code.get_spell_name_by_name("Astral Recall"),
-		"WARLOCK", code.get_spell_name_by_name("Ritual of Summoning"), code.get_spell_name_by_name("Ritual of Summoning"),
+		"WARLOCK", code.get_spell_name_by_name("Ritual of Summoning"), code.get_spell_name_by_name("Portal of Summoning"),
 		"WARLOCK", code.get_spell_name_by_name("Portal of Summoning"), code.get_spell_name_by_name("Ritual of Summoning"),
 	})
 
@@ -170,10 +180,10 @@ function AB.InitializeCategories()
 	AutoBarCategoryList["Spell.Shields"] = SpellsCategory:new( "Spell.Shields", spellIconList["Ice Barrier"], nil,
 	{
 		"DRUID", 		code.get_spell_name_by_name("Barkskin"), 	code.get_spell_name_by_name("Barkskin"),
-		"MAGE", 			code.get_spell_name_by_name("Frost Armor"), code.get_spell_name_by_name("Ice Barrier"),
-		"MAGE", 			code.get_spell_name_by_name("Ice Armor"), code.get_spell_name_by_name("Ice Barrier"),
-		"MAGE", 			code.get_spell_name_by_name("Mage Armor"), code.get_spell_name_by_name("Ice Barrier"),
-		"MAGE", 			code.get_spell_name_by_name("Molten Armor"), code.get_spell_name_by_name("Ice Barrier"),
+		"MAGE", 		code.get_spell_name_by_name("Frost Armor"), code.get_spell_name_by_name("Ice Barrier"),
+		"MAGE", 		code.get_spell_name_by_name("Ice Armor"), code.get_spell_name_by_name("Ice Barrier"),
+		"MAGE", 		code.get_spell_name_by_name("Mage Armor"), code.get_spell_name_by_name("Ice Barrier"),
+		"MAGE", 		code.get_spell_name_by_name("Molten Armor"), code.get_spell_name_by_name("Ice Barrier"),
 		"MAGE",			code.get_spell_name_by_name("Frost Ward"), code.get_spell_name_by_name("Ice Barrier"),
 		"MAGE", 		code.get_spell_name_by_name("Fire Ward"), code.get_spell_name_by_name("Ice Barrier"),
 		"MAGE", 		code.get_spell_name_by_name("Ice Barrier"), code.get_spell_name_by_name("Ice Barrier"),

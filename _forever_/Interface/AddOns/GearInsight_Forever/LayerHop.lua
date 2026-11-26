@@ -37,12 +37,16 @@ LH.CHAIN_MAX = 3          -- 11-10 用户「这里如果一个人没接，会自
 --   现在：① 只有亲眼读到的层 = 队长那层才算换成（他心跳是我进队前读的 = 可能旧了 → 新层要 2 只不同的怪都给出才认）；不再按队长推断；
 --   ② 进队后留在队里等，最多 CONFIRM 秒；读到原层要「进队 ≥ SAME_AFTER 秒且最近 SAME_FRESH 秒内还读到原层」才判没换成（传层要几秒到几十秒，早退 = 白拉）；
 --   ③ 没换成 / 确认不了 / 换成后读回原层（回弹）：不算请过他（见 undo）
-LH.SAME_AFTER = 60        -- 秒：进队这么久后还在原层才判「没换成」（45 → 60：传层常要 10~30 秒，战斗中更久）
-LH.SAME_FRESH = 15        -- 秒：判「没换成」时最近一次亲眼读到原层要在这么久内（只读到过一次旧怪不算）
-LH.CONFIRM = 90           -- 秒：进队后最多等这么久亲眼认层（原来 15 秒就推断；90 = 60 秒判没换成 + 30 秒给读不到怪的人去指一下）
+LH.SAME_AFTER = 20        -- 秒：（11-24 用户「90秒太久了，最多30秒」：60 → 20）进队这么久后还在原层才判「没换成」（45 → 60：传层常要 10~30 秒，战斗中更久）
+LH.SAME_FRESH = 10        -- 秒：（11-24：15 → 10）判「没换成」时最近一次亲眼读到原层要在这么久内（只读到过一次旧怪不算）
+LH.CONFIRM = 30           -- 秒：（11-24 用户「90秒太久了，最多30秒」：90 → 30）进队后最多等这么久亲眼认层（原来 15 秒就推断；现 30 = 20 秒判没换成 + 10 秒给读不到怪的人去指一下；原 90 = 60 + 30）
 LH.JOIN_WIN = 300         -- 秒：进队后这么久内亲眼读到队长那层都算到了（确认不了之后才指到怪也照样出结果）
-LH.PROBE_AT = { 2, 4, 6, 9, 12, 16, 20, 25, 30, 40, 50, 61, 75 }   -- 进队后这些秒主动把目标 / 焦点 / 软目标 / 队友目标 / 姓名板读一遍，读完顺带判一次
+LH.PROBE_AT = { 2, 4, 6, 8, 11, 14, 17, 20, 24, 28 }   -- 进队后这些秒主动把目标 / 焦点 / 软目标 / 队友目标 / 姓名板读一遍，读完顺带判一次
 LH.RECENT_WIN = 180       -- 秒：拉过我的人（和他那层）这么久内「我想换一层」不再找（11-19 用户「剪短」：600 → 180）；没换成的那次不算（undo）
+-- 11-24 用户「位面插件都切换成功了，还不退队」：页面上的层码早变了，确认却要「队长心跳那层」或「新层 2 只怪」→ 城里友方姓名板关着（CityPlates）只能指到 1 只 → 90 秒判确认不了。
+--   现在进队后亲眼读到的层码 ≠ 原层（同图、读数在进队后）：新层稳住 SETTLE 秒（期间没再见原层的怪）就算换成；CONFIRM 秒到点 / 玩家又点「我想换一层」不等 SETTLE
+--   确认不了收尾后 REREAD 秒内不发新求助（先重读层，层已变 = 其实换成了）；没换成的帮手 UNDO_CD 秒内不再点名（额度照退）
+local SETTLE, REREAD, UNDO_CD = 5, 8, 600   -- 11-24 确认窗 30 秒：SETTLE 10 → 5   -- 11-24 local：LH 表再加字段会整表扩容（内核内存）
 LH.VERIFY_WIN = 180       -- 秒：换成之后这么久内亲眼读回原来那层 = 回弹（600 → 180：回弹都在退队后一两分钟内，太长会把之后正常的换层当回弹）
 -- 11-19 用户截图：小辛恶魔刚把我拉到第 10 层（0029），列表里他却在第 8 层（0020）、我那层「没有别的公会会员」——
 --   拉人那一刻他一定在我现在这层（进队就到队长那层），他心跳里的层码是旧的。这么久内：他还没「换层以后重新读到的」心跳 →
@@ -303,6 +307,7 @@ local function toName(n) return (tostring(n or ""):gsub("%-.*$", ""):match("^(%S
 LH.last = nil             -- { ok = bool, text, t }（显示用的 LH.LastText 11-19 搬到 _LayerUI 的 LayerPub.lua）
 function LH.SetResult(ok, text, m, z, tpl)
     LH.last = { ok = ok, text = text, t = now(), m = m, z = z, tpl = tpl }
+    LY.Log("结果 " .. tostring(text))   -- 11-24：到了 / 没换成 / 确认不了 / 没人邀请都记进 /gi layer log（原来只记求助和邀请，看不出收尾）
     LY.Flash(text, ok and 0.2 or 1, ok and 1 or 0.45, ok and 0.6 or 0.35)
     LY.dirty = true
 end
@@ -474,18 +479,43 @@ end
 --   原来只认「层码 == 帮手心跳里报的层」，可帮手报的层可能是旧的（心跳 60 秒一跳，还得他指过怪才更新）
 --   → 用户从 0029 换到 0031、帮手报 0009，被当成没换成，也就没退队，30 秒后还报「没邀请你」。
 --   现在：进了队（自动 / 手动接受都算）就不再报「没邀请」；进队后层码离开原来那层 = 到了（照旧发回执 + 按开关退队）；
---   进队 45 秒后亲眼读到的还是原来那层 = 没换成（按开关退队）；一直读不到怪 → 提示指一下 NPC / 怪确认，5 分钟内指到了照样出结果。
+--   进队 SAME_AFTER 秒后亲眼读到的还是原来那层 = 没换成（按开关退队）；一直读不到怪 → 提示指一下 NPC / 怪确认，5 分钟内指到了照样出结果。
 local function helperOf(p)
     local who = p.leader or p.helper
     return who and tostring(who):gsub("%-.*$", "") or L("公会会员", "A guildmate")
 end
 -- 11-19 d 秒后再退（还在队里才退）：见 LH.LEAVE_DELAY
-local function doLeave(d)
+-- 11-24 用户「好像切换经历战斗，就不自动退组了」：ld = 拉我的帮手，还在他的队里才退（别把我后来自己组的队退掉）；
+--   战斗中不退，记 LH.leaveQ，脱战（PLAYER_REGEN_ENABLED，见 CheckJoined 下面）再退；退 / 不退 / 等脱战都记进 /gi layer log
+-- 11-24 用户「迟迟不退队」（21:28 进口袋盗贼的队，确认不了却没退：队长 / 帮手名对不上就整个跳过了）：
+--   ld = 这次换层的 p / ctx（leader / mates = 进队时队里的人），任一还在队里就算还在换层进的那个队
+local function inHop(ld)
+    if type(ld) ~= "table" then return LY.InMyGroup(ld) end
+    if not (ld.leader or next(ld.mates or {})) then return true end   -- 队长 / 队友都没记下（老逻辑：没有队长名 = 不查）
+    if LY.InMyGroup(ld.leader) then return true end
+    for n in pairs(ld.mates or {}) do if LY.InMyGroup(n) then return true end end
+    return false
+end
+local function hopName(ld) return tostring(type(ld) == "table" and (ld.leader or ld.helper) or ld or "换层") end
+local function doLeave(d, ld)
     local f = (C_PartyInfo and C_PartyInfo.LeaveParty) or LeaveParty
     if not f then return end
-    if d and C_Timer and C_Timer.After then C_Timer.After(d, function() if IsInGroup and IsInGroup() then doLeave() end end); return end
+    if d and C_Timer and C_Timer.After then C_Timer.After(d, function() doLeave(nil, ld) end); return end
+    if not (IsInGroup and IsInGroup()) or ld and not inHop(ld) then LH.leaveQ = nil; return LY.Log("不退队：已不在 " .. hopName(ld) .. " 的队里（队长 / 帮手 / 进队时的队友都不在）") end
+    if LY.InCombat() then LH.leaveQ = ld or true; return LY.Log("战斗中：脱战后再自动退队") end
+    LH.leaveQ = nil
     local ok, e = pcall(f)
-    if not ok then LY.Log("自动退队失败：" .. tostring(e)) end   -- 11-22 失败记进 /gi layer log
+    LY.Log(ok and ("自动退队 " .. (ld and hopName(ld) or "")) or ("自动退队失败：" .. tostring(e)))   -- 11-22 失败记进 /gi layer log
+end
+-- 11-24 进队后 5 秒内名单里的人都记进 c.mates（不含自己）：队长先走了 / 邀请我的不是队长，也认得这是换层进的队
+local function addMates(c)
+    if not (c and c.joinedAt) or now() - c.joinedAt > 5 then return end
+    c.mates = c.mates or {}
+    local raid, me = IsInRaid and IsInRaid(), UnitName and UnitName("player")
+    for i = 1, math.max((GetNumGroupMembers and GetNumGroupMembers()) or 0, 4) do
+        local ok, n = pcall(UnitName, (raid and "raid" or "party") .. i)
+        if ok and type(n) == "string" and not ns.Secret(n) and n ~= me then c.mates[n] = true end
+    end
 end
 -- 11-13：autoLeave 三态 —— true 自动退；false 不退；nil（没问过）这次不退，换层成功（arrived）时弹「问一次」
 function LH.AskLeave()
@@ -501,10 +531,10 @@ function LH.AskLeave()
         end,
     })
 end
-local function leaveIfAuto(arrived)
+local function leaveIfAuto(arrived, ld)
     if not (IsInGroup and IsInGroup()) then return false end
     local a = LY.DB().autoLeave
-    if a == true then doLeave(LH.LEAVE_DELAY); return true end
+    if a == true then doLeave(LH.LEAVE_DELAY, ld); return true end
     if a == nil and arrived then LH.AskLeave() end
     return false
 end
@@ -515,19 +545,36 @@ local function undo(c, bounce)
     if type(who) ~= "string" then return end
     local _, k = LH.RecentHelper(who)
     if k then LH.recent[k] = nil end
+    -- 11-24 用户「刚组过，又组」：不整个解除，留 UNDO_CD 秒短冷却 —— 记成「刚拉过我」（不带层）：不再点名他、群发带上他让他让开（x）
+    LH.recent[(who:gsub("%-.*$", ""))] = { t = now() - LH.RECENT_WIN + UNDO_CD, m = c.m, from = c.from }
     for n in pairs(LH.askedAt) do if sameName(n, who) then LH.askedAt[n] = nil end end
     if bounce then local pe = LH.PeerByName(who); LY.Queue("WHISPER:" .. (pe and pe.full or who), LY.Encode("D", { n = "0", ok = 0, h = who }), true) end
     if LH.OnUndo then pcall(LH.OnUndo, who, bounce) end
 end
 -- 11-22 进队 CONFIRM 秒还没亲眼认出层：记 u（不算换成、不扣、不算请过）；开着自动退队、还在帮手队里 → 退
+-- 11-24 战斗中读不了层（Layer.lua ReadUnit 战斗中不读）→ 先不判，脱战后读一遍、8 秒后再判（PLAYER_REGEN_ENABLED 见 CheckJoined 下面）
+-- 11-24 用户「迟迟不退队」：确认不了时把当时的读数写进 /gi layer log（图 / 层 / 原层 / 最近读到 / 待定层 / 换层多久前），下次有据可查
+local late
+local chgAt = -1e9   -- 最近一次层码变化（LY.OnChange）的时刻
 local function giveUp(c)
+    if LY.InCombat() then c.waitRegen = true; return LY.Log("确认窗到了但在战斗中：脱战后读层再判") end
+    c.waitRegen = nil
+    local m, z = LY.Mine()
+    if late(nil, z, m, true) then return end
     if not res("u", c) then return end
+    local t, ls, pd = now(), LY.lastSeen, LY.pend
+    LY.Log(string.format("确认不了：进队 %d 秒 图 %s（求助时 %s）层 %s 原 %s 最近读到 %s 待定 %s 换层 %s",
+        math.floor(t - (c.joinedAt or t)), tostring(m), tostring(c.m), tostring(z), tostring(c.from),
+        ls and (tostring(ls.z) .. "@" .. math.floor(t - (ls.at or 0)) .. "秒前") or "无", tostring(pd and pd.z),
+        chgAt > (c.joinedAt or t) and (math.floor(t - chgAt) .. "秒前") or "进队后没变"))
+    c.uAt = t
     undo(c)
     LH.Finish(false, c.leader)
-    local left = LY.DB().autoLeave == true and LY.InMyGroup(c.leader)
-    if left then doLeave() end
+    local auto = LY.DB().autoLeave == true
+    local left = auto and IsInGroup and IsInGroup() and inHop(c)
+    if left then doLeave(nil, c) elseif auto then LY.Log("不退队：" .. (IsInGroup and IsInGroup() and "队长 / 帮手 / 进队时的队友都不在队里（不是换层进的队）" or "已不在队里")) end
     LH.SetResult(false, string.format(L("进了 %s 的队，%d 秒没亲眼读到新层：不算换成（不扣额度，可马上再请他）%s", "Joined %s's group but no layer read in %ds - not counted%s"), helperOf(c), LH.CONFIRM,
-        left and L("；已自动退队", "; left group") or L("；指一下附近 NPC / 怪能看出换没换", "")))
+        left and L("；已自动退队（层没读到：退队后鼠标指一下附近的怪，看看在哪层）", "; left group - mouse over a mob to see your layer") or L("；指一下附近 NPC / 怪能看出换没换", "")))
 end
 -- 11-09 帮手关了公共频道也要收到「到了」→ 频道 + 公会 + 密语帮手；11-19 改成整轮一起发（LH.Finish）
 local function receipt(p, ok)
@@ -586,9 +633,22 @@ end)
 
 -- 11-23 换没换成只看亲眼读到的层（见 SAME_AFTER 上面的注释）：c = pending 或 ctx（m / from / leader / joinedAt）
 --   新层 = 队长那层 → 换成；队长心跳是我进队以后读的、还是别的层 → 还没到；他的心跳是进队以前的（可能旧了）→ 新层要 2 只不同的怪都给出才认
-local function hit(c, map, new)
+-- 11-24 用户「迟迟不退队」：① 原来只要 LY.pend 里挂着原层的怪（哪怕是换层前读到的）就永远不认 → 改成 SETTLE 秒内又读到过原层才不认；
+--   ② 层码变化早于进队事件几秒（事件先后）也算（chgAt > j - SETTLE，进队后还得再读到新层）；③ 到点不靠下一次读数：变层后 SETTLE 秒定时器判一次（另有每秒 OnTick）
+LY.OnChange(function()
+    chgAt = now()
+    local p = LH.pending or LH.ctx   -- ctx = pending 已清（确认不了 / 判了没换成 / 迟到的邀请）：到点走 late
+    if p and p.joinedAt and C_Timer and C_Timer.After then C_Timer.After(SETTLE + 0.5, function()
+        if LH.pending == p then LH.CheckJoined(p) elseif LH.ctx == p and not LH.pending then local m, z = LY.Mine(); late(nil, z, m) end
+    end) end
+end)
+local function hit(c, map, new, force)
     local f0 = LY.XOnMap(c.m, c.from, map)
     if not (f0 and new) or new == f0 then return false end
+    local ls, j, pd = LY.lastSeen, c.joinedAt, LY.pend
+    local back = pd and pd.z == f0 and not force and now() - (pd.at or 0) < SETTLE   -- SETTLE 秒内又读到过原层 = 还没稳
+    if j and map == c.m and ls and ls.m == map and ls.z == new and (ls.at or 0) > j and not back
+        and (force or chgAt > j - SETTLE and now() - math.max(chgAt, pd and pd.z == f0 and pd.at or 0) >= SETTLE) then return true end
     local pe = LH.PeerByName(c.leader or c.helper)
     local lz = pe and LY.XOnMap(pe.m, pe.z, map)
     if lz == new then return true end
@@ -597,7 +657,6 @@ local function hit(c, map, new)
     if cu.map == map and cu.z == new then for _ in pairs(cu.npcs or {}) do n = n + 1 end end
     return n >= 2
 end
-LH._hit = hit
 local function arrive(p, map, new)
     LH.pending = nil
     res("o")
@@ -609,13 +668,14 @@ local function arrive(p, map, new)
     if not r then LH.MarkRecent(p); r = LH.RecentHelper(p.leader or p.helper) end   -- 进队事件先于读到新层
     if r then r.ok, r.z, r.m = true, new, map end
     LH.lastHop = { ok = true, who = who, leader = p.leader or p.helper, m = map, z = new, from = p.from, fm = p.m, t = now() }
-    local left = leaveIfAuto(true)
+    local left = leaveIfAuto(true, p)
     local tail = left and L("，已自动退队", ", left group") or ""
     ns.Print(string.format(L("%s 把你拉到了 %s", "%s pulled you to %s"), who, where) .. (left and (tail .. LY.OffHint()) or ""))
     local tpl = string.format(L("换层成功：%s 把你拉到了 ", "Moved: %s pulled you to "), tostring(who):gsub("%%", "%%%%")) .. "%s" .. tail
     LH.SetResult(true, string.format(L("换层成功：%s 把你拉到了 %s", "Moved: %s pulled you to %s"), who, where) .. tail, map, new, tpl)
     -- 11-19：两边层码记进 /gi layer log，下次对不上有据可查
     local pe = LH.PeerByName(p.leader or p.helper)
+    if pe then LH.askedAt[pe.name] = now() end   -- 11-24 换成了：2 小时内不再请他（REASK）
     LY.Log("核对：拉我的 " .. tostring(pe and pe.name or who) .. " 报 z=" .. tostring(pe and pe.z) .. " / 我读到 z=" .. tostring(new))
 end
 
@@ -627,18 +687,26 @@ LY.OnChange(function(_, new, map)
 end)
 
 -- 11-22 迟到的邀请（30 秒后手动接的）/ 确认不了之后才指到怪：这一轮 JOIN_WIN 内进过帮手的队、亲眼读到队长那层 → 也算换成，照样按开关退队
-LY.OnChange(function(_, new, map)
+late = function(_, new, map, force)   -- 参数同 OnChange（old, new, map）
     local c, r = LH.ctx, LH.round
-    if LH.pending then return end
+    if LH.pending or not new then return end
     -- 11-19 求助 30 秒过了（pending 已清）才手动接了某个帮手的邀请、换了层 → 也算这轮换好了，发回执让别人收框（11-23 同样要亲眼认：hit）
     if r and not r.done and now() - r.t < LH.POP_LIVE + 10 and IsInGroup and IsInGroup() and hit({ m = r.m, from = r.from, leader = leaderName() }, map, new) then LH.Finish(true, leaderName()) end
-    if not (c and c.joinedAt and now() - c.joinedAt < LH.JOIN_WIN) or not hit(c, map, new) or not res("o") then return end
+    if not (c and c.joinedAt and now() - c.joinedAt < LH.JOIN_WIN) or not hit(c, map, new, force) then return end
+    local wasU = c.res == "u"
+    if not res("o", c) then return end
+    if wasU and r then r.done = nil end   -- 11-24 确认不了之后读到了新层：回执改发 ok=1
     LH.Finish(true, c.leader)
     LH.lastHop = { ok = true, who = helperOf(c), leader = c.leader, m = map, z = new, from = c.from, fm = c.m, t = now() }
-    local left = leaveIfAuto(true)
+    LH.MarkRecent(c)
+    local pe = LH.PeerByName(c.leader)
+    if pe then LH.askedAt[pe.name] = now() end
+    local left = leaveIfAuto(true, c)
     LH.SetResult(true, string.format(L("换层成功：%s 把你拉到了 %s", "Moved: %s pulled you to %s"), helperOf(c), LY.LayerName(map, new))
         .. (left and L("，已自动退队", ", left group") or ""))
-end)
+    return true
+end
+LY.OnChange(late)
 
 -- 11-23 换成之后 VERIFY_WIN 内亲眼读回原来那层（回弹 / 服务器其实没传）→ 改判没换成：o 减回、记 b；退额度、解除对他的封锁（undo），可马上再请
 LY.OnChange(function(_, new, map)
@@ -655,7 +723,7 @@ end)
 function LH.CheckJoined(p, final)
     if LH.pending ~= p or not p.joinedAt then return end
     local m, z = LY.Mine()
-    if hit(p, m, z) then return arrive(p, m, z) end
+    if hit(p, m, z, final or p.ask) then return arrive(p, m, z) end
     local ls = LY.lastSeen
     local f0 = LY.XOnMap(p.m, p.from, m)   -- 11-22 换了图也换算起始层再比
     if f0 and z == f0 and ls and ls.m == m and ls.z == f0 and now() - (ls.at or 0) <= LH.SAME_FRESH and now() - p.joinedAt >= LH.SAME_AFTER then
@@ -664,16 +732,29 @@ function LH.CheckJoined(p, final)
         receipt(p, false)
         undo(p)
         LH.lastHop = nil
-        local left = leaveIfAuto(false)
+        local left = leaveIfAuto(false, p)
         LH.SetResult(false, string.format(L("没换成：在 %s 的队里等了 %d 秒，你还在原来那层（%s）——他可能和你同层，或服务器没传你。不算请过他（不扣额度）%s", "No move: in %s's group %ds, still on %s - not counted%s"),
             helperOf(p), math.floor(now() - p.joinedAt), LY.LayerName(m, z), left and L("，已自动退队，可马上再试", ", left group") or L("，可退队再试", "")))
         return
     end
     if final then
+        if LY.InCombat() then p.waitRegen = true; return LY.Log("确认窗到了但在战斗中：脱战后读层再判") end
         LH.pending = nil
         giveUp(LH.ctx or p)
     end
 end
+-- 11-24 脱战：补退战斗中没退成的队（还在那个帮手队里才退）；进队后在等认层的 → 2 秒后读一遍，确认窗已过的 8 秒后再判（还读不到 = 确认不了，按开关退队）
+LY.OnEvent("PLAYER_REGEN_ENABLED", function()
+    local q, p, c = LH.leaveQ, LH.pending, LH.ctx
+    if q then doLeave(nil, q ~= true and q or nil) end
+    local w = p and p.joinedAt and p or c and c.waitRegen and c
+    if not (w and C_Timer and C_Timer.After) then return end
+    C_Timer.After(2, function() pcall(LY.ReadAll); if p and LH.pending == p then pcall(LH.CheckJoined, p) end end)
+    if w.waitRegen then C_Timer.After(8, function()
+        if not w.waitRegen then return end
+        if w == LH.pending then LH.CheckJoined(w, true) elseif w == LH.ctx and not LH.pending then giveUp(w) end
+    end) end
+end)
 
 -- 进队后还没读到过怪（层没法判断）→ 提示站着别动、去指一下；读到过了（不管换没换）就不唠叨
 function LH.NudgeRead(p)
@@ -697,7 +778,23 @@ function LH.Probe(p)
     return LH.pending ~= p
 end
 -- 第 2 只新层的怪是鼠标 / 姓名板读到的（同层不触发 OnChange）→ 每秒判一次，别等下一轮 PROBE_AT
-LY.OnTick(function() local p = LH.pending; if p and p.joinedAt then LH.CheckJoined(p) end end)
+-- 11-24 pending 已清（确认不了 / 没换成 / 迟到的邀请）：每秒也看一眼层稳住没有（late，SETTLE）
+LY.OnTick(function()
+    local p, c = LH.pending, LH.ctx
+    if p and p.joinedAt then return LH.CheckJoined(p) end
+    if c and c.joinedAt and c.res ~= "o" and c.res ~= "b" then local m, z = LY.Mine(); late(nil, z, m) end   -- 11-24 判了没换成（f）之后层才变也看
+end)
+-- 11-24 用户「打开自动帮助，超过10分钟加一次，每10分钟加一次，最多次数总数不变」：开着「自动帮别人」在线每满 600 秒攒下的额度 +1
+--   累计秒数记存档 layer.cr.s（/reload 不清零也不翻倍；关掉就停、再开接着算）；攒满上限（_LayerUI LC.MAX，没加载按 5）不计时；规则文字在 LayerCredit.lua
+LY.OnTick(function()
+    local d = LY.DB()
+    if not (d.on and d.helper and d.autoHelp == true) then return end
+    local c = type(d.cr) == "table" and d.cr or {}; d.cr = c
+    local b = tonumber(c.b) or 0
+    if b >= (ns.LayerCredit and ns.LayerCredit.MAX or 5) then return end
+    c.s = (tonumber(c.s) or 0) + 1
+    if c.s >= 600 then c.s, c.b = 0, b + 1 end
+end)
 
 -- 11-12「再点一次『我想换一层』还是选中同一个人」：已经被某人拉过 / 正在他的队里 / 已在他那层 → 先说清楚，不再发求助
 --   返回 nil（可以发起）或 why, 给玩家看的整句
@@ -706,8 +803,16 @@ LY.OnTick(function() local p = LH.pending; if p and p.joinedAt then LH.CheckJoin
 --   现在换层成功的状态不拦任何后续请求：pick（点了某层 / 某些人）且 tz = 我自己这层 → 「你已经在这层」；其余照常发求助
 --   （「我想换一层」会带上刚拉过我的人和他那层做排除 x / xz，不会又请到他）。还在他队里 → 下面那条 / Blocked 的「先退队」
 function LH.AlreadyMoved(tz, pick)
-    local p = LH.pending
+    local p, c = LH.pending, LH.ctx
+    -- 11-24 确认不了刚收尾（退队后）REREAD 秒内又点：先重读，层已离开原层 = 其实换成了（不再求）；还在原层就等读完再放行
+    if not p and c and c.uAt and now() - c.uAt < REREAD then
+        pcall(LY.ReadAll)
+        local m0, z0 = LY.Mine()
+        if c.res == "o" or late(nil, z0, m0, true) then return "already" end   -- 其实换成了（late 已出「换层成功」那句）
+        return "confirming", L("刚退队，先重读层：指一下附近 NPC / 怪（几秒后可再求）", "Re-reading layer - mouse over an NPC")
+    end
     if p and p.joinedAt and now() - p.joinedAt < LH.JOIN_WIN then
+        p.ask = true   -- 11-24 确认中又点「我想换一层」：层码已离开原层就直接按换成收尾（退队），不等 SETTLE
         LH.Probe(p)
         if LH.pending == p then
             return "confirming", string.format(L("已在 %s 的队里，正在确认换没换层（插件在读目标 / 姓名板 / 队友的目标），别重复求助；鼠标指一下附近任意 NPC / 怪能马上出结果",
@@ -715,7 +820,7 @@ function LH.AlreadyMoved(tz, pick)
         end
     end
     local m, z = LY.Mine()
-    local where = z and string.format(L("你现在在 %s（层码 %s）", "you're on %s (%s)"), LY.LayerName(m, z), LY.Tail(z))
+    local where = z and L("你现在在 ", "you're on ") .. LY.LayerName(m, z)   -- 11-24 LayerName 已带层码
     if pick then
         if tz and tz == z then return "here", L("你已经在这层：", "Already on this layer: ") .. where end
         return nil
@@ -750,19 +855,23 @@ end
 LY.OnEvent("GROUP_ROSTER_UPDATE", function()
     local p, c = LH.pending, LH.ctx
     local inG = IsInGroup and IsInGroup()
-    -- 11-22 进了帮手的队（记 i）：pending 已清（30 秒后手动接的 / 点名帮手 90 秒内的邀请）也记进这一轮，300 秒还认不出层 → giveUp
+    if not inG then LH.leaveQ = nil end   -- 11-24 已经不在队里：脱战不用再退
+    -- 11-22 进了帮手的队（记 i）：pending 已清（30 秒后手动接的 / 点名帮手 90 秒内的邀请）也记进这一轮，CONFIRM 秒还认不出层 → giveUp（JOIN_WIN 300 秒内再读到照样出结果）
     if inG and c and not c.joinedAt and now() - c.t < LH.JOIN_WIN then
         local ld, hit = leaderName(), p
         -- pending 已清：队长得是这一轮点名 / 认领过的帮手（别把会员顺手组的副本队当成换层队，换了层就退）
         if not hit then for nm in pairs(c.a) do hit = hit or sameName(nm, ld) end end
         if hit then
             c.joinedAt, c.leader = now(), ld or p.helper
+            addMates(c)
             LY.Stat("i")
             if not p then C_Timer.After(LH.CONFIRM, function() if LH.ctx == c and not LH.pending then giveUp(c) end end) end
         end
     end
     if not p then return end
     if p.joinedAt then
+        if inG and not p.leader then p.leader = leaderName(); if c and not c.leader then c.leader = p.leader end end   -- 进队那一刻名单可能还没队长
+        if inG then addMates(p); addMates(c) end   -- 11-24 进队 5 秒内名单补全
         -- 11-12：还没确认就自己退了队（层会留下）→ 马上读一遍 / 推断一次，别让页面一直挂着「正在确认」
         if not inG and not p.leftAt then p.leftAt = now(); LH.Probe(p, true); LY.dirty = true end
         return
@@ -771,12 +880,13 @@ LY.OnEvent("GROUP_ROSTER_UPDATE", function()
     p.joinedAt = now()
     local ld = leaderName()   -- 11-23 队长名《无限》可能只有「名」，同名不同姓会认错人 → 和认领 / 点名的帮手是同一人就用他的全名
     p.leader = (p.helper and sameName(p.helper, ld)) and p.helper or ld or p.helper
+    addMates(p)
     LH.MarkRecent(p)
     LY.dirty = true
     if C_Timer and C_Timer.After then
         for _, d in ipairs(LH.PROBE_AT) do C_Timer.After(d, function() LH.Probe(p) end) end
-        -- 11-09 用户「但是如果不提示用户不回去指吧？」：插件自己重读过了还没读到怪 → 10 / 40 / 70 秒各主动提示一次（屏幕中间 + 聊天框）
-        for _, d in ipairs({ 10, 40, 70 }) do C_Timer.After(d, function() LH.NudgeRead(p) end) end
+        -- 11-09 用户「但是如果不提示用户不回去指吧？」：插件自己重读过了还没读到怪 → 10 / 20 秒各主动提示一次（屏幕中间 + 聊天框；11-24 确认窗 30 秒：原 10 / 40 / 70）
+        for _, d in ipairs({ 10, 20 }) do C_Timer.After(d, function() LH.NudgeRead(p) end) end
         C_Timer.After(LH.CONFIRM, function() LH.CheckJoined(p, true) end)
     end
 end)
@@ -880,6 +990,9 @@ LY.handlers.R = function(t, s, via, sender)
         LY.Log("收到群发求助 from=" .. tostring(s) .. "：我在队伍里，不打扰")
         return
     end
+    -- 11-24 用户「同意」：我自己正在换层（求助中 / 进了帮手的队等确认）→ 群发、点名都不帮（我一邀请就把他拉进别人的队）
+    local c, p = LH.ctx, LH.pending
+    if (p and (p.joinedAt or now() - p.t < 60)) or (IsInGroup and IsInGroup() and c and c.joinedAt and now() - c.joinedAt < LH.JOIN_WIN) then LY.Log("收到求助 from=" .. tostring(s) .. "：我自己在换层，不帮"); return end
     local can = LH.CanHelp(any)
     -- 11-20 路人（非本公会，公共频道认识的）：弹框写「非本公会」，一律弹框不自动拉（autoHelp 只管公会会员）；我没开帮忙就不理他的点名
     local LG = ns.LayerGuild
@@ -928,7 +1041,7 @@ LY.handlers.D = function(t, s)
         end
     end
     -- 11-23 用户「同意」：我拉了他却没换成（ok=0、h=我）→ 不算他请过我，删掉 askedBy，他马上能再点名我
-    if t.ok ~= "1" and s and t.h and (LY.IsMe(t.h) or sameName(t.h, me())) then LH.askedBy[s] = nil end
+    if t.ok ~= "1" and s and t.h and (LY.IsMe(t.h) or sameName(t.h, me())) then LH.askedBy[s] = now() - LH.REASK + UNDO_CD end   -- 11-24 留 UNDO_CD 冷却（「刚组过，又组」）
     if not who then return end
     -- 11-19 h = 谁拉的（老版本不带）：不是我 → 我的邀请慢了一步，说一句，别写「已换到你这层」
     if t.h and not LY.IsMe(t.h) and not sameName(t.h, me()) then

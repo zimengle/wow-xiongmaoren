@@ -1,0 +1,15 @@
+## Interface: 16001, 11507
+## Title: GearInsight |cff33ff99Forever|r - Group assignments panel
+## Title-zhCN: GearInsight |cff33ff99无限版|r · 队长分配面板
+## Notes: GearInsight Forever leader assignment panel (loaded when opened)
+## Notes-zhCN: GearInsight 无限版的队长分配面板：改分配、下发、发到队伍；点小面板「分配」/ /gi ps 才加载
+## Author: GearInsight
+## Version: 1.5.4
+## Dependencies: GearInsight_Forever
+## LoadOnDemand: 1
+## IconTexture: Interface\Icons\Spell_Holy_GreaterBlessingofKings
+
+# 11-25 设计稿 docs/forever/party-status-design.md 第 1 期：打开面板才加载（B.OpenAssign）；不在 MERGED / LAZY / MANIFEST_KEYS；整个文件夹 HOLD 时发版不出这个文件夹
+PartyPanel.lua
+PartyEdit.lua
+PartyPost.lua

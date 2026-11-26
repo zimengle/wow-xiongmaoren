@@ -1350,7 +1350,7 @@ local PICKER_H   = 22
 local CLOSE_W    = 14
 local HEADER_GAP = 10
 local CLOSE_ICON    = "Interface\\AddOns\\EllesmereUI\\media\\icons\\eui-close.png"
-local FONT_FALLBACK = "Interface\\AddOns\\EllesmereUI\\media\\fonts\\Expressway.TTF"
+local FONT_FALLBACK = "Interface\\AddOns\\EllesmereUI\\media\\fonts\\EUI Highway.ttf"
 local CLASS_ICON_TEX = "Interface\\GLUES\\CHARACTERCREATE\\UI-CHARACTERCREATE-CLASSES"
 
 -- `sub` marks a column that carries a second, separately styled font string.
@@ -1925,7 +1925,7 @@ local function RenderHeader(record)
     local kcol = C_ChallengeMode and C_ChallengeMode.GetKeystoneLevelRarityColor
         and C_ChallengeMode.GetKeystoneLevelRarityColor(record.level or 0)
     if type(kcol) == "table" and kcol.r then lvlHex = Hex(kcol.r, kcol.g, kcol.b) end
-    -- One string, keystone-rarity colour on the level only: "+12 Voidscar Arena".
+    -- One string, keystone-rarity color on the level only: "+12 Voidscar Arena".
     titleFS:SetText(format("|cff%s+%d|r %s", lvlHex, record.level or 0, record.mapName or "?"))
 
     local timeHex = record.onTime and "40ff40" or "ff6060"

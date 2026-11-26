@@ -36,13 +36,12 @@ RurutiaSuiteDB = {
 },
 ["巴菲特 - 李家沱"] = {
 ["session"] = {
-["lastXP"] = 11067,
-["gainedXP"] = 51149,
-["lastXPMax"] = 58600,
-["playedAt"] = 1795496773,
-["startTime"] = 1795491660,
-["totalPlayed"] = 119011,
-["levelPlayed"] = 862,
+["lastXP"] = 2259,
+["gainedXP"] = 26320,
+["startTime"] = 1795618990,
+["lastXPMax"] = 80800,
+["totalPlayed"] = 156389,
+["playedAt"] = 1795621570,
 },
 },
 ["露露缇娅 - 喵呜"] = {
@@ -55,11 +54,11 @@ RurutiaSuiteDB = {
 ["仓库 - 存放"] = {
 ["session"] = {
 ["lastXP"] = 55,
-["playedAt"] = 1794621409,
 ["levelPlayed"] = 409,
-["lastXPMax"] = 400,
-["totalPlayed"] = 409,
+["playedAt"] = 1794621409,
 ["startTime"] = 1794621408,
+["totalPlayed"] = 409,
+["lastXPMax"] = 400,
 },
 },
 },

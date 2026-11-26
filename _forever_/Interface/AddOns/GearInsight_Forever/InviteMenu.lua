@@ -12,7 +12,7 @@ local _, ns = ...
 local IM = {}
 ns.InviteMenu = IM
 -- 11-17 用户截图「对立阵营不要这个」：右键部落 / 联盟对面的人也出「邀请入会」→ 不挂 ENEMY_PLAYER 菜单，CanInvite 里再按阵营挡一道（目标 / 焦点菜单）
-IM.MENU_TAGS = { "MENU_UNIT_FRIEND", "MENU_UNIT_PLAYER", "MENU_UNIT_PARTY", "MENU_UNIT_RAID_PLAYER", "MENU_UNIT_TARGET", "MENU_UNIT_FOCUS" }
+IM.MENU_TAGS = { "MENU_UNIT_FRIEND", "MENU_UNIT_PLAYER", "MENU_UNIT_PARTY", "MENU_UNIT_RAID_PLAYER", "MENU_UNIT_RAID", "MENU_UNIT_TARGET", "MENU_UNIT_FOCUS" }
 
 local function secret(v) return issecretvalue and issecretvalue(v) end
 local function short(n) return (tostring(n or ""):gsub("%-.*$", "")) end

@@ -979,6 +979,66 @@ initFrame:SetScript("OnEvent", function(self)
             BorderOffsetRow("tooltip",ttReskinOff,TooltipBorderApply)
         end
 
+        -- Show Item Level for Items, WoW Forever only: its weapon and armor tooltips
+        -- carry no item level line (retail's do). Independent of the reskin, like
+        -- Show Max Stack for Items; the hook (EllesmereUI.lua, ItemLevelTooltipHook) is
+        -- registered on first enable. The section's last row: its blank right half is
+        -- the odd last slot. Not the Tooltip Extras "Item Level", which is
+        -- a hovered player's average item level, drawn by the reskin.
+        if EllesmereUI.IS_FOREVER then
+            local ilvlRow
+            ilvlRow, h = W:DualRow(parent, y,
+                { type="toggle", text="Show Item Level for Items",
+                  tooltip="Adds the item level to weapon and armor tooltips.",
+                  getValue=function()
+                      return EllesmereUIDB and EllesmereUIDB.tooltipItemLevelItems or false
+                  end,
+                  setValue=function(v)
+                      if not EllesmereUIDB then EllesmereUIDB = {} end
+                      EllesmereUIDB.tooltipItemLevelItems = v
+                      if v and EllesmereUI.ActivateItemLevelTooltip then EllesmereUI.ActivateItemLevelTooltip() end
+                      EllesmereUI:RefreshPage()  -- update the cog disabled state
+                  end },
+                EllesmereUI.BlankRowCfg()
+            );  y = y - h
+
+            -- Item Level cog: modifier, position, line color, difference with the equipped
+            -- item, and bags/quivers. Disabled while the toggle is off.
+            local function ilvlSet(key, v)
+                if not EllesmereUIDB then EllesmereUIDB = {} end
+                EllesmereUIDB[key] = v
+            end
+            EllesmereUI.BuildInlineCog(ilvlRow._leftRegion, {
+                gap = 9,
+                disabled = function() return not (EllesmereUIDB and EllesmereUIDB.tooltipItemLevelItems) end,
+                disabledTooltip = "Show Item Level for Items",
+                title = "Item Level",
+                rows = {
+                    { type="dropdown", label="Use Modifier",
+                      values={ none="None", shift="Shift", control="Control", alt="Alt" },
+                      order={ "none", "shift", "control", "alt" },
+                      get=function() return (EllesmereUIDB and EllesmereUIDB.tooltipItemLevelItemsModifier) or "none" end,
+                      set=function(v) ilvlSet("tooltipItemLevelItemsModifier", v) end },
+                    { type="dropdown", label="Position",
+                      values={ bottom="Bottom", name="Next to Name" },
+                      order={ "bottom", "name" },
+                      get=function() return (EllesmereUIDB and EllesmereUIDB.tooltipItemLevelItemsPosition) or "bottom" end,
+                      set=function(v) ilvlSet("tooltipItemLevelItemsPosition", v) end },
+                    { type="dropdown", label="Color",
+                      values={ gold="Gold", white="White", quality="Item Quality" },
+                      order={ "gold", "white", "quality" },
+                      get=function() return (EllesmereUIDB and EllesmereUIDB.tooltipItemLevelItemsColor) or "gold" end,
+                      set=function(v) ilvlSet("tooltipItemLevelItemsColor", v) end },
+                    { type="toggle", label="Compare with Equipped",
+                      get=function() return EllesmereUIDB and EllesmereUIDB.tooltipItemLevelItemsCompare or false end,
+                      set=function(v) ilvlSet("tooltipItemLevelItemsCompare", v) end },
+                    { type="toggle", label="Include Bags and Quivers",
+                      get=function() return EllesmereUIDB and EllesmereUIDB.tooltipItemLevelItemsBags or false end,
+                      set=function(v) ilvlSet("tooltipItemLevelItemsBags", v) end },
+                },
+            })
+        end
+
         -----------------------------------------------------------------------
         --  Blizzard Bars, Popups & Buttons: on-screen elements that are not
         --  windows, so they get plain toggles here rather than cards on the
@@ -1463,9 +1523,9 @@ initFrame:SetScript("OnEvent", function(self)
         -- choice is latched at load; a change reloads).
         local stock = ns.CharSheetStock()
         -- Blizz Default only: "Blizzard UI Color" (on unless turned off)
-        -- paints every stat category in Blizzard's yellow, so the colour
+        -- paints every stat category in Blizzard's yellow, so the color
         -- swatches stand down while it is on. On WoW Forever Blizz Default
-        -- keeps Blizzard's own stats list, colours included, so they always
+        -- keeps Blizzard's own stats list, colors included, so they always
         -- stand down.
         local function blizzColorsOn()
             return stock
@@ -1528,7 +1588,7 @@ initFrame:SetScript("OnEvent", function(self)
         -- position key (beside the slot unless set, or inside its icon).
         local function ItemLevelDropdown(showKey, posKey, refresh, disabled, disabledTooltip)
             return { type="dropdown", text="Show Item Level",
-              tooltip="Where each item's level shows on its slot, in the item's quality colour.",
+              tooltip="Where each item's level shows on its slot, in the item's quality color.",
               values={ never="Never", beside="Beside Slot", icontop="Icon Top", iconcenter="Icon Center", iconbottom="Icon Bottom" },
               order={ "never", "beside", "icontop", "iconcenter", "iconbottom" },
               disabled=disabled, disabledTooltip=disabledTooltip,
@@ -1766,7 +1826,7 @@ initFrame:SetScript("OnEvent", function(self)
         -- Durability on WoW Forever (the section's only option there).
         local flyoutLevelsCfg = { type="toggle",
               text=EllesmereUI.IS_FOREVER and "Flyout Item Levels" or "Show Item Levels",
-              tooltip="Shows the item level on each item in the character sheet gear flyout (the popup of same-slot bag items that appears when hovering an equipped slot), coloured by quality.",
+              tooltip="Shows the item level on each item in the character sheet gear flyout (the popup of same-slot bag items that appears when hovering an equipped slot), colored by quality.",
               getValue=function() return EllesmereUIDB and EllesmereUIDB.flyoutItemLevels or false end,
               setValue=function(v)
                   if not EllesmereUIDB then EllesmereUIDB = {} end
@@ -1938,7 +1998,7 @@ initFrame:SetScript("OnEvent", function(self)
         );  y = y - h
         local leftRgn = sectionsRow._leftRegion
         if not EllesmereUI._prebuilding then
-            -- Each section's colour swatch sits on its row of the dropdown; dimmed while
+            -- Each section's color swatch sits on its row of the dropdown; dimmed while
             -- Blizzard UI Color applies or the section is unchecked.
             local items = {}
             for i, sec in ipairs(STAT_SECTIONS) do
@@ -3764,7 +3824,7 @@ initFrame:SetScript("OnEvent", function(self)
         local EG = EllesmereUI.ELLESMERE_GREEN
         local L  = EllesmereUI.L
         local MakeBorder = EllesmereUI.MakeBorder
-        local FONT = EllesmereUI._font or "Interface\\AddOns\\EllesmereUI\\media\\fonts\\Expressway.ttf"
+        local FONT = EllesmereUI._font or "Interface\\AddOns\\EllesmereUI\\media\\fonts\\EUI Highway.ttf"
 
         local HERO_H = 470
         local host = CreateFrame("Frame", nil, parent)
@@ -4467,7 +4527,7 @@ initFrame:SetScript("OnEvent", function(self)
               disabled = Off, disabledTooltip = GATE_REQ },
             { type="label", text="" });  y = y - h
 
-        -- Colour and opacity are one swatch but two stored keys, so the write goes straight
+        -- Color and opacity are one swatch but two stored keys, so the write goes straight
         -- to the DB rather than through CBSetStyle.
         if not EllesmereUI._prebuilding then
             EllesmereUI.BuildInlineSwatches(bgRow._leftRegion, {
@@ -4659,7 +4719,7 @@ initFrame:SetScript("OnEvent", function(self)
               getValue = function() return EDR_Cfg("gap") end,
               setValue = function(v) EDR_Set("gap", v); EDR_Rebuild() end }
         ); y = y - h
-        -- Border Size: the EllesmereUI border and its colour on the
+        -- Border Size: the EllesmereUI border and its color on the
         -- EllesmereUI look; under Classic WoW UI the slot sizes the vanilla
         -- frame, as the Resource Bars' Border Size does; Blizzard Style's
         -- panel has no size to set.
@@ -4694,7 +4754,7 @@ initFrame:SetScript("OnEvent", function(self)
                 true, 20)
             EllesmereUI.PanelPP.Point(swatch, "RIGHT", ctrl, "LEFT", -8, 0)
             rgn._lastInline = swatch
-            -- No border to colour at size 0: dimmed and blocked.
+            -- No border to color at size 0: dimmed and blocked.
             local block = CreateFrame("Frame", nil, swatch)
             block:SetAllPoints()
             block:SetFrameLevel(swatch:GetFrameLevel() + 10)
@@ -5111,7 +5171,9 @@ initFrame:SetScript("OnEvent", function(self)
                     "inspectShowUpgradeTrack", "merchantShowAsList", "merchantListRowHeight",
                     "merchantShowItemLevel", "merchantBulkBuy", "merchantExpand", "merchantCols", "merchantRows",
                     "merchantMarkOwned", "merchantHideKnown",
-                    "tooltipItemLevel", "tooltipShowMode",
+                    "tooltipItemLevel", "tooltipItemLevelItems", "tooltipItemLevelItemsModifier",
+                    "tooltipItemLevelItemsColor", "tooltipItemLevelItemsCompare",
+                    "tooltipItemLevelItemsBags", "tooltipItemLevelItemsPosition", "tooltipShowMode",
                     "tooltipShowModifier", "tooltipGrowthDirection", "tooltipBgColor",
                     "tooltipBgOpacity", "showSpellID", "spellIDModifier", "showIconID",
                     "showItemID", "friendsListCard",

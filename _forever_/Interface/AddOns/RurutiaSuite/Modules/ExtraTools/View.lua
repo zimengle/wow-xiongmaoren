@@ -35,9 +35,35 @@ local function CleanupFrame(frame, preserveSecureClick)
     if type(frame.Hide) == "function" then frame:Hide() end
 end
 
+local secureCleanupOwner
+local pendingSecureCleanup = {}
+
+local function FlushSecureCleanup(owner)
+    if Adapter:IsInCombat() then return end
+    for frame in pairs(pendingSecureCleanup) do
+        pendingSecureCleanup[frame] = nil
+        CleanupFrame(frame, true)
+    end
+    ns.Runtime:DisableModule(owner)
+end
+
 local function CleanupSecureFrame(frame)
-    -- Keep the template-owned macro entry point when retained buttons are reused.
-    CleanupFrame(frame, true)
+    if not Adapter:IsInCombat() then
+        -- Keep the template-owned macro entry point when retained buttons are reused.
+        CleanupFrame(frame, true)
+        return
+    end
+    -- Runtime removes the feature's own events on disable. Keep one separate
+    -- listener only while either of its two retained buttons needs cleanup.
+    pendingSecureCleanup[frame] = true
+    if not secureCleanupOwner then
+        secureCleanupOwner = ns.Runtime:RegisterModule("LFGSecureCleanup", {
+            Enable = function(owner)
+                owner:RegisterEvent("PLAYER_REGEN_ENABLED", FlushSecureCleanup)
+            end,
+        })
+    end
+    assert(ns.Runtime:EnableModule(secureCleanupOwner))
 end
 
 local function ReownFrame(module, frame, label, cleanup)
@@ -210,6 +236,8 @@ end
 
 function View:ApplyLFGButtons(module, profile, x, y, shouldShow)
     if Adapter:IsInCombat() then return false, "combat" end
+    -- A re-enable can reach this path before the pending cleanup listener runs.
+    if next(pendingSecureCleanup) then FlushSecureCleanup(secureCleanupOwner) end
     local buttons = self:CreateLFGButtons(module)
     local shown = {}
     local index
@@ -236,19 +264,11 @@ function View:ApplyLFGButtons(module, profile, x, y, shouldShow)
 end
 
 function View:ReleaseLFGOwnership(module)
-    local _, button
+    if Adapter:IsInCombat() then return false, "combat" end
     for _, button in pairs(module.lfgButtons or {}) do
-        button:Hide()
         module:ReleaseFrame(button)
     end
-    if module.lfgToolsMoveOverlay then
-        module.lfgToolsMoveOverlay:Hide()
-        module:ReleaseFrame(module.lfgToolsMoveOverlay)
-    end
-    if module.lfgToolsMover then
-        module.lfgToolsMover:Hide()
-        module:ReleaseFrame(module.lfgToolsMover)
-    end
+    self:HideLFGMover(module)
     return true
 end
 

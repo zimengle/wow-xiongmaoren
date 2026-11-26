@@ -422,8 +422,8 @@ function LP.Refresh(p, y, m, why)
             c.code:SetText("")
             c.tag:SetText("|cff999999" .. L("他们还没读到层码；进他的队就到他那层", "they haven't read a layer code; joining moves you to theirs") .. "|r")
         else
-            c.title:SetText(string.format("%s%s|r  |cffcccccc%d %s|r", hex(col), LY.LayerName(m, g.z), #g.list, L("人", "")))
-            c.code:SetText(L("层码 ", "code ") .. LY.Tail(g.z))
+            c.title:SetText(string.format("%s%s|r  |cffcccccc%d %s|r", hex(col), LY.LayerName(m, g.z), #g.list, L("人", "")))   -- 11-24 LayerName =「层码 9776（第 N 层）」层码为主
+            c.code:SetText("")
             c.tag:SetText(g.mine and ("|cff33ff66" .. L("你在这里", "You are here") .. "|r") or "")
         end
         c.bar:SetColorTexture(col[1], col[2], col[3], 1)
@@ -473,10 +473,7 @@ function LH.LastText()
     if not l then return nil end
     if l.tpl and l.m and l.z and LY.LayerName then
         local okN, name = pcall(LY.LayerName, l.m, l.z)
-        if okN and type(name) == "string" then
-            local code = LY.Tail and select(2, pcall(LY.Tail, l.z))
-            return string.format(l.tpl, name .. ((type(code) == "string" and code ~= "") and (L("（层码 ", " (") .. code .. L("）", ")")) or ""))
-        end
+        if okN and type(name) == "string" then return string.format(l.tpl, name) end   -- 11-24 LayerName 已带层码
     end
     return l.text
 end

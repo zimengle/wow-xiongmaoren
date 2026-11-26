@@ -4,7 +4,7 @@
 ## Notes: GearInsight Forever mage food helper (loaded at login only when its options are on)
 ## Notes-zhCN: GearInsight 无限版的法师吃喝：野外弹框 / 交易道谢 / 总开关开着时登录加载，否则打开「法师吃喝」子页签时才加载；队友的灵魂石提醒也在这里（副本里组队时才加载）
 ## Author: GearInsight
-## Version: 1.4.19
+## Version: 1.5.4
 ## Dependencies: GearInsight_Forever
 ## LoadOnDemand: 1
 ## IconTexture: Interface\Icons\inv_misc_map_01
@@ -18,3 +18,5 @@ MageWater.lua
 SoulstoneAsk.lua
 BuffAskDiag.lua
 AskTypo.lua
+# 11-25 队长视图「全队灵魂石」（HOLD）：队长 / 团长 / 助理（或设置「不是队长也显示」）在队里时由组队信标 BuffAsk.lua 触发加载；术士浮标显示着就贴在它下面
+SoulstoneParty.lua

@@ -446,7 +446,7 @@ function NameplateFrame:ApplyAppearance()
     end
     -- The Threat Colors name memo: the static write above replaces its tint.
     self._nameThR, self._nameThG, self._nameThB = nil, nil, nil
-    -- Same for the Text Coloring slot memo: the static slot colours written here and
+    -- Same for the Text Coloring slot memo: the static slot colors written here and
     -- in ApplyHealthTextAppearance below replace what it last painted.
     if self._scMemo then
         for _, e in pairs(self._scMemo) do e[1] = nil end
@@ -618,8 +618,8 @@ function NameplateFrame:EnsureToTText()
 end
 -- The unit's target's name, repainted through RefreshTargetTexts below while a slot
 -- shows it. Name and class token may be secret: they only reach setters.
--- The slot's Class text mode paints a player target in its class colour; anything
--- else keeps the slot colour.
+-- The slot's Class text mode paints a player target in its class color; anything
+-- else keeps the slot color.
 function NameplateFrame:UpdateToT()
     local fs, unit, slotKey = self.totText, self.unit, ns._npToTSlot
     if not (fs and unit and slotKey) then return end
@@ -706,7 +706,7 @@ function NameplateFrame:SyncToT(unit)
 end
 
 -- Custom text in one slot (slot: its HP_BAR_SLOTS entry, nil for Top): its own font
--- string, placed and coloured like the slot's other texts, plus an entry in the
+-- string, placed and colored like the slot's other texts, plus an entry in the
 -- plate's custom list (ca._cu) for PaintCustomTexts.
 function NameplateFrame:AddCustomText(ca, slotKey, slot)
     local fsKey = ns.NP_CustomFSKey[slotKey]
@@ -976,6 +976,8 @@ function NameplateFrame:SetUnit(unit, nameplate)
     -- Recycled/fresh plate: forget any prior eased scale so the first ApplyScale snaps instead of growing in from a stale one.
     self._curScale = nil
     ns._scaleAnim[self] = nil
+    -- A unit turned hostile on its nameplate (a duel) takes the enemy click bounds.
+    ns.NP_ApplyHitBounds(nameplate, true)
     if ns._hitboxOverlayShown or self.hitboxOverlay then ns._ApplyHitboxOverlay(self) end
     -- Apply static appearance only when stale (settings changed or fresh pool plate).
     if self._appearanceGen ~= ns._npAppearanceGen then
@@ -1150,7 +1152,7 @@ function NameplateFrame:ClearUnit()
     -- next UpdateHealthColor uses that to hand them back if the new unit has no signal.
     self._threatBdKr, self._threatBdKg, self._threatBdKb = nil, nil, nil
     self._nameThR, self._nameThG, self._nameThB = nil, nil, nil
-    -- Hostility / Class slot colours: the next occupant's class token is read afresh.
+    -- Hostility / Class slot colors: the next occupant's class token is read afresh.
     self._scUnit = nil
     -- Health-text value memo (UpdateHealthValues): a recycled plate must
     -- always write its first values, never skip against the old unit's.

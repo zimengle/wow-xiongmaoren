@@ -1,0 +1,18 @@
+## Interface: 16001, 11507
+## Title: GearInsight |cff33ff99Forever|r - Warlock
+## Title-zhCN: GearInsight |cff33ff99无限版|r · 术士专属
+## Notes: GearInsight Forever warlock-only tools (soulstone tracker: who has your soulstone, time left, highlight near expiry). Loads only on warlocks
+## Notes-zhCN: GearInsight 无限版的术士专属功能（灵魂石追踪：绑在谁身上、还剩多久、快到期高亮提醒）：只有术士角色才加载
+## Author: GearInsight
+## Version: 1.5.4
+## Dependencies: GearInsight_Forever
+## LoadOnDemand: 1
+## IconTexture: Interface\Icons\INV_Misc_Orb_04
+
+# 11-25 用户「做个UI来展示灵魂石绑定到谁身上，还多久，快到了高亮提醒」+ 硬规「职业专属的只有这个职业才加载」：
+#   主插件 ClassStub.lua 只在术士角色、文件夹在时登录 LoadAddOn 这里；非术士一个文件都不加载。每个文件头再挡一次（不是术士直接 return）。
+#   ⛔ 文件头一律 ns = _G.GearInsightForever or ns。⛔ 合并包 / DD 包都不许并进主文件夹（gi_forever_pack.CLASS_ONLY），DD 包不带。
+#   整个文件夹 HOLD 时发版不出这个文件夹（gi_forever_pack.WHOLE_HOLD_OK）
+
+# 术士灵魂石追踪（HOLD）：记下石头给了谁 / 剩多久（光环为准，读不到推算）+ 浮标 + 快到期高亮 + 到期 / 用掉提醒 + 设置「术士灵魂石追踪」
+SoulstoneTrack.lua

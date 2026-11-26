@@ -41,19 +41,18 @@ function Adapter:IsLoggedIn()
     return type(_G.IsLoggedIn) == "function" and _G.IsLoggedIn() and true or false
 end
 
+local V2_COMBAT_TEXT_CVARS = {
+    floatingCombatTextCombatDamage = true,
+    floatingCombatTextCombatHealing = true,
+    floatingCombatTextCombatDamageDirectionalScale = true,
+    WorldTextScale = true,
+}
+
 function Adapter:ResolveCVarName(cvar)
-    if cvar ~= self.logicalDamageCVar then return cvar end
-    if self.damageTextCVar then return self.damageTextCVar end
-    local candidates = { "floatingCombatTextCombatDamage_v2", "floatingCombatTextCombatDamage" }
-    local index
-    for index = 1, #candidates do
-        if RawGetCVar(candidates[index]) ~= nil then
-            self.damageTextCVar = candidates[index]
-            return self.damageTextCVar
-        end
-    end
-    self.damageTextCVar = self.logicalDamageCVar
-    return self.damageTextCVar
+    if not V2_COMBAT_TEXT_CVARS[cvar] then return cvar end
+    local candidate = cvar .. "_v2"
+    if RawGetCVar(candidate) ~= nil then return candidate end
+    return cvar
 end
 
 function Adapter:GetCVar(cvar)

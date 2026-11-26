@@ -138,6 +138,27 @@ local function NormalizeKind(row)
     return KIND_ALIASES[string.lower(value)]
 end
 
+local function BuildColumns(options, width, padding)
+    local count = options.columns == 3 and 3 or options.columns == 2 and 2 or 1
+    local available = width - padding * (count + 1)
+    local widths, offsets = {}, {}
+    local flexible, fixed = 0, 0
+    for column = 1, count do
+        local requested = type(options.columnWidths) == "table" and tonumber(options.columnWidths[column])
+        widths[column] = requested and requested > 0 and requested or 0
+        if widths[column] == 0 then flexible = flexible + 1
+        else fixed = fixed + widths[column] end
+    end
+    local remainder = math.max(1, (available - fixed) / math.max(1, flexible))
+    local x = padding
+    for column = 1, count do
+        if widths[column] == 0 then widths[column] = remainder end
+        offsets[column] = x
+        x = x + widths[column] + padding
+    end
+    return widths, offsets
+end
+
 local function OnCatcherMouseDown(frame)
     local owner = frame.settingsPopoverOwner
     if owner then owner:CloseActive() end
@@ -408,6 +429,7 @@ function Popover:EnsureCreated()
         local rowHeight = tonumber(self.options.rowHeight) or 38
         local rowGap = tonumber(self.options.rowGap) or 6
         local rowCount = #self.rows
+        local widths, offsets = BuildColumns(self.options, width, sidePadding)
         local height = topPadding + titleHeight + 8
             + rowCount * rowHeight + math.max(0, rowCount - 1) * rowGap + sidePadding
         local pageId = self.page.options and self.page.options.id or self.context.id or "Page"
@@ -465,8 +487,9 @@ function Popover:EnsureCreated()
             prepared.getEnabled = nil
             prepared.getVisible = nil
             prepared.set = nil
+            prepared.fullRow = nil
             prepared.text = row.text or row.label or ""
-            prepared.width = self.options.columns == 2 and (width - sidePadding * 3) / 2 or width - sidePadding * 2
+            prepared.width = row.fullRow and width - sidePadding * 2 or widths[1]
             prepared.height = tonumber(row.height) or rowHeight
             prepared.point = "TOPLEFT"
             prepared.relativeTo = popup
@@ -496,6 +519,8 @@ function Popover:EnsureCreated()
             title = title,
             controls = builtControls,
             controlOrder = builtOrder,
+            columnWidths = widths,
+            columnOffsets = offsets,
         }
     end)
     if not built then
@@ -507,6 +532,7 @@ function Popover:EnsureCreated()
     self.title = result.title
     self.controls = result.controls
     self.controlOrder = result.controlOrder
+    self.columnWidths, self.columnOffsets = result.columnWidths, result.columnOffsets
     self.created = true
     self.controller.created = self.controller.created + 1
     local invoked, refreshed, refreshReason = pcall(self.Refresh, self)
@@ -535,6 +561,7 @@ function Popover:_DiscardCreated()
     self.title = nil
     self.controls = {}
     self.controlOrder = {}
+    self.columnWidths, self.columnOffsets = nil, nil
     self.created = false
     if wasCreated then
         self.controller.created = math.max(0, self.controller.created - 1)
@@ -559,6 +586,11 @@ function Popover:PrepareRefresh()
     end
     if self.options.beforeRefresh then self.options.beforeRefresh() end
     local prepared = {}
+    if self.options.getTitle then
+        local ok, value, reason = TryResolve(self.options.getTitle, self)
+        if not ok then return nil, "settings popover title getter failed: " .. tostring(reason) end
+        prepared.title = value or self.options.title or "高级设置"
+    end
     local index = 1
     while index <= #self.controlOrder do
         local entry = self.controlOrder[index]
@@ -605,6 +637,7 @@ end
 
 function Popover:ApplyPreparedRefresh(prepared)
     if not self.created or self.released or type(prepared) ~= "table" then return false end
+    if prepared.title ~= nil then self.title:SetText(prepared.title) end
     local index = 1
     while index <= #prepared do
         local values = prepared[index]
@@ -620,17 +653,22 @@ function Popover:ApplyPreparedRefresh(prepared)
     local cursor = (tonumber(self.options.topPadding) or 12)
         + (tonumber(self.options.titleHeight) or 24) + 8
     local gap = tonumber(self.options.rowGap) or 6
-    local count, lineHeight = 0, 0
-    local columns = self.options.columns == 2 and 2 or 1
+    local column, lineHeight = 1, 0
+    local widths, offsets = self.columnWidths, self.columnOffsets
+    local fullWidth = self.popup.frame:GetWidth() - padding * 2
     for _, entry in ipairs(self.controlOrder) do
         if entry.control:IsVisible() then
-            local column = count % columns
-            if column == 0 and count > 0 then cursor, lineHeight = cursor + lineHeight + gap, 0 end
+            local fullRow = entry.row.fullRow == true
+            if column > #widths or (fullRow and column > 1) then
+                cursor, lineHeight, column = cursor + lineHeight + gap, 0, 1
+            end
             local frame = entry.control.frame
+            local width = fullRow and fullWidth or widths[column]
+            if frame:GetWidth() ~= width then frame:SetWidth(width) end
             frame:ClearAllPoints()
-            frame:SetPoint("TOPLEFT", self.popup.frame, "TOPLEFT", padding + column * (frame:GetWidth() + padding), -cursor)
+            frame:SetPoint("TOPLEFT", self.popup.frame, "TOPLEFT", offsets[column], -cursor)
             lineHeight = math.max(lineHeight, tonumber(entry.row.height) or tonumber(self.options.rowHeight) or 38)
-            count = count + 1
+            column = fullRow and #widths + 1 or column + 1
         end
     end
     self.popup.frame:SetHeight(cursor + lineHeight + padding)

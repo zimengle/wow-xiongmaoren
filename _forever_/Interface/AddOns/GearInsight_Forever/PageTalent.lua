@@ -134,9 +134,7 @@ local function layoutHead()
         if left then b:SetPoint("RIGHT", left, "LEFT", -6, 0) else b:SetPoint("TOPRIGHT", p, "TOPRIGHT", -8, -7) end
         left = b
     end
-    -- 11-23 用户截图「选不了其他排名了」：右键菜单没人发现 → WCL 按钮右边加「▼」，左键点它就是选专精 / 热门 #2 #3 / 推荐
-    if p.wclArrow then p.wclArrow:SetShown(p.wclBtn and p.wclBtn:IsShown()) end
-    if p.wclArrow and p.wclArrow:IsShown() then put(p.wclArrow, 22); left = p.wclArrow end
+    -- 11-24 用户截图「效果不对，改成点击WCL那个按钮就直接弹出来」：去掉「▼」小按钮（游戏字体画不出 ▼，显示成「..」），点 WCL 按钮本身就弹菜单
     if p.wclBtn and p.wclBtn:IsShown() then put(p.wclBtn, 116) end
     local TN = ns.TrainNow
     local tb = TN and TN._Btn and TN._Btn()
@@ -319,14 +317,7 @@ local function build(p)
     ns.PageHeader(p, ns.L("天赋", "Talents"), ns.L("和小程序 / 网站模拟器同一套配点码", "Same build codes as the site and mini program"))
 
     -- 11-23 重构 P2：右上角「WCL 热门天赋」（数据没进包时不显示）
-    p.wclBtn = ns.Button(p, ns.L("WCL 热门天赋", "WCL popular"), 150, 20, function(self) ns.WclTop1(self) end)
-    if p.wclBtn.RegisterForClicks then p.wclBtn:RegisterForClicks("LeftButtonUp", "RightButtonUp") end
-    p.wclBtn:SetScript("OnClick", function(self, btn) GameTooltip:Hide(); if btn == "RightButton" then ns.ShowWclMenu(self) else ns.WclTop1(self) end end)
-    p.wclArrow = ns.Button(p, "▼", 22, 20, function(self) GameTooltip:Hide(); ns.ShowWclMenu(self) end)
-    p.wclArrow:SetScript("OnEnter", function(self)
-        GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT"); GameTooltip:AddLine(ns.L("选别的专精 / 热门 #2 #3 / 推荐", "Other spec / #2 #3 / recommended"), 1, 0.82, 0); GameTooltip:Show()
-    end)
-    p.wclArrow:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    p.wclBtn = ns.Button(p, ns.L("WCL 热门天赋", "WCL popular"), 150, 20, function(self) GameTooltip:Hide(); ns.ShowWclMenu(self) end)
     p.wclBtn:SetPoint("TOPRIGHT", -10, -7)
     if p._sub then p._sub:SetPoint("RIGHT", p.wclBtn, "LEFT", -8, 0) end
     p.wclBtn:SetScript("OnEnter", function(self) ns.WclTip(self, "ANCHOR_BOTTOMLEFT") end)
@@ -559,8 +550,8 @@ function ns.WclTip(self, where)
     T:AddLine(string.format(ns.L("数据来自 WCL 全球 60 级排行：%s 至 %s\n共 %d 份日志，只算天赋点正好 51 的角色",
         "WCL level-60 rankings worldwide: %s-%s, %d logs, exactly 51 points"),
         tostring(D.from or "?"), tostring(D.to or "?"), D.reports or 0), 1, 1, 1, false)   -- 11-23 截图：自动折行时提示框太窄、一句折成四五行 → 手动换行、不自动折
-    T:AddLine(ns.L("左键：在 GI 天赋页直接载入热门 #1（按你天赋点最多那系的专精）\n右键或旁边「▼」：选别的专精 / 热门 #2 #3 / 推荐（逐格选取率）",
-        "Left: Popular #1 for your main spec\nRight: other spec / #2 #3 / recommended"), 0.2, 1, 0.6, false)
+    T:AddLine(ns.L("点一下：弹出各专精的热门 #1 #2 #3 / 推荐（逐格选取率），选哪个载入哪个",
+        "Click: pick a spec's Popular #1 #2 #3 / recommended to load"), 0.2, 1, 0.6, false)
     T:AddLine(ns.L("只是在 GI 里模拟显示，不会改你的天赋，要自己去点", "Simulator only - your talents are not changed"), 1, 0.6, 0.3, false)
     T:Show()
 end
@@ -702,10 +693,9 @@ function ns.AttachWclTalentBtn(tf)
         -- 外观：和「天赋模拟」那个高亮页签一个样子 —— 主插件扁平按钮的「选中」态（暗金底 + 金边 + 亮金字 + 底下金线，悬停淡金光），不用 GI 灰底小按钮
         b = ns.Button(tf, ns.L("GI · WCL 天赋", "GI · WCL talents"), 110, 24)
         if ns.SegSelect then ns.SegSelect(b, true) end
-        b:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-        b:SetScript("OnClick", function(self, btn)
+        b:SetScript("OnClick", function(self)
             if ns.CurrentPage() then ns.ShowPage("talent") else ns.ToggleMain("talent") end   -- 打开 GI 主界面 职业 → 天赋
-            if btn == "RightButton" then ns.ShowWclMenu(self, myClass()) else ns.WclTop1(self, myClass()) end
+            GameTooltip:Hide(); ns.ShowWclMenu(self, myClass())   -- 11-24 用户「点击WCL那个按钮就直接弹出来」：点了弹菜单选
         end)
         b:SetScript("OnEnter", function(self) ns.WclTip(self, "ANCHOR_BOTTOMRIGHT") end)
         b:SetScript("OnLeave", GameTooltip_Hide)

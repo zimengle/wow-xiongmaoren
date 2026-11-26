@@ -76,7 +76,7 @@ initFrame:SetScript("OnEvent", function(self)
 
     -- Inline text input helper (no W:InputBox exists)
     local FONT_PATH = (EllesmereUI.GetFontPath("cdm"))
-        or "Interface\\AddOns\\EllesmereUI\\media\\fonts\\Expressway.TTF"
+        or "Interface\\AddOns\\EllesmereUI\\media\\fonts\\EUI Highway.ttf"
 
     local GetCDMOptOutline = EllesmereUI.GetFontOutlineFlag
 
@@ -1093,8 +1093,10 @@ initFrame:SetScript("OnEvent", function(self)
                     if nonGlowable then iconTex:SetDesaturated(true) end
                     local z = zoom
                     if btnShape == "cropped" then
-                        local t = isCDMBar and ns.CdmCropTrim(cdmBd) or 0.10
-                        iconTex:SetTexCoord(z, 1 - z, z + t, 1 - z - t)
+                        -- The icon's height factor; the top and bottom are cut, the art keeps its proportions.
+                        local f = isCDMBar and ns.CdmCropFactor(cdmBd) or 0.80
+                        local half = (1 - 2 * z) * f / 2
+                        iconTex:SetTexCoord(z, 1 - z, 0.5 - half, 0.5 + half)
                     elseif z > 0 or square then
                         iconTex:SetTexCoord(z, 1 - z, z, 1 - z)
                     else
@@ -1478,10 +1480,11 @@ initFrame:SetScript("OnEvent", function(self)
                         end
 
                         -- At Stacks (toggle) + gear (Comparison / Stack Count), paired with
-                        -- Glow Type so every row stays filled. Same operator set and same
-                        -- fail-open bias as the per-icon Glow at Stacks feature (Stack Text
-                        -- and Glows cog): an unknown/secret application count never blocks
-                        -- the glow. A Glow When Usable glow has no stacks: that half
+                        -- Glow Type so every row stays filled. Same operator set as the per-icon
+                        -- Glow at Stacks feature (Stack Text and Glows cog), and the same
+                        -- fail-open bias where the game hides the count (a secret count goes to
+                        -- the native gates); with no aura data at all the Bar Glow stays off.
+                        -- A Glow When Usable glow has no stacks: that half
                         -- holds Require Resource (EUI_CooldownManager_BarGlowConditions.lua).
                         local usable = entry.mode == "USABLE"
                         local stackRow
@@ -2216,7 +2219,7 @@ initFrame:SetScript("OnEvent", function(self)
             _cdmButtonTip = EllesmereUI.BuildTipCallout(EllesmereUI._panelBody, {
                 width = 360, height = 105,
                 text = EllesmereUI.L("CDM buttons can have their glow and active states\nset per icon or synced to the bar. Click a button\nto show its settings."),
-                font = (EllesmereUI.GetFontPath("cdm")) or "Interface\\AddOns\\EllesmereUI\\media\\fonts\\Expressway.TTF",
+                font = (EllesmereUI.GetFontPath("cdm")) or "Interface\\AddOns\\EllesmereUI\\media\\fonts\\EUI Highway.ttf",
                 textTop = 15, spacing = 4, btnBottom = 11,
                 onOkay = function()
                     if EllesmereUIDB then EllesmereUIDB.cdmButtonTipSeen = true end

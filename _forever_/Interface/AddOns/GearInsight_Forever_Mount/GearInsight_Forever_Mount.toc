@@ -1,0 +1,18 @@
+## Interface: 16001, 11507
+## Title: GearInsight |cff33ff99Forever|r - Mount gear
+## Title-zhCN: GearInsight |cff33ff99无限版|r · 上马换装
+## Notes: GearInsight Forever mount speed gear swap (Carrot on a Stick / spur boots / riding gloves) and where to get them; loads the first time you mount
+## Notes-zhCN: GearInsight 无限版的上马自动换提速装备（胡萝卜 / 马刺靴 / 骑乘手套）和获取攻略：第一次上马时才加载
+## Author: GearInsight
+## Version: 1.5.4
+## Dependencies: GearInsight_Forever
+## LoadOnDemand: 1
+## IconTexture: Interface\Icons\INV_Misc_Food_54
+
+# 11-24 用户选「方案 2」：上马换装（多槽位 + 右键菜单 + 获取攻略）整块从 GearInsight_Forever_Bag 拆出来（_Bag 加载内存 336 KB 超 300 KB 上限）。
+#   主插件 MountStub.lua 是触发桩：上马 / 存档里有没换回的记录才加载这里。和 _Bag / _Xp 一样两种包里都是独立文件夹；网易DD 包并进主文件夹（DD_FOLD）
+#   ⛔ 这里的文件都晚于主插件加载：文件头一律 ns = _G.GearInsightForever or ns；最后一个文件 MountInit.lua 置就绪标记
+
+MountTrinket.lua
+MountCommission.lua
+MountInit.lua

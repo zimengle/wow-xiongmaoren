@@ -3962,15 +3962,11 @@ function M.GotoQuest(qid, inWorld)
         if M.curId and ns.ShowDungeonDetail then ns.ShowDungeonDetail(M.curId) end
     end
     if not U then return end
-    local row = DG.QuestRowByID and DG.QuestRowByID(qid)
-    local qsd = (type(row) == "table") and row[2] or nil
-    if (qsd == "A" or qsd == "H") and U.dungeonQSide ~= qsd then U.dungeonQSide = qsd end
-    U.dungeonQView = "list"
-    U.dungeonQFlow = nil
-    U.dungeonQuestSel = qid
-    U.dungeonQListKey = nil
     if U.SetDungeonTab then
         pcall(U.SetDungeonTab, U, "quest")
+    end
+    if U.SelectDungeonQuest then
+        U:SelectDungeonQuest(qid)
     elseif U.RenderDungeonQuests then
         U:RenderDungeonQuests()
     end
@@ -5216,9 +5212,10 @@ local function wpPinAcquire(canvas)
                 end
             end
             if not dk then return end
-            U.dungeonQuestSel = qid
             if ns.ShowDungeonDetail then ns.ShowDungeonDetail(dk) end
             if U.SetDungeonTab then U:SetDungeonTab("quest") end
+            if U.SelectDungeonQuest then U:SelectDungeonQuest(qid) end
+            M.QuestScrollTo(qid)
             ns.PlaySound(1)
         end)
     end
@@ -5256,6 +5253,33 @@ local function wpCfg()
         if c.scope[k] == nil then c.scope[k] = v end
     end
     return c
+end
+
+function M.PinsLayer()
+    return wpCfg().layer
+end
+
+function M.SetPinsLayer(v)
+    local c = wpCfg()
+    c.layer = (v == "below") and "below" or "above"
+    c.layerVer = 2
+    if M.SyncWorldQuestPins then pcall(M.SyncWorldQuestPins) end
+    if ns.MapWorldModule and ns.MapWorldModule.RefreshPins then pcall(ns.MapWorldModule.RefreshPins) end
+    if ns.ExploreMapRefresh then pcall(ns.ExploreMapRefresh) end
+    if ns.SyncQuestPinIcon then pcall(ns.SyncQuestPinIcon) end
+    return c.layer
+end
+
+function M.TogglePinsLayer()
+    return M.SetPinsLayer(M.PinsLayer() == "above" and "below" or "above")
+end
+
+function ns.MapPinLevel(natural)
+    if type(natural) ~= "number" then return natural end
+    if M.PinsLayer() ~= "above" and natural > WP_LAYER_BELOW then
+        return WP_LAYER_BELOW
+    end
+    return natural
 end
 
 local wpDlvCache
@@ -5791,7 +5815,7 @@ local function wpCreatePanel()
             { "below", L["Questie 之下"] },
         },
             function() return wpCfg().layer end,
-            function(v) wpCfg().layer = v end)
+            function(v) M.SetPinsLayer(v) end)
         syncers[#syncers + 1] = function() row:sync() end
     end
     f.syncAll = function()

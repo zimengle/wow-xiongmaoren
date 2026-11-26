@@ -368,6 +368,8 @@ function Definition:ADDON_LOADED(_, name)
         or name == "Blizzard_ObjectiveTracker" or (tracker and name == tracker.addonName) then
         self:BindProvider()
         self:Refresh()
+    elseif name == "Polestar" then
+        self:Refresh()
     end
 end
 

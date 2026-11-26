@@ -1,0 +1,14 @@
+## Interface: 16001, 11507
+## Title: GearInsight |cff33ff99Forever|r - Soulstone prompt
+## Title-zhCN: GearInsight |cff33ff99无限版|r · 灵魂石没了弹框
+## Notes: GearInsight Forever soulstone-gone prompt (loaded only the first time a soulstone runs out)
+## Notes-zhCN: GearInsight 无限版的「灵魂石没了」弹框：第一次要弹时才加载（术士灵魂石追踪 / 队长视图触发）
+## Author: GearInsight
+## Version: 1.5.4
+## Dependencies: GearInsight_Forever
+## LoadOnDemand: 1
+## IconTexture: Interface\Icons\INV_Misc_Orb_04
+
+# 11-25 用户「灵魂石没了弹窗问是否提醒」：法师吃喝 _GroupMage（队长视图）和术士专属 _ClassWarlock 内存都没余量 → 单独一个小子插件，
+#   ns.SSPopLoad()（两边各带一份几行的加载器）第一次要弹时才 LoadAddOn；不在 MERGED / LAZY / MANIFEST_KEYS；整个文件夹 HOLD 时发版不出这个文件夹
+SSPop.lua

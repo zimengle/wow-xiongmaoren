@@ -108,6 +108,24 @@ local function dlgFrame(name, w, h)
     return f
 end
 
+-- 11-25 GI-355：还原备份前二次确认（写清楚会清空几格、放回几格）；只有点「确定还原」才真的还原玩家选的这一份
+local rd
+function ns.KeysConfirmRestore(snap)
+    if not snap then return end
+    if not rd then
+        rd = dlgFrame(nil, 380, 80)
+        rd.ok = ns.Button(rd, ns.L("确定还原", "Restore"), 90, 20, function() rd:Hide(); K.Restore(rd.snap, true) end)
+        rd.ok:SetPoint("BOTTOMLEFT", 10, 8)
+        rd.cancel = ns.Button(rd, ns.L("取消", "Cancel"), 70, 20, function() rd:Hide() end)
+        rd.cancel:SetPoint("BOTTOMRIGHT", -10, 8)
+        ns.KeysRestoreDlg = rd   -- 测试用
+    end
+    rd.snap = snap
+    rd.t:SetText(string.format(ns.L("还原到 %s 的备份？会清空 %d 格、放回 %d 格，键位也回到那时", "Restore the %s backup? Clears %d slots, puts back %d"),
+        date("%m-%d %H:%M", snap.at), K.RestorePlan(snap)))
+    rd:Show()
+end
+
 -- 形态问询（通用）：choices = K.FormChoices(...)；pre = 默认选中的形态 key；onPick(view)
 local formDlg
 function ns.KeysChooseForm(title, choices, pre, onPick, usableTip)
@@ -576,7 +594,7 @@ local function build(p)
     mb:Hide()
     p.miscBtn = mb
     -- 底部：还原上次 / 高级（10-16 用户「删掉，不要这个按钮了」：一键全铺去掉，键位只许逐个设置）
-    p.restore = ns.Button(p, ns.L("还原上次", "Undo"), 90, 24, function() K.Restore((ns.db.keysBackups or {})[1]) end)
+    p.restore = ns.Button(p, ns.L("还原上次", "Undo"), 90, 24, function() ns.KeysConfirmRestore((ns.db.keysBackups or {})[1]) end)
     p.restore:SetPoint("BOTTOMLEFT", 12, L_BAR_B)
     local advBtn = ns.Button(p, ns.L("高级", "Advanced"), 96, 24, function() p.adv:SetShown(not p.adv:IsShown()); refresh() end)   -- 10-16 「高级 ▸」的 ▸ 在游戏字体里是方框 → 纯文字
     p.advBtn = advBtn
@@ -622,7 +640,7 @@ local function build(p)
         r:SetSize(280, 20); r:SetPoint("TOPLEFT", 10, -56 - (i - 1) * 22)
         r.t = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall"); r.t:SetPoint("LEFT", 2, 0); r.t:SetPoint("RIGHT", -64, 0)
         r.t:SetJustifyH("LEFT"); r.t:SetWordWrap(false)
-        local b = ns.Button(r, ns.L("还原", "Restore"), 58, 18, function() K.Restore(r.snap) end)
+        local b = ns.Button(r, ns.L("还原", "Restore"), 58, 18, function() ns.KeysConfirmRestore(r.snap) end)
         b:SetPoint("RIGHT", 0, 0)
         p.bkRows[i] = r
     end

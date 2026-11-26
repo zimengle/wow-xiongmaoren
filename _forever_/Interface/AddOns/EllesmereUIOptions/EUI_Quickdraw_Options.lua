@@ -1365,7 +1365,7 @@ initFrame:SetScript("OnEvent", function(self)
         if pickerMenu then return pickerMenu end
 
         local FONT = (EllesmereUI.GetFontPath())
-            or "Interface\\AddOns\\EllesmereUI\\media\\fonts\\Expressway.TTF"
+            or "Interface\\AddOns\\EllesmereUI\\media\\fonts\\EUI Highway.ttf"
         local bgR  = EllesmereUI.DD_BG_R or 0.075
         local bgG  = EllesmereUI.DD_BG_G or 0.113
         local bgB  = EllesmereUI.DD_BG_B or 0.141
@@ -2486,7 +2486,7 @@ initFrame:SetScript("OnEvent", function(self)
     local function RebuildMenuRows()
         local m = EnsureMenuMenu()
         local FONT = (EllesmereUI.GetFontPath())
-            or "Interface\\AddOns\\EllesmereUI\\media\\fonts\\Expressway.TTF"
+            or "Interface\\AddOns\\EllesmereUI\\media\\fonts\\EUI Highway.ttf"
         local mH = 4
         local count = PaletteCount()
         for i = 1, count do
@@ -2681,8 +2681,8 @@ initFrame:SetScript("OnEvent", function(self)
         bg:SetAllPoints()
         bg:SetColorTexture(EllesmereUI.DD_BG_R, EllesmereUI.DD_BG_G, EllesmereUI.DD_BG_B, EllesmereUI.DD_BG_A)
         local brd = EllesmereUI.MakeRoundedBorder(btn, 1, 1, 1, EllesmereUI.DD_BRD_A, bg)
-        -- The resting alpha is the text colour's, the channel the hover
-        -- colours below write, so a hover and leave land back on it.
+        -- The resting alpha is the text color's, the channel the hover
+        -- colors below write, so a hover and leave land back on it.
         local lbl = EllesmereUI.MakeFont(btn, 13, nil, 1, 1, 1, EllesmereUI.DD_TXT_A)
         lbl:SetJustifyH("LEFT")
         lbl:SetWordWrap(false)

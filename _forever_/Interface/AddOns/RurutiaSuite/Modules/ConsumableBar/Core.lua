@@ -136,11 +136,32 @@ local function OnCombatStart(module)
     module:PLAYER_REGEN_DISABLED()
 end
 
+local function OnWeaponInventory(module, event, unit)
+    if event == "UNIT_INVENTORY_CHANGED" and (Adapter:IsSecret(unit) or unit ~= "player") then return end
+    module.weaponEnchantsDirty = true
+    module:QueueVisualRefresh()
+end
+
+local function OnEquipment(module, _, slot)
+    if not Adapter:IsSecret(slot) and (slot == 16 or slot == 17) then
+        module:InvalidateWeaponSlot(slot)
+        module.weaponEnchantsDirty = true
+        module:QueueVisualRefresh()
+    end
+    module:QueueSecureRefresh()
+end
+
+local function OnTalentGroup(module)
+    module:ClearPendingCategoryUse()
+    if not Adapter:IsInCombat() then module:UpdateBar() else module:QueueSecureRefresh() end
+end
+
 local function OnPlayerRegen(module)
     module:PLAYER_REGEN_ENABLED()
 end
 
 local function OnEnteringWorld(module)
+    if Adapter.supportsCategoryEffects then module.weaponEnchantsDirty = true end
     module:RefreshFoodBuffState()
 end
 
@@ -149,6 +170,11 @@ local function OnUnitAura(module, _, unit)
 end
 
 local function OnSecureEvent(module)
+    module:QueueSecureRefresh()
+end
+
+local function OnBagsChanged(module)
+    module:ConfirmCategoryUse()
     module:QueueSecureRefresh()
 end
 
@@ -240,16 +266,28 @@ end
 
 function Definition:RegisterRuntimeEvents()
     self:RegisterEvent("PLAYER_REGEN_ENABLED", OnPlayerRegen)
-    if self.previewMode then self:RegisterEvent("PLAYER_REGEN_DISABLED", OnCombatStart) end
+    self:SyncCombatStartEvent()
     self:RegisterEvent("PLAYER_ENTERING_WORLD", OnEnteringWorld)
     self:RegisterEvent("UNIT_AURA", OnUnitAura)
-    self:RegisterEvent("BAG_UPDATE_DELAYED", OnSecureEvent)
+    self:RegisterEvent("BAG_UPDATE_DELAYED", Adapter.supportsCategoryEffects and OnBagsChanged or OnSecureEvent)
     if self.DATA.hasBandages then self:RegisterEvent("SKILL_LINES_CHANGED", OnSecureEvent) end
     self:RegisterEvent("SPELLS_CHANGED", OnSecureEvent)
     self:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN", OnVisualEvent)
     self:RegisterEvent("BAG_UPDATE_COOLDOWN", OnVisualEvent)
     self:RegisterEvent("SPELL_UPDATE_COOLDOWN", OnVisualEvent)
-    self:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", OnSecureEvent)
+    self:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", Adapter.supportsCategoryEffects and OnEquipment or OnSecureEvent)
+    if Adapter.supportsCategoryEffects then
+        self:RegisterEvent(Adapter:GetWeaponEnchantEvent(), OnWeaponInventory)
+        if Adapter:SupportsTalentGroupEvent() then self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", OnTalentGroup) end
+    end
+end
+
+function Definition:SyncCombatStartEvent()
+    local needed = self.previewMode == true
+    if needed == self.listeningCombatStart then return end
+    self.listeningCombatStart = needed
+    if needed then self:RegisterEvent("PLAYER_REGEN_DISABLED", OnCombatStart)
+    else self:UnregisterEvent("PLAYER_REGEN_DISABLED") end
 end
 
 local function StartRuntime(self)
@@ -264,6 +302,7 @@ local function StartRuntime(self)
     end
     self:CreateGroups()
     self:QueuePositionRetry()
+    if Adapter.supportsCategoryEffects then self.isRogue, self.weaponEnchantsDirty = Adapter:IsRogue(), true end
     self:RefreshFoodBuffState()
     self:UpdateBar()
     self:ApplySharedFont()
@@ -296,6 +335,12 @@ function Definition:Disable()
     self.visualDriverRemaining = nil
     self.nextCooldownRefresh = nil
     self.nextBuffTextRefresh = nil
+    self.listeningCombatStart = nil
+    if Adapter.supportsCategoryEffects then
+        self.categoryAurasDirty, self.weaponEnchantsDirty, self.categoryAuraScratch = nil, nil, nil
+        self.categoryScratch, self.previewCategoryScratch = nil, nil
+        self:ClearPendingCategoryUse()
+    end
     self.isUnlocked = false
     local _, frame
     for _, frame in pairs(self.groupFrames or {}) do HideFrame(frame); HideFrame(frame.preview) end
@@ -320,6 +365,9 @@ function Definition:PLAYER_REGEN_DISABLED()
 end
 
 function Definition:PLAYER_REGEN_ENABLED()
+    if Adapter.supportsCategoryEffects then
+        self.categoryAurasDirty, self.weaponEnchantsDirty = true, true
+    end
     if self.needsSecureRefresh then
         self.needsSecureRefresh = false
         self:QueueSecureRefresh()
@@ -329,6 +377,7 @@ function Definition:PLAYER_REGEN_ENABLED()
 end
 
 function Definition:UNIT_AURA(_, unit)
+    if Adapter.supportsCategoryEffects and Adapter:IsSecret(unit) then return end
     if unit == "player" then self:RefreshFoodBuffState() end
 end
 
@@ -379,6 +428,115 @@ function Definition:ToggleCooldownDesaturate(value)
     self:QueueVisualRefresh()
 end
 
+function Definition:GetRememberedItemID(category, hand)
+    if not self:GetProfile().rememberLastUse then return end
+    local group = Adapter:GetActiveTalentGroup()
+    local char = self.db.char
+    local byTalent = group and char and char.lastCategoryUse and char.lastCategoryUse[group]
+    local saved = byTalent and byTalent[category]
+    if hand then return type(saved) == "table" and saved[hand] or nil end
+    if type(saved) == "number" then return saved end
+end
+
+function Definition:HasRememberedCategory(category)
+    if category == "weapon" or category == "poison" then
+        return self:GetRememberedItemID(category, "main") or self:GetRememberedItemID(category, "off")
+    end
+    return self:GetRememberedItemID(category)
+end
+
+function Definition:ClearPendingCategoryUse()
+    if not self.pendingCategoryUse then return end
+    self.pendingCategoryUse = nil
+    if self.categoryUseTimer then
+        self:CancelSchedule(self.categoryUseTimer)
+        self.categoryUseTimer = nil
+    end
+    self:UnregisterEvent("UNIT_SPELLCAST_SENT")
+    self:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+end
+
+local function OnCategoryCastSent(module, _, unit, _, castGUID, spellID)
+    if Adapter:IsSecret(unit) or Adapter:IsSecret(castGUID) or Adapter:IsSecret(spellID) then return end
+    local pending = module.pendingCategoryUse
+    if pending and unit == "player" and spellID == pending.spellID and type(castGUID) == "string" and not pending.castGUID then
+        pending.castGUID = castGUID
+    end
+end
+
+local function OnCategoryCastSucceeded(module, _, unit, castGUID, spellID)
+    if Adapter:IsSecret(unit) or Adapter:IsSecret(castGUID) or Adapter:IsSecret(spellID) then return end
+    local pending = module.pendingCategoryUse
+    if pending and unit == "player" and spellID == pending.spellID and pending.castGUID and pending.castGUID == castGUID then
+        pending.succeeded = true
+        module:ConfirmCategoryUse()
+    end
+end
+
+function Definition:BeginCategoryUse(category, itemID, hand)
+    self:ClearPendingCategoryUse()
+    if not self:CanRun() or self.previewMode or not self:GetProfile().rememberLastUse then return end
+    local group = Adapter:GetActiveTalentGroup()
+    local _, spellID = Adapter:GetItemSpell(itemID)
+    local count = Adapter:GetCarriedCount(itemID, hand ~= nil)
+    if not (group and spellID and count and count > 0) then return end
+    local pending = {category = category, group = group, itemID = itemID, spellID = spellID, count = count, hand = hand}
+    if hand then
+        pending.slot = hand == "main" and 16 or 17
+        pending.weapon = Adapter:GetEquippedWeapon(pending.slot)
+        if not pending.weapon then return end
+        local enchant = Adapter:ReadCategoryEnchant(pending.slot, category)
+        if enchant == nil then return end
+        pending.enchant = enchant
+        pending.expiration = enchant and enchant.seconds and (Adapter:GetTime() + enchant.seconds)
+    end
+    self.pendingCategoryUse = pending
+    self:RegisterEvent("UNIT_SPELLCAST_SENT", OnCategoryCastSent)
+    self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", OnCategoryCastSucceeded)
+    self.categoryUseTimer = self:Schedule(8, self.ClearPendingCategoryUse, "ConsumableBar category use confirmation")
+end
+
+function Definition:ConfirmCategoryUse()
+    local pending = self.pendingCategoryUse
+    if not pending or not pending.succeeded then return end
+    if not self:GetProfile().rememberLastUse or pending.group ~= Adapter:GetActiveTalentGroup() then
+        self:ClearPendingCategoryUse()
+        return
+    end
+    local count = Adapter:GetCarriedCount(pending.itemID, pending.slot ~= nil)
+    if not count or count >= pending.count then return end
+    if pending.slot then
+        if Adapter:GetEquippedWeapon(pending.slot) ~= pending.weapon then return end
+        local enchant = Adapter:ReadCategoryEnchant(pending.slot, pending.category)
+        if not enchant then return end
+        local previous = pending.enchant
+        local changed = previous == false or (enchant.id and previous.id and enchant.id ~= previous.id)
+            or (enchant.seconds and pending.expiration and Adapter:GetTime() + enchant.seconds > pending.expiration + 0.2)
+        if not changed then return end
+        local snapshot, state = self:GetEnchantSnapshot(pending.slot, pending.category)
+        if snapshot and state.weapon == pending.weapon and snapshot.id == enchant.id and snapshot.present then
+            snapshot.category = pending.category
+            snapshot.itemID = pending.itemID
+            local confirmedItem = self.categoryItemIDs and self.categoryItemIDs[pending.category]
+                and self.categoryItemIDs[pending.category][pending.itemID]
+            if confirmedItem and confirmedItem.poisonFamily then snapshot.poisonFamily = confirmedItem.poisonFamily end
+        end
+    end
+    local char = self.db.char
+    char.lastCategoryUse = char.lastCategoryUse or {}
+    local byTalent = char.lastCategoryUse[pending.group] or {}
+    char.lastCategoryUse[pending.group] = byTalent
+    if pending.hand then
+        local hands = byTalent[pending.category] or {}
+        hands[pending.hand] = pending.itemID
+        byTalent[pending.category] = hands
+    else
+        byTalent[pending.category] = pending.itemID
+    end
+    self:ClearPendingCategoryUse()
+    self:QueueSecureRefresh()
+end
+
 function Definition:SetPreviewMode(enabled, button)
     if not self.available or Adapter:IsInCombat() then return false end
     if enabled and not self.previewMode then
@@ -404,14 +562,14 @@ function Definition:SetPreviewMode(enabled, button)
                 return false
             end
         else
-            self:RegisterEvent("PLAYER_REGEN_DISABLED", OnCombatStart)
+            self:SyncCombatStartEvent()
             self:CreateGroups()
             self:UpdateBar()
         end
     elseif not restoreLive and not self.isUnlocked then
         ns.Runtime:DisableModule(self)
     else
-        self:UnregisterEvent("PLAYER_REGEN_DISABLED")
+        self:SyncCombatStartEvent()
         self:UpdateBar()
         if not self.isUnlocked then self.previewSession = nil end
     end
@@ -515,6 +673,15 @@ function Definition:RefreshVisuals()
     self.visualRefreshHandle = nil
     if not self:CanRun() then return false end
     if self.previewMode and not self:ShouldRunLive() then self:StopVisualDriver(); return false end
+    if self.categoryAurasDirty then
+        self.categoryAurasDirty = nil
+        self:RefreshCategoryAuras()
+    end
+    if self.weaponEnchantsDirty then
+        self.weaponEnchantsDirty = nil
+        self:RefreshWeaponEnchants()
+        self:ConfirmCategoryUse()
+    end
     self.cooldownCacheGeneration = self.cooldownCacheGeneration + 1
     local generation = self.cooldownCacheGeneration
     local hasActiveCooldown = false
@@ -531,9 +698,32 @@ function Definition:RefreshVisuals()
                     Call(button.icon, "SetTexture", icon)
                 end
                 SetTextIfChanged(button.slotText, info.slot and (info.name or "") or "")
-                local buffTime = self:GetBuffTimeText(info)
+                local buffTime, offBuffTime, dualBuff = "", "", false
+                if Adapter.supportsCategoryEffects and info.kind == "categoryMenu" then
+                    buffTime, offBuffTime, dualBuff = self:GetCategoryEffect(info.category)
+                elseif Adapter.supportsCategoryEffects and info.kind == "weaponConsumable" then
+                    buffTime, offBuffTime, dualBuff = self:GetWeaponItemEffect(info)
+                else
+                    buffTime = self:GetBuffTimeText(info)
+                end
+                dualBuff = dualBuff == true
+                if button._rsDualBuffText ~= dualBuff then
+                    button._rsDualBuffText = dualBuff
+                    Call(button.buffText, "ClearAllPoints")
+                    if dualBuff then
+                        Call(button.buffText, "SetPoint", "TOP", button.icon, "TOP", 0, -1)
+                    else
+                        Call(button.buffText, "SetPoint", "CENTER", button.icon, "CENTER", 1, 0)
+                    end
+                end
+                SetFontIfChanged(button.buffText, font, dualBuff and 10 or 12, "OUTLINE")
                 SetTextIfChanged(button.buffText, buffTime)
                 Call(button.buffText, "SetShown", buffTime ~= "")
+                if button.offBuffText then
+                    SetFontIfChanged(button.offBuffText, font, 10, "OUTLINE")
+                    SetTextIfChanged(button.offBuffText, offBuffTime)
+                    Call(button.offBuffText, "SetShown", offBuffTime ~= "")
+                end
                 SetFontIfChanged(button.countText, font, info.kind == "food" and 12 or 11, "OUTLINE")
                 local count = self:GetDisplayItemID(info)
                 count = count and Adapter:GetItemCount(count, false) or 0
@@ -633,6 +823,9 @@ function Definition:ShowTooltip(button, previewContent)
             local tooltip = Adapter:GetTooltip()
             AddWeaponHandLines(tooltip)
             Adapter:PresentTooltip(tooltip)
+        end
+        if displayed and Adapter.supportsCategoryEffects and not button.isPreview and info.kind == "categoryMenu" then
+            self:AddRememberedCategoryTooltip(button)
         end
         return displayed
     end

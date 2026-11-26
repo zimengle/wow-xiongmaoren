@@ -683,7 +683,17 @@ end)
 -- Hand placed like the other Forever addons, named SpyMinimapButton so MinimapButtons
 -- can collect it.
 
-local MINIMAP_RADIUS = 80
+-- On the edge of the minimap, whatever its size (Edit Mode can resize it): half its
+-- width plus 5, as LibDBIcon does. A fixed 80 put the button inside the bigger Forever
+-- minimap (CurseForge comment).
+local function minimapRadius()
+	local width = Spy:Readable(Minimap:GetWidth())
+	if type(width) ~= "number" or width ~= width or width <= 0 then
+		return 80
+	end
+	return width / 2 + 5
+end
+Spy.MinimapRadius = minimapRadius
 -- Right side of the minimap, a little above the middle: the widest gap left between
 -- TargetTooltip (6.0) and Vitals (1.2).
 Spy.MinimapDefaultAngle = 0.45
@@ -708,7 +718,7 @@ end
 
 local function placeMinimapButton(angle)
 	minimapButton:ClearAllPoints()
-	minimapButton:SetPoint("CENTER", Minimap, "CENTER", math.cos(angle) * MINIMAP_RADIUS, math.sin(angle) * MINIMAP_RADIUS)
+	minimapButton:SetPoint("CENTER", Minimap, "CENTER", math.cos(angle) * minimapRadius(), math.sin(angle) * minimapRadius())
 end
 
 local function angleFromCursor()

@@ -766,7 +766,7 @@ function ns.SetUIAlpha(a)
     local u, n = ns.db.ui or {}, (a == "solid" or a == "实色") and -1 or tonumber(a)
     if n then u.alpha = n == -1 and -1 or n >= 0.5 and math.floor(math.min(100, n) + 0.5) or nil; ns.db.ui = u end
     n = u.alpha or 0
-    if frame then local k = 1 - math.max(n, 0) / 100; frame:SetBackdropColor(0.04, 0.05, 0.07, n < 0 and 1 or 0.96 * k); frame:SetBackdropBorderColor(0.85, 0.68, 0.25, k); frame.band:SetAlpha(k) end
+    if frame then local k = 1 - math.max(n, 0) / 100; frame:SetBackdropColor(0.04, 0.05, 0.07, n < 0 and 1 or 0.96 * k); frame:SetBackdropBorderColor(0.85, 0.68, 0.25, k); frame.band:SetAlpha(k); frame.solidOn = n < 0; for _, t in ipairs(frame.solids) do if n < 0 and (t.o == frame or t.o:IsShown()) then t:Show() else t:Hide() end end end
     u = ns.L("面板底色：", "Panel background: ") .. (n < 0 and ns.L("实色（不透明）", "Solid") or n == 0 and ns.L("默认", "Default") or ns.L("透明 ", "Transparent ") .. n .. "%")
     if type(a) == "string" then ns.Print(u .. "（/gi alpha solid | 0-100）") end
     return u, n
@@ -815,6 +815,18 @@ local function build()
             edgeSize = 16, insets = { left = 4, right = 4, top = 4, bottom = 4 } })
         f:SetBackdropColor(0.04, 0.05, 0.07, 0.96); f:SetBackdropBorderColor(0.85, 0.68, 0.25, 1)
     end
+    -- 11-24 GI-343 / GI-324「实色」还透出后面的姓名板 / 文字：底图 UI-Tooltip-Background 自带半透明（颜色 alpha 给 1 也乘不满），
+    --   左栏页签底色 0.92 → 「实色」时在主窗口 / 每个左栏页签下面垫一层 alpha = 1 的纯色贴图（SetUIAlpha 开关），其余档位不出
+    f.solids = {}
+    local function solid(o, d)
+        local t = f:CreateTexture(nil, "BACKGROUND", nil, -8)   -- 画在主窗口上、锚到页签：在页签自己的底色（选中金色）下面，不盖住它
+        t:SetPoint("TOPLEFT", o, d, -d); t:SetPoint("BOTTOMRIGHT", o, -d, d); t:SetColorTexture(0.04, 0.05, 0.07, 1); t:Hide(); t.o = o
+        f.solids[#f.solids + 1] = t
+        if o ~= f then   -- 左栏小按钮跟着大类展开 / 收起：垫底跟着它显示 / 隐藏
+            o:HookScript("OnShow", function() if f.solidOn then t:Show() end end); o:HookScript("OnHide", function() t:Hide() end)
+        end
+    end
+    solid(f, 3)
 
     -- 标题栏：logo + 名字 + 版本；下一行 = 角色 / 开服提示
     local band = f:CreateTexture(nil, "BACKGROUND", nil, 1)
@@ -925,13 +937,13 @@ local function build()
             end
         end
         local hl = b:CreateTexture(nil, "HIGHLIGHT"); hl:SetAllPoints(); hl:SetColorTexture(1, 0.82, 0, 0.10)
-        setTabSel(b, false)
+        setTabSel(b, false); solid(b, 2)
         return b
     end
     -- 成员小按钮：纯文字、比大标签窄 14（右对齐 = 往里缩进），选中金边金字（和 ns.SegButton 一个配色）
     local function subTab(p)
         local b = ns.SegButton(f, p.tabTitle or p.title, 86, SUB_H, function() showPage(p.key) end)
-        b:Hide()
+        b:Hide(); solid(b, 1)
         return b
     end
     local entries = navEntries()

@@ -66,6 +66,46 @@ local function AddArmorOptions(row, module, key, members)
         tooltip = "设置护甲提醒法术"})
 end
 
+local weaponWarningOptions = {
+    poison = {title = "毒药提醒", tooltip = "设置毒药提醒"},
+    shamanWeapon = {title = "武器附魔", tooltip = "设置萨满武器附魔提醒"},
+}
+local warningMinutes = {[0] = "到期才提醒", [1] = "剩 1 分钟", [2] = "剩 2 分钟", [3] = "剩 3 分钟", [5] = "剩 5 分钟"}
+local warningOrder = {0, 1, 2, 3, 5}
+
+local function AddInfiniteOptions(row, module, key)
+    local function Option(kind, option, text)
+        return {
+            kind = kind, key = option, text = text,
+            getValue = function() return module.db.profile[option] end,
+            getEnabled = function() return CanEdit(module) and module.db.profile[key] == true end,
+            onChange = function(control, value)
+                local ok = module:SetSetting(option, value)
+                if not ok then control:SetValue(module.db.profile[option], true) end
+                return ok
+            end,
+        }
+    end
+    if key == "food" then
+        local duration = Option("dropdown", "foodDuration", "提示时长")
+        duration.options, duration.order = {[3] = "3 秒", [5] = "5 秒", [10] = "10 秒", [0] = "常驻"}, {3, 5, 10, 0}
+        row:Popover("foodOptions", {attachTo = key, title = "食物提醒", tooltip = "设置食物提醒", rows = {
+            duration, Option("checkbox", "foodOwnedOnly", "仅背包有属性食物时才提醒"),
+        }})
+    elseif weaponWarningOptions[key] then
+        local config = weaponWarningOptions[key]
+        local warning = Option("dropdown", key .. "WarnMinutes", "提前提醒")
+        warning.options, warning.order = warningMinutes, warningOrder
+        row:Popover(key .. "Options", {
+            attachTo = key, title = config.title, tooltip = config.tooltip, rows = {
+                Option("checkbox", key .. "Main", "检查主手"),
+                Option("checkbox", key .. "Off", "检查副手"),
+                warning,
+            },
+        })
+    end
+end
+
 local function BuildClassPage(context, module)
     if context.classReminderPage then
         context.classReminderPage:Refresh("show")
@@ -92,10 +132,14 @@ local function BuildClassPage(context, module)
                     onChange = function(control, value)
                         local ok = module:SetSetting(key, value)
                         if not ok then control:SetValue(module.db.profile[key], true) end
+                        if ok and module.settingGroups and (key == "food" or weaponWarningOptions[key]) then
+                            page:Refresh("reminder-options")
+                        end
                         return ok
                     end,
                 })
                 if spec[3] then AddArmorOptions(row, module, key, spec[3]) end
+                if module.settingGroups then AddInfiniteOptions(row, module, key) end
             end
         end
     end
@@ -158,6 +202,12 @@ function Settings:Register(module)
         onShow = function(context) Settings:Refresh(context, module) end,
         onRefresh = function(context) Settings:Refresh(context, module) end,
     }
+    if module.settingGroups then
+        local keywords = classDefinition.searchKeywords
+        for _, keyword in ipairs({"怒吼", "食物", "毒药", "武器附魔", "萨满", "风怒", "火舌", "冰封", "石化"}) do
+            keywords[#keywords + 1] = keyword
+        end
+    end
     ns.ClassReminderPageDefinition = classDefinition
 
     local generalDefinition = {

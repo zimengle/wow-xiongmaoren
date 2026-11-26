@@ -854,8 +854,9 @@ function Definition:ApplyMinimapVolumeState()
 end
 
 function Definition:IsLFGToolsEnabled()
-    local profile, lfg = self:GetProfile(), self:GetLFGToolsDB()
-    return self.runtimeActive and lfg and lfg.enabled or false
+    if not self.runtimeActive then return false end
+    local lfg = self:GetLFGToolsDB()
+    return lfg and lfg.enabled or false
 end
 
 function Definition:GetActiveLFGToolsPosition()
@@ -896,15 +897,22 @@ end
 
 function Definition:UpdateLFGTools()
     if not (Adapter.features.lfgTools and self.runtimeActive) then return false end
+    if Adapter:IsInCombat() then
+        self.lfgRegenSyncPending = true
+        return false
+    end
+    self.lfgRegenSyncPending = nil
     local profile = self:GetLFGToolsDB()
     local shouldShow = self:IsLFGToolsEnabled()
         and (Adapter:IsInInstanceParty() or self.isUnlocked or self.lfgToolsPreviewMode)
     if not shouldShow then
-        if self.lfgButtons or self.lfgToolsMover then View:ReleaseLFGOwnership(self) end
+        if self.lfgButtonsOwned or self.lfgToolsMover then View:ReleaseLFGOwnership(self) end
+        self.lfgButtonsOwned = false
         return false
     end
     local x, y = self:GetActiveLFGToolsPosition()
     local shown = View:ApplyLFGButtons(self, profile, x, y, shouldShow)
+    self.lfgButtonsOwned = true
     if self.isUnlocked and profile.enabled then
         local count = (profile.showLeaveButton and 1 or 0) + (profile.showTeleportButton and 1 or 0)
         local width = math.max(count, 1) * Data.LFG.buttonWidth
@@ -920,8 +928,19 @@ function Definition:UpdateLFGTools()
     return shown
 end
 
-function Definition:QueueUpdateLFGTools()
-    if not (self.runtimeActive and self:IsLFGToolsEnabled()) then return false end
+function Definition:QueueUpdateLFGTools(event)
+    if not self.runtimeActive then return false end
+    if Adapter:IsInCombat() then
+        if self:IsLFGToolsEnabled() or self.lfgButtonsOwned then
+            self.lfgRegenSyncPending = true
+        end
+        return false
+    end
+    if event == "PLAYER_REGEN_ENABLED" then
+        if not self.lfgRegenSyncPending then return false end
+    elseif not self:IsLFGToolsEnabled() then
+        return false
+    end
     self:RequestRefresh("extra-tools-lfg", OnLFGRefresh, Data.RETAIL_DELAY)
     return true
 end

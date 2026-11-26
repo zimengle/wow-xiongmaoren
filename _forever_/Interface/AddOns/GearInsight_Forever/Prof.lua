@@ -254,11 +254,13 @@ function P.SkinTipOn(v)
     return not (ns.db and ns.db.ui and ns.db.ui.skinTip == false)
 end
 function P.SkinTip(tt)
-    if not tt or tt.__gifSkin or not tt.GetUnit or not P.SkinTipOn() then return false end
+    if P.skinMax or not tt or tt.__gifSkin or not tt.GetUnit or not P.SkinTipOn() then return false end
     local _, unit = tt:GetUnit()
     if not unit or ns.Secret(unit) or (UnitIsPlayer and UnitIsPlayer(unit)) then return false end
     local sk = mySkinning()
     if not sk then return false end
+    -- 11-24 用户「剥皮300以后永久不显示这个了，不加载了」：练满 300 = 本次登录起整行不再查（不读提示行、不算等级）
+    if (tonumber(sk.r) or 0) >= 300 then P.skinMax = true; return false end
     local want = (type(UNIT_SKINNABLE_LEATHER) == "string" and UNIT_SKINNABLE_LEATHER ~= "") and UNIT_SKINNABLE_LEATHER or ns.L("可剥皮", "Skinnable")
     local name, found = tt.GetName and tt:GetName(), false
     for i = 2, (tt.NumLines and tt:NumLines() or 0) do

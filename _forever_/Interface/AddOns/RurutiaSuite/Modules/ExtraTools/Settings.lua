@@ -93,7 +93,7 @@ local function BuildQuestAutomation(container, page, module)
         })
         if ns.QuestAutomationProviders then
             local external = container:Section("插件自动交接")
-            external:Description("Elles 和 Questie 显示各插件当前设置。RXP 登录时应用保存的选择，首次默认关闭。")
+            external:Description("Elles、Questie 和北极星显示各插件当前设置。RXP 登录时应用保存的选择，首次默认关闭。")
             local row = external:QuadRow()
             for _, option in ipairs(ns.QuestAutomationProviders.options) do
                 local key = option.key

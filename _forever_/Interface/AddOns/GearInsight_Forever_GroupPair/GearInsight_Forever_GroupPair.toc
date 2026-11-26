@@ -1,0 +1,17 @@
+## Interface: 16001, 11507
+## Title: GearInsight |cff33ff99Forever|r - Quest pairing
+## Title-zhCN: GearInsight |cff33ff99无限版|r · 任务配对
+## Notes: GearInsight Forever quest pairing: asks you (never auto) to group with an addon user on the same kill quest in the same area. Loaded at login only when turned on
+## Notes-zhCN: GearInsight 无限版的任务配对：在杀怪任务目标区域遇到同任务的插件用户时弹卡问你要不要组队（不自动邀请 / 不自动进队）；开关开着时才登录加载
+## Author: GearInsight
+## Version: 1.5.4
+## Dependencies: GearInsight_Forever
+## LoadOnDemand: 1
+## IconTexture: Interface\Icons\INV_Misc_GroupNeedMore
+
+# 11-23 用户「采用类似换位面的方法，把任务组队也能自动串连」：任务配对 P1（设计稿 quest_autogroup_design.md，用户同意三条推荐）。
+#   默认关；开着时组队信标（_Group 的 QuestMates.lua）登录后 ns.LoadModule("qp") 加载，组队页横幅 / /gi qp on 开启。
+#   协议走位面的 GIFLY1（心跳加 ag 字段 + 插件密语 G / K），GIFQM1 不动。整个子插件 HOLD（_hold.txt）：发版脚本整个文件夹不进包，网易DD 包也不带
+#   ⛔ 这里的文件都晚于主插件加载：文件头一律 ns = _G.GearInsightForever or ns；最后一个文件置就绪标记 ns._qpReady
+QuestPair.lua
+QuestPairUI.lua

@@ -95,7 +95,7 @@ function ns.ERB_BuildHealthSection(parent, y, ctx)
         if k and k ~= "---" and k ~= "none" then return ns.HealthIndicatorTex(k) end
     end }
 
-    -- Max health reduction overlay, off by default: its texture and colour are listed while it is on.
+    -- Max health reduction overlay, off by default: its texture and color are listed while it is on.
     do
         local k = ns.HEALTH_INDICATORS[3]
         local function lossOff() local c = cfg(); return not (c and c[k.show] == true) end
@@ -136,7 +136,7 @@ function ns.ERB_BuildHealthSection(parent, y, ctx)
     -- Everything below Row 1 is hidden entirely while the bar is off.
     if not healthOff() then
     -- Absorb Style | Absorb Opacity, then Heal Absorb Style | Heal Absorb Opacity: None turns
-    -- the overlay off, the inline swatch sets its colour and the slider its opacity.
+    -- the overlay off, the inline swatch sets its color and the slider its opacity.
     for _, def in ipairs({
         { k = ns.HEALTH_INDICATORS[1], styleText = "Absorb Style", opacityText = "Absorb Opacity", order = hiOrder },
         { k = ns.HEALTH_INDICATORS[2], styleText = "Heal Absorb Style", opacityText = "Heal Absorb Opacity", order = hiHealOrder },
@@ -273,7 +273,7 @@ function ns.ERB_BuildHealthSection(parent, y, ctx)
             swatch:SetPoint("RIGHT", rgn._lastInline or rgn._control, "LEFT", -8, 0)
             rgn._lastInline = swatch
             EllesmereUI.RegisterWidgetRefresh(function() updateSwatch() end)
-            -- Blocked while the style is None, and for the outlined stripes, which carry their own colours.
+            -- Blocked while the style is None, and for the outlined stripes, which carry their own colors.
             local swBlock = CreateFrame("Frame", nil, swatch)
             swBlock:SetAllPoints()
             swBlock:SetFrameLevel(swatch:GetFrameLevel() + 10)
@@ -373,7 +373,7 @@ function ns.ERB_BuildHealthSection(parent, y, ctx)
         end
     end
 
-    -- Health Border Style dropdown + inline offset cog. Style/size/colour/cog operate on cfg(); the cross-bar "apply to all" sync icons (+ _syncRows registration) are Simple-only.
+    -- Health Border Style dropdown + inline offset cog. Style/size/color/cog operate on cfg(); the cross-bar "apply to all" sync icons (+ _syncRows registration) are Simple-only.
     do
         local texValues, texOrder = EllesmereUI.GetBorderTextureDropdown()
         local hpBsRow
@@ -791,17 +791,28 @@ function ns.ERB_BuildHealthSection(parent, y, ctx)
     end
 
     local healthTextSizeRow
+    local function SetHealthText(v)
+        local c = cfg(); if not c then return end
+        c.textFormat = v; RefreshHealth(); EllesmereUI:RefreshPage()
+        ns.ERB_RefreshTextMenu(healthTextSizeRow and healthTextSizeRow._leftRegion)
+    end
     healthTextSizeRow, h = W:DualRow(parent, y,
         { type = "dropdown", text = "Health Text",
           disabled = healthOff,
           disabledTooltip = "Health Bar",
-          values = { none = "None", perhp = "Health %", perhpnosign = "Health % (No Sign)", curhpshort = "Health #", curmaxhp = "Health # / Max #", perhpnum = "Health % | #", both = "Health # | %" },
-          order = { "none", "---", "perhp", "perhpnosign", "curhpshort", "curmaxhp", "perhpnum", "both" },
+          values = ns.ERB_CustomTextValues(
+              { none = "None", perhp = "Health %", perhpnosign = "Health % (No Sign)", curhpshort = "Health #", curmaxhp = "Health # / Max #", perhpnum = "Health % | #", both = "Health # | %" },
+              ns.ERB_HealthTags, cfg,
+              function(c)
+                  local _, cls = UnitClass("player")
+                  if c.textCustomColored == false and cls then return EllesmereUI.GetClassColor(cls) end
+                  return { r = c.textFillR or 1, g = c.textFillG or 1, b = c.textFillB or 1 }
+              end,
+              SetHealthText, { examples = ns.ERB_HealthTagExamples, label = "Health Text", apply = RefreshHealth,
+                  region = function() return healthTextSizeRow and healthTextSizeRow._leftRegion end }),
+          order = { "none", "---", "custom", "---", "perhp", "perhpnosign", "curhpshort", "curmaxhp", "perhpnum", "both" },
           getValue = function() local c = cfg(); return c and c.textFormat or "none" end,
-          setValue = function(v)
-              local c = cfg(); if not c then return end
-              c.textFormat = v; RefreshHealth(); EllesmereUI:RefreshPage()
-          end },
+          setValue = SetHealthText },
         { type = "multiSwatch", text = "Text Color",
           disabled = healthTextDis,
           disabledTooltip = healthTextDisTip,
@@ -852,6 +863,7 @@ function ns.ERB_BuildHealthSection(parent, y, ctx)
               end },
           } }
     );  y = y - h
+    ns.ERB_AddCustomFormatAccessor(healthTextSizeRow._leftRegion, "Health Text", cfg, RefreshHealth)
     -- Health Text inline cog: anchor + x/y offsets
     do
         local rgn = healthTextSizeRow._leftRegion

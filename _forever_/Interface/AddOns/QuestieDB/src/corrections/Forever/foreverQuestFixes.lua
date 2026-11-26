@@ -42,6 +42,12 @@ function ForeverQuestFixes:LoadDynamic()
     local playerClass = UnitClassBase("player")
 
     local questFixesHorde = {
+        [652] = { -- Breaking the Keystone
+            [questKeys.nextQuestInChain] = 688,
+        },
+        [687] = { -- Theldurin the Lost
+            [questKeys.preQuestSingle] = {688},
+        },
         [2945] = { -- Grime-Encrusted Ring
             [questKeys.nextQuestInChain] = 2949,
         },
@@ -339,6 +345,12 @@ function ForeverQuestFixes:LoadDynamic()
     }
 
     local questFixesAlliance = {
+        [652] = { -- Breaking the Keystone
+            [questKeys.nextQuestInChain] = 653,
+        },
+        [687] = { -- Theldurin the Lost
+            [questKeys.preQuestSingle] = {653},
+        },
         [2945] = { -- Grime-Encrusted Ring
             [questKeys.nextQuestInChain] = 2947,
         },

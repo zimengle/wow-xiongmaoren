@@ -1,0 +1,18 @@
+## Interface: 16001, 11507
+## Title: GearInsight |cff33ff99Forever|r - Rogue
+## Title-zhCN: GearInsight |cff33ff99无限版|r · 盗贼专属
+## Notes: GearInsight Forever rogue-only tools (poison reminder: main / off-hand poison missing or running out, low poison stock). Loads only on rogues
+## Notes-zhCN: GearInsight 无限版的盗贼专属功能（毒药提醒：主手 / 副手没上毒、快没了、背包毒药不够）：只有盗贼角色才加载
+## Author: GearInsight
+## Version: 1.5.4
+## Dependencies: GearInsight_Forever
+## LoadOnDemand: 1
+## IconTexture: Interface\Icons\Ability_Rogue_DualWeild
+
+# 11-25 群友「老大把贼的毒药单独……提醒毒快没了……食物BUFF类 扯开来」+ 硬规「职业专属的只有这个职业才加载」：
+#   主插件 ClassStub.lua 只在盗贼角色、文件夹在时登录 LoadAddOn 这里；非盗贼一个文件都不加载。每个文件头再挡一次（不是盗贼直接 return）。
+#   ⛔ 文件头一律 ns = _G.GearInsightForever or ns。⛔ 合并包 / DD 包都不许并进主文件夹（gi_forever_pack.CLASS_ONLY），DD 包不带。
+#   整个文件夹 HOLD 时发版不出这个文件夹（gi_forever_pack.WHOLE_HOLD_OK）
+
+# 盗贼毒药提醒（HOLD）：主手 / 副手毒药没上 / 快没了 / 背包补货 + 浮标 + 设置「盗贼毒药提醒」
+PoisonRemind.lua

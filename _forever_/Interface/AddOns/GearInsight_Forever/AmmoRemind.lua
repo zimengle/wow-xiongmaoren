@@ -13,6 +13,10 @@
 --      弹药栏是旧档（40 级还装着锐锋箭）→ 提醒该换哪种、商人按钮改买新档；升到 10 / 25 / 40 级说一次能买新箭了
 --   ⑧ 11-17 用户截图（圆形浮标）「做个类似这个的放到桌面，右键永久关闭，给 GI 入口」：浮标改成圆形图标 + 角标发数；
 --      右键 = 永久关闭浮标（聊天框 / 屏幕中间的提醒照旧），从 GI 菜单「窗口与提醒 → 弹药浮标」或 /gi ammo orb on 找回
+--   ⑨ 11-24 用户截图（52 级，箭袋里满满的瑟银之箭，浮标写 0）「这里推荐有问题，到了这个等级提醒用户去买这个」「然后也更正判断」：
+--      发数改成逐格数背包里你武器用的那类弹药（箭 / 子弹，等级够用的全算，含箭袋；PageAmmo A.AmmoCount），不再只读弹药栏一格；
+--      该不该换看 A.Tier(kind, lv, true)（含 52 级瑟银档），身上（弹药栏或背包）已经有这一档就不提醒；瑟银档商人不卖 → 说清去哪换、导航到换的 NPC
+--   ⑩ 11-25 设置「常驻显示」（always，默认关）：角标发数，下面「+N」最多能买（R.Room）
 local _, ns = ...; ns = _G.GearInsightForever or ns
 
 local R = {}
@@ -86,8 +90,10 @@ function R.State()
     local loaded, loadedID = loadedKind()
     if not want and not loaded then return nil end
     want = want or loaded
-    local count = (A().AmmoCount and A().AmmoCount()) or 0
-    local st = { want = want, loaded = loaded, loadedID = loadedID, count = count }
+    local count, bestID, bestReq
+    if A().AmmoCount then count, bestID, bestReq = A().AmmoCount(want) end
+    count = count or 0
+    local st = { want = want, loaded = loaded, loadedID = loadedID, count = count, bestID = bestID, bestReq = bestReq }
     st.mismatch = loaded ~= nil and loaded ~= want
     -- 11-12 用户截图「1512 发也亮红框」「不到报警的数量，不展示」：有的客户端读不出弹药栏装了啥（loaded = nil）
     --   → 以前当成「弹药栏空了」；现在只看数量，读不到装的什么不算空
@@ -111,18 +117,32 @@ local function nearest(kind, n)
     local t = tierOf(kind)
     return A().Nearest(kind, n, t and t[1]) or {}
 end
--- 弹药栏里那种比你能买的最好那档低 → 那一档；读不出装的什么 / 已经是最好的 → nil
+-- 你等级用得了的最好那档（含商人不卖的瑟银档）
+local function bestOf(kind, lv) return A().Tier and A().Tier(kind, lv, true) end
+-- 身上（弹药栏 / 背包）这类弹药最好那种的需求等级；一种都认不出 → nil
+local function haveReq(st)
+    local r = st.loadedID and A().ReqOf and A().ReqOf(st.loadedID)
+    if st.bestReq and (not r or st.bestReq > r) then r = st.bestReq end
+    return r
+end
+-- 身上的比你用得了的最好那档低 → 那一档；读不出装的什么 / 已经有最好的 → nil
 function R.Upgrade(st, lv)
-    if not st or st.mismatch or not st.loadedID then return nil end
-    local t = tierOf(st.want, lv)
-    if not t or t[2] == st.loadedID then return nil end
-    local req = A().ReqOf and A().ReqOf(st.loadedID)
+    if not st or st.mismatch then return nil end
+    local t = bestOf(st.want, lv)
+    if not t or t[2] == st.loadedID or t[2] == st.bestID then return nil end
+    local req = haveReq(st)
     if req and req < t[1] then return t end
     return nil
 end
+-- 换的 NPC（商人不卖的那档才有）
+local function tierPoint(t) if A().TierSource then local _, pt = A().TierSource(t); return pt end end
 local function upgradeText(t, lv)
-    return string.format(L("你 %d 级了，弹药商能买「%s」（每秒伤害 +%d）了", "You're level %d - vendors now sell %s (+%d DPS)"),
-        lv or (UnitLevel and UnitLevel("player")) or t[1], tierName(t), t[5])
+    lv = lv or (UnitLevel and UnitLevel("player")) or t[1]
+    local how = A().TierSource and A().TierSource(t)
+    if how then
+        return string.format(L("你 %d 级了，可以换「%s」（每秒伤害 +%s）：%s", "You're level %d - switch to %s (+%s DPS): %s"), lv, tierName(t), t[5], how)
+    end
+    return string.format(L("你 %d 级了，弹药商能买「%s」（每秒伤害 +%s）了", "You're level %d - vendors now sell %s (+%s DPS)"), lv, tierName(t), t[5])
 end
 
 -- 最近的卖这种弹药的商人一句话：「XXX（地区 约 N 码）」
@@ -147,9 +167,10 @@ function R.NavNever()
             "Ammo vendor button closed for good (chat alerts stay). Bring it back: GI menu > Settings > Windows & alerts, or /gi ammo nav on"))
     end
 end
-function R.ShowNav(kind)
+-- pt：直接导航到这一点（{ ui, x, y, name }，商人不卖的瑟银档 = 换箭的 NPC）；不给 = 最近的弹药商
+function R.ShowNav(kind, pt)
     if not R.NavOn() then return false end
-    local r = nearest(kind, 1)[1]
+    local r = pt and { t = pt } or nearest(kind, 1)[1]
     if not (r and r.t) then return false end
     if not navBtn then
         local b = CreateFrame("Button", "GearInsightForeverAmmoNav", UIParent, "UIPanelButtonTemplate")
@@ -168,7 +189,7 @@ function R.ShowNav(kind)
     end
     local t = r.t
     local zn = ns.Trainers and ns.Trainers.ZoneName and ns.Trainers.ZoneName(t.ui) or ""
-    navBtn:SetText(string.format(L("导航到最近的弹药商：%s", "Go to nearest ammo vendor: %s"), t.name or "")
+    navBtn:SetText(string.format(pt and L("导航到：%s", "Go to: %s") or L("导航到最近的弹药商：%s", "Go to nearest ammo vendor: %s"), t.name or "")
         .. (r.d and string.format(L("（约 %d 码）", " (~%d yd)"), r.d) or ""))
     local fs = navBtn.GetFontString and navBtn:GetFontString()
     local w = fs and fs.GetStringWidth and tonumber(fs:GetStringWidth())
@@ -195,37 +216,51 @@ function R.HideNav() if navBtn then navBtn:Hide() end end
 
 -- ---------- ③ 聊天框 / 屏幕中间（每档一次，战斗中攒着）----------
 local told, toldKey, snooze, pending = 0, nil, 0, nil
+local upTold = nil
 local function say(st)
     local msg
     if st.mismatch then
         msg = string.format(L("弹药栏装的是%s，可你的远程武器要%s —— 打不出去！", "Your ammo slot has %s but your weapon needs %s!"), kindName(st.loaded), kindName(st.want))
     elseif st.level == "empty" then
-        msg = string.format(L("弹药栏空了：你的远程武器要%s", "Ammo slot is empty: your weapon needs %s"), kindName(st.want))
+        msg = string.format(L("身上没有能用的%s了（背包和箭袋都数过）", "No usable %s left (bags and quiver checked)"), kindName(st.want))
     elseif st.level == "urgent" then
         msg = string.format(L("%s只剩 |cffff4040%d|r 发了，赶紧补", "Only |cffff4040%d|r %s left - restock now"), kindName(st.want), st.count)
+    elseif st.level == "ok" then
+        msg = string.format(L("%s还有 %d 发", "%s: %d left"), kindName(st.want), st.count)
     else
         msg = string.format(L("%s还剩 |cffffd100%d|r 发，该补了", "%s: |cffffd100%d|r left - time to restock"), kindName(st.want), st.count)
     end
     local m = R.Minutes(st.count)
     if m and st.level ~= "empty" and not st.mismatch then msg = msg .. string.format(L("（按你最近的打法约够打 %d 分钟）", " (~%d min of combat at your pace)"), m) end
     if st.upgrade then msg = msg .. "  |cff40ff40" .. upgradeText(st.upgrade) .. "|r" end
-    local near = nearestText(st.want)
+    -- 11-24 够用、只是该换商人不卖的那档：不带「最近的弹药商」（那里买不到），换的地方已经在 upgradeText 里
+    local tradeUp = st.level == "ok" and st.upgrade ~= nil and st.upgrade[6] ~= nil
+    local near = (not tradeUp) and nearestText(st.want)
     if near then msg = msg .. L("  最近的：", "  Nearest: ") .. near end
     ns.Print(msg .. L("  |cff9a9a9a/gi ammo 插旗；设置页可关|r", "  |cff9a9a9a/gi ammo sets a waypoint; turn off in Settings|r"))
-    if UIErrorsFrame and UIErrorsFrame.AddMessage then
+    if UIErrorsFrame and UIErrorsFrame.AddMessage and st.level ~= "ok" then
         local short = st.mismatch and L("弹药和武器不配", "Wrong ammo type")
             or st.level == "empty" and L("没有弹药了", "Out of ammo")
             or string.format(L("%s剩 %d 发", "%d %s left"), kindName(st.want), st.count)
         pcall(UIErrorsFrame.AddMessage, UIErrorsFrame, short, 1, st.level == "warn" and 0.82 or 0.25, 0.1)
     end
     if R.DB().sound and PlaySound then pcall(PlaySound, 8959) end
-    if not st.mismatch then pcall(R.ShowNav, st.want) end
+    -- 弹药够、只是该换商人不卖的那档 → 导航到换的 NPC（没有就不出按钮）；其余 → 最近的弹药商
+    if tradeUp then
+        local pt = tierPoint(st.upgrade)
+        if pt then pcall(R.ShowNav, st.want, pt) end
+    elseif not st.mismatch then pcall(R.ShowNav, st.want) end
 end
 function R.Alert(st)
     if not st then return end
     local lv = st.mismatch and 3 or RANK[st.level]
     local key = st.mismatch and "mismatch" or st.level
-    if lv == 0 then told, toldKey, snooze, pending = 0, nil, 0, nil; return end   -- 补上了：重新计
+    if lv == 0 then
+        told, toldKey, snooze, pending = 0, nil, 0, nil                            -- 补上了：重新计
+        -- 11-24 够用但该换更好的那档（52 级还用锯齿箭）：这一档每次上线说一次，战斗中不说
+        if st.upgrade and upTold ~= st.upgrade[2] and not inCombat() then upTold = st.upgrade[2]; say(st) end
+        return
+    end
     -- 更严重才说；「空了」和「不配」同一档但是两回事，换了也说
     if lv < told or (lv == told and key == toldKey) then return end
     if inCombat() then pending = st; return end
@@ -239,6 +274,7 @@ end
 
 -- ---------- ② 浮动小图标 ----------
 local win, ui = nil, {}
+R.ui = ui
 -- 11-12 用户「点击弹窗直接可以选择找到最近的商人」：左键弹出小窗，列最近几位卖这种弹药的商人（地区 / 距离），点哪位就插旗到哪位
 local pick
 local PICK_ROWS = 5
@@ -367,15 +403,17 @@ local function buildWin()
         if font then pcall(fs.SetFont, fs, font, math.max(11, tonumber(sz) or 11), "OUTLINE") end
     end
     local acc = 0
-    f:SetScript("OnUpdate", function(_, el)
+    ui.pulse = function(_, el)
         acc = acc + (el or 0)
         if ui.glow:IsShown() then ui.glow:SetAlpha(0.35 + 0.5 * math.abs(math.sin(acc * (rawget(ui, "fast") and 5 or 2.5)))) end
-    end)
+    end
     f:SetScript("OnEnter", function(self)
         local st = R.State()
         if not st or not GameTooltip then return end
         GameTooltip:SetOwner(self, "ANCHOR_TOP")
         GameTooltip:AddLine(string.format(L("%s：%d 发", "%s: %d"), kindName(st.want), st.count), 1, 1, 1)
+        local rm = R.Room(st)
+        if rm then GameTooltip:AddLine(string.format(L("最多能买 %d 发（箭袋 %d + 背包 %d）；补到 %d 差 %d", "Can buy %d (quiver %d + bags %d); to %d: %d short"), rm.room, rm.q, rm.b, R.Get("full"), rm.short), 1, 1, 1, true) end
         if st.mismatch then GameTooltip:AddLine(string.format(L("弹药栏装的是%s，打不出去", "Ammo slot has %s - won't fire"), kindName(st.loaded)), 1, 0.3, 0.3, true) end
         if st.upgrade then GameTooltip:AddLine(upgradeText(st.upgrade), 0.25, 1, 0.25, true) end
         local m = R.Minutes(st.count)
@@ -404,29 +442,39 @@ local function buildWin()
     f:SetScript("OnDragStop", function(self) self:StopMovingOrSizing(); savePos() end)
     return f
 end
+function R.SetAlways(v)
+    R.DB().always = v or nil
+    if v then R.DB().orb = true end
+    R.Update()
+end
 function R.Draw(st)
     local lv = st and (st.mismatch and 3 or RANK[st.level]) or 0
-    -- 不到提醒线也出：弹药栏是旧档（该换新箭了）
+    -- 不到提醒线也出：弹药栏是旧档（该换新箭了）；⑩ 常驻
     local up = st and st.upgrade and lv == 0
-    if not R.On() or not R.OrbOn() or (lv == 0 and not up) or (lv > 0 and lv <= snooze) then if win then win:Hide() end; return end
+    local always = st and R.DB().always
+    if not R.On() or not R.OrbOn() or (lv == 0 and not up and not always) or (lv > 0 and lv <= snooze and not always) then if win then win:Hide() end; return end
     win = win or buildWin()
     R.win = win
     ui.ic:SetTexture(ICON[st.want] or ICON[ARROW])
     local red = lv >= 2
     if up then ui.badgeBg:SetColorTexture(0.1, 0.6, 0.15, 1)
     elseif red then ui.badgeBg:SetColorTexture(0.78, 0.1, 0.1, 1)
+    elseif lv == 0 then ui.badgeBg:SetColorTexture(0.25, 0.25, 0.25, 1)
     else ui.badgeBg:SetColorTexture(0.85, 0.6, 0.05, 1) end
     if ui.glow.SetVertexColor then
         if up then ui.glow:SetVertexColor(0.3, 1, 0.3) else ui.glow:SetVertexColor(1, 0.82, 0.1) end
     end
-    ui.glow:Show()
+    local glow = lv > 0 or up
+    if glow then ui.glow:Show() else ui.glow:Hide() end
+    win:SetScript("OnUpdate", glow and ui.pulse or nil)
     rawset(ui, "fast", red)
-    ui.cnt:SetText(up and "↑" or (st.count > 0 and tostring(st.count) or "0"))
+    ui.cnt:SetText((up and not always) and "↑" or (st.count > 0 and tostring(st.count) or "0"))
     local w = ui.cnt.GetStringWidth and tonumber(ui.cnt:GetStringWidth())
     ui.badge:SetWidth(math.max(18, (w or 8) + 8))
     local m = R.Minutes(st.count)
-    ui.time:SetText(st.mismatch and L("不配", "wrong") or (up and tierName(st.upgrade)) or (m and string.format("%dm", m)) or kindName(st.want))
-    if up then ui.time:SetTextColor(0.3, 1, 0.3) elseif red then ui.time:SetTextColor(1, 0.3, 0.25) else ui.time:SetTextColor(1, 0.82, 0) end
+    local rm = always and not st.mismatch and R.Room(st)
+    ui.time:SetText(st.mismatch and L("不配", "wrong") or (rm and "+" .. rm.room) or (up and tierName(st.upgrade)) or (m and string.format("%dm", m)) or kindName(st.want))
+    if up then ui.time:SetTextColor(0.3, 1, 0.3) elseif red then ui.time:SetTextColor(1, 0.3, 0.25) elseif lv == 0 then ui.time:SetTextColor(1, 1, 1) else ui.time:SetTextColor(1, 0.82, 0) end
     win:Show()
 end
 
@@ -460,10 +508,6 @@ local function slotItem(bag, slot)
         local link, cnt = info.hyperlink, info.stackCount
         if ns.Secret(link) or ns.Secret(cnt) then return nil end
         return link, tonumber(cnt) or 0, info.itemID
-    elseif GetContainerItemInfo then
-        local ok, _, cnt, _, _, _, _, link = pcall(GetContainerItemInfo, bag, slot)
-        if not ok or ns.Secret(link) or ns.Secret(cnt) then return nil end
-        return link, tonumber(cnt) or 0
     end
 end
 local function stackOf(id)
@@ -490,42 +534,43 @@ function R.CountItem(id)
     return n
 end
 -- { want, count, max, quiver(有没有配套的箭袋/弹药袋), slots }；不是猎人 / 没装要弹药的武器 / 读不出 → nil
-function R.Capacity()
-    local st = R.State()
+function R.Capacity(st)
+    st = st or R.State()
     if not st or not st.want then return nil end
-    local want = st.want
+    local want, id0 = st.want, st.loadedID or st.bestID
+    local per0 = stackOf(id0) or 200
     -- 11-12 用户拍板「只看箭袋本身满没满」：背着配套箭袋 / 弹药袋 → 只数袋子里的配套弹药（背包别处的不算），
     --   容量 = 袋子格数 × 每组上限；有空格 / 有格子不满一组都算没满。没背 → 数整个背包，对比 full（默认 1000）
-    local total, inQuiver, slots, sampleID = 0, 0, 0, nil
-    local nBags = NUM_BAG_SLOTS or 4
-    for bag = 0, nBags do
-        local n = bagSlots(bag)
-        local isQuiver = false
+    local total, inQuiver, slots, sampleID, q, b = 0, 0, 0, nil, 0, 0
+    for bag = 0, NUM_BAG_SLOTS or 4 do
+        local n, k = bagSlots(bag), 0   -- k：0 普通包 · 1 配套箭袋 / 弹药袋 · nil 别的专用包（⑩ 空位不算）
         if bag > 0 and n > 0 then
             local link = GetInventoryItemLink and GetInventoryItemLink("player", bagInvID(bag))
             if link and not ns.Secret(link) then
                 local classID, subID = instant(link)
-                -- 11 = 箭袋类：2 箭袋（装箭）· 3 弹药袋（装子弹）
-                if classID == 11 and ((want == ARROW and subID == 2) or (want == BULLET and subID == 3)) then
-                    slots = slots + n; isQuiver = true
-                end
+                -- 11 = 箭袋类：2 箭袋（装箭）· 3 弹药袋（装子弹）；箭 = 1、子弹 = 2 → subID == want + 1
+                if classID == 11 then k = subID == want + 1 and 1 or nil elseif classID == 1 and subID ~= 0 then k = nil end
+                if k == 1 then slots = slots + n end
             end
         end
         for s = 1, n do
             local link, cnt, id = slotItem(bag, s)
             if link then
                 local classID, subID = instant(link)
-                if classID == 6 and ((want == ARROW and subID == 2) or (want == BULLET and subID == 3)) then
-                    total = total + (cnt or 0)
-                    if isQuiver then inQuiver = inQuiver + (cnt or 0) end
+                if classID == 6 and subID == want + 1 then
+                    total = total + cnt
+                    if k == 1 then inQuiver = inQuiver + cnt end
                     sampleID = sampleID or id or tonumber(link:match("item:(%d+)"))
                 end
             end
+            -- ⑩ 还能装几发：空格一组、同种没满的格补齐
+            local add = k and (not link and per0 or (id0 and id == id0 and per0 - cnt)) or 0
+            if k == 1 then q = q + add else b = b + add end
         end
     end
     local _, loadedID = loadedKind()
     local per = stackOf(loadedID) or stackOf(sampleID) or 200
-    local cap = { want = want, quiver = slots > 0, slots = slots, total = total }
+    local cap = { want = want, quiver = slots > 0, slots = slots, total = total, q = q, b = b, room = q + b, per = per }
     if slots > 0 then
         -- 背包一发都没读到、弹药栏却有数 → 刚上线背包还没加载，先不判（别把满箭袋说成 0）
         if total == 0 and not st.mismatch and (st.count or 0) > 0 then return nil end
@@ -535,6 +580,14 @@ function R.Capacity()
         cap.count, cap.max = math.max(total, st.mismatch and 0 or (st.count or 0)), R.Get("full")
     end
     return cap
+end
+
+-- ⑩ 最多能买（箭袋 q + 普通包 b = room）+ 补到 full 还差 short；读不出背包 → nil
+function R.Room(st)
+    st = st or R.State()
+    local cap = st and C_Container and C_Container.GetContainerItemInfo and R.Capacity(st)
+    if cap then cap.short = math.max(0, R.Get("full") - (st.mismatch and 0 or st.count)) end
+    return cap or nil
 end
 
 -- ---------- ④ 进图提醒 ----------
@@ -603,7 +656,8 @@ function R.Plan(st)
     local it = R.PickMerchantItem(st.want)
     if not it then return nil end
     -- ⑦ 换新档：旧箭不算数，按新箭补到满（箭袋装满旧箭时也给按钮）
-    local switch = it.id ~= nil and st.loadedID ~= nil and it.id ~= st.loadedID and st.upgrade ~= nil
+    -- 11-24：该换的是商人不卖的瑟银档时，货架上的锯齿箭不算「换」（照常补）
+    local switch = it.id ~= nil and st.loadedID ~= nil and it.id ~= st.loadedID and st.upgrade ~= nil and st.upgrade[2] == it.id
     if switch then have = R.CountItem(it.id) end
     local need = target - have
     if need <= 0 then return nil end
@@ -702,11 +756,15 @@ local function center(msg)
 end
 local function bagName(k) return k == BULLET and L("弹药袋", "ammo pouch") or L("箭袋", "quiver") end
 function R.CityText(cap)
+    -- 11-26 用户截图「写上补多少个」：还差几发 + 约几组（按每组上限往上取整）
+    local need = math.max(0, (cap.max or 0) - (cap.count or 0))
+    local per = cap.per and cap.per > 0 and cap.per or 200
+    local buy = string.format(L("还差 %d 发（约 %d 组）", "%d short (about %d stacks)"), need, math.ceil(need / per))
     if cap.quiver then
-        return string.format(L("%s没满（%d/%d），去最近的弹药商补满", "%s not full (%d/%d) - top up at the nearest ammo vendor"), bagName(cap.want), cap.count, cap.max)
+        return string.format(L("%s没满（%d/%d），%s，去最近的弹药商补满", "%s not full (%d/%d), %s - top up at the nearest ammo vendor"), bagName(cap.want), cap.count, cap.max, buy)
     end
-    return L(string.format("%s只有 %d 发（不到 %d），去最近的弹药商补满", kindName(cap.want), cap.count, cap.max),
-        string.format("Only %d %s (under %d) - top up at the nearest ammo vendor", cap.count, kindName(cap.want), cap.max))
+    return L(string.format("%s只有 %d 发（不到 %d），%s，去最近的弹药商补满", kindName(cap.want), cap.count, cap.max, buy),
+        string.format("Only %d %s (under %d), %s - top up at the nearest ammo vendor", cap.count, kindName(cap.want), cap.max, buy))
 end
 function R.CheckCity()
     local city = R.CityMap()
@@ -728,7 +786,7 @@ function R.CheckCity()
     if up then short = short and (short .. L("；", "; ") .. upgradeText(up)) or upgradeText(up) end
     local want = (st and st.want) or cap.want
     center(short)
-    pcall(R.ShowNav, want)
+    pcall(R.ShowNav, want, (not notFull) and up and tierPoint(up) or nil)
     local msg = short
     local near = nearestText(want)
     if near then msg = msg .. L("  最近的：", "  Nearest: ") .. near end
@@ -751,21 +809,29 @@ local function soon()
     local run = function() queued = false; pcall(R.Update) end
     if C_Timer and C_Timer.After then C_Timer.After(0.5, run) else run() end
 end
--- ⑦ 升到 10 / 25 / 40 级：能买新一档了，说一次 + 导航按钮（UnitLevel 这时可能还是旧的，用事件给的新等级）
+-- ⑦ 升到 10 / 25 / 40 / 52 级：能买（52 = 能换）新一档了，说一次 + 导航按钮（UnitLevel 这时可能还是旧的，用事件给的新等级）
 function R.OnLevel(lv)
     lv = tonumber(lv)
     if not (lv and lv > 1 and R.On()) then return false end
     local st = R.State()
     if not st then return false end
-    local t = tierOf(st.want, lv)
-    if not (t and t[1] == lv) or st.loadedID == t[2] then return false end
-    local res = A().Nearest and A().Nearest(st.want, 1, lv) or {}
-    local r = res[1]
+    local t = bestOf(st.want, lv)
+    if not (t and t[1] == lv) or st.loadedID == t[2] or st.bestID == t[2] then return false end
+    local hr = haveReq(st)
+    if hr and hr >= t[1] then return false end
     local msg = "|cff40ff40" .. upgradeText(t, lv) .. "|r"
-    if r then msg = msg .. L("  最近卖的：", "  Nearest: ") .. r.t.name .. "|cffaaaaaa（" .. zoneOf(r.t.ui) .. "）|r" end
-    ns.Print(msg .. L("  |cff9a9a9a商人窗口下面的按钮会直接买新的|r", "  |cff9a9a9aThe vendor button buys the new one|r"))
+    if t[6] then
+        ns.Print(msg)
+        local pt = tierPoint(t)
+        if pt then pcall(R.ShowNav, st.want, pt) end
+    else
+        local res = A().Nearest and A().Nearest(st.want, 1, lv) or {}
+        local r = res[1]
+        if r then msg = msg .. L("  最近卖的：", "  Nearest: ") .. r.t.name .. "|cffaaaaaa（" .. zoneOf(r.t.ui) .. "）|r" end
+        ns.Print(msg .. L("  |cff9a9a9a商人窗口下面的按钮会直接买新的|r", "  |cff9a9a9aThe vendor button buys the new one|r"))
+        pcall(R.ShowNav, st.want)
+    end
     center(upgradeText(t, lv))
-    pcall(R.ShowNav, st.want)
     return true
 end
 function R.OnEvent(e, a1)

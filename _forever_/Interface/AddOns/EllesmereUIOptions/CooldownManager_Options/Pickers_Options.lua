@@ -493,6 +493,12 @@ local function ShowCustomSpellIDPopup(barKey, onAdded, withCharges)
         validate = function(text)
             local sid = SpellOf(text)
             if not sid then return EllesmereUI.L("Enter a valid spell ID") end
+            -- Ahead of the spell check: some potion item ids name no spell.
+            local bdPick = barKey and ns.barDataByKey and ns.barDataByKey[barKey]
+            if bdPick and (bdPick.barType == "buffs" or bdPick.barType == "custom_buff")
+               and ns.PotionPresetForTypedID(sid) then
+                return EllesmereUI.L("Pick this potion from the preset list")
+            end
             if not C_Spell.GetSpellName(sid) then return EllesmereUI.L("Unknown spell ID") end
             -- Variant-aware, mirroring AddTrackedSpell's own dedup. An exact-only
             -- check lets a variant-duplicate through, which AddTrackedSpell then
@@ -977,7 +983,9 @@ local function ShowBuffBarPicker(anchorFrame, targetBarKey, onChanged)
     end
 
     -- Custom Spell ID entry -- add an arbitrary buff by spell ID, tracked
-    -- as a real aura (12.1 engine slot; no duration asked). Entries that
+    -- as a real aura (12.1 engine slot; no duration asked). A one-spell
+    -- potion's buff or item id is refused here and turned into its cast-timed
+    -- preset if already saved (ns.AdoptPotionCustomEntries). Entries that
     -- carry a stored duration are legacy cast-timer customs and keep that
     -- path untouched. Its own section at the top, matching the CD/utility
     -- picker.
@@ -1644,12 +1652,13 @@ local function ShowAlphaPopup(currentPct, onConfirm, title, hint)
     popup._box:HighlightText()
 end
 
--- Numeric popup for a per-spell seconds setting (0-59; 0 turns it off):
--- titled for Threshold Seconds (the boundary below which Threshold Color /
--- Threshold Decimals apply) unless the caller passes its own title and hint
--- (already localized), e.g. Also Show Below. Both texts are set on every
--- show. Mirrors ShowAlphaPopup; onConfirm receives the integer seconds.
-local function ShowThresholdSecondsPopup(currentVal, onConfirm, title, hint)
+-- Numeric popup for a per-spell seconds setting (0 to maxVal, default 59;
+-- 0 turns it off): titled for Threshold Seconds (the boundary below which
+-- Threshold Color / Threshold Decimals apply) unless the caller passes its own
+-- title and hint (already localized), e.g. Also Show Below. Texts and limit
+-- are set on every show. Mirrors ShowAlphaPopup; onConfirm receives the
+-- integer seconds.
+local function ShowThresholdSecondsPopup(currentVal, onConfirm, title, hint, maxVal)
     local env = ns._CDMO_OptEnv
     local FONT_PATH, GetCDMOptOutline = env.FONT_PATH, env.GetCDMOptOutline
     local popupName = "EUI_CDM_ThresholdSecondsPopup"
@@ -1692,7 +1701,6 @@ local function ShowThresholdSecondsPopup(currentVal, onConfirm, title, hint)
         box:SetPoint("TOP", hint, "BOTTOM", 0, -12)
         box:SetAutoFocus(true)
         box:SetNumeric(true)
-        box:SetMaxLetters(2)
         box:SetFont(FONT_PATH, 13, GetCDMOptOutline())
         box:SetTextColor(1, 1, 1, 0.9)
         box:SetJustifyH("CENTER")
@@ -1732,7 +1740,7 @@ local function ShowThresholdSecondsPopup(currentVal, onConfirm, title, hint)
 
         local function Commit()
             local v = tonumber(box:GetText())
-            if v and v >= 0 and v <= 59 then
+            if v and v >= 0 and v <= popup._maxVal then
                 dimmer:Hide()
                 if popup._onConfirm then popup._onConfirm(math.floor(v)) end
             end
@@ -1742,6 +1750,8 @@ local function ShowThresholdSecondsPopup(currentVal, onConfirm, title, hint)
         box:SetScript("OnEscapePressed", function() dimmer:Hide() end)
     end
     popup._onConfirm = onConfirm
+    popup._maxVal = maxVal or 59
+    popup._box:SetMaxLetters(#tostring(popup._maxVal))
     popup._title:SetText(title or EllesmereUI.L("Threshold Seconds"))
     popup._hint:SetText(hint or EllesmereUI.L("Seconds left when threshold text starts (0 = off)"))
     popup._box:SetText(currentVal and tostring(currentVal) or "")
